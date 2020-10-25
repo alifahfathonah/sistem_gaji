@@ -56,10 +56,11 @@
             dataType: "JSON",
             success: function(resp) {
                 data = resp.data
-                $('[name="no_polisi"]').val(data.no_polisi);
-                $('[name="nama_pemilik"]').val(data.nama_pemilik);
-                $('[name="merek_mobil"]').val(data.merek_mobil);
-                $('[name="no_hp"]').val(data.no_hp);
+                $('[name="id"]').val(data.id);
+                $('[name="id_karyawan"]').val(data.id_karyawan);
+                $('[name="gaji_tambahan"]').val(data.gaji_tambahan);
+                $('[name="total_potongan"]').val(data.total_potongan);
+                $('[name="create_date"]').val(data.create_date);
                 $('.reset').hide();
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -67,6 +68,10 @@
             }
         });
 
+    }
+
+    function print(id) {
+        window.location = "<?php echo base_url('administrator/printGajiBulanan') ?>/" + id;
     }
 
     function hapus(id) {
@@ -187,6 +192,7 @@
                         <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
                             <li class="fa fa-plus"></li> Tambah Data
                         </button>
+                        <a href="<?php echo base_url('administrator/exportGajiBulanan'); ?>">Export</a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -207,6 +213,7 @@
                                             <th style="font-size: 10px;">Total Potongan</th>
                                             <th style="font-size: 10px;">Total Gaji Bersih</th>
                                             <th style="font-size: 10px;">Create Date</th>
+                                            <th style="font-size: 10px;">Slip Gaji</th>
                                             <th style="font-size: 10px;">Tools</th>
 
                                         </tr>
@@ -251,14 +258,14 @@
                 <div class="field item form-group">
                     <label class="col-form-label col-md-4 col-sm-3">Gaji Tambahan<span class="required">*</span></label>
                     <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                        <input type="text" id="gaji_tambahan" name="gaji_tambahan" class="form-control has-feedback-left">
+                        <input type="number" id="gaji_tambahan" name="gaji_tambahan" class="form-control has-feedback-left">
                         <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="field item form-group">
                     <label class="col-form-label col-md-4 col-sm-3">Gaji Potongan<span class="required">*</span></label>
                     <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                        <input type="text" id="total_potongan" name="total_potongan" class="form-control has-feedback-left">
+                        <input type="number" id="total_potongan" name="total_potongan" class="form-control has-feedback-left">
                         <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                     </div>
                 </div>

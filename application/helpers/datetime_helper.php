@@ -3,7 +3,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 function all_hari($num)
 {
-	$hari = array('', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu');
+	$hari = array('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu');
 	return $hari[$num];
 }
 
@@ -39,12 +39,12 @@ function all_bulan_short()
 function indo_date($date)
 {
 	$all_bulan = all_bulan();
-	$hari = all_hari(date('w', strtotime($date)) + 1);
+	$hari = all_hari(date('w', strtotime($date)));
 	$tanggal =  date('d', strtotime($date));
 	// $bulan = date('F',strtotime($date));
 	$bulan = $all_bulan[date('n', strtotime($date))];
 	$tahun = date('Y', strtotime($date));
-	return $hari . ', ' . $tanggal . '-' . $bulan . '-' . $tahun;
+	return $hari . ', ' . $tanggal . ' ' . $bulan . ' ' . $tahun;
 }
 function indo_date_1($date)
 {

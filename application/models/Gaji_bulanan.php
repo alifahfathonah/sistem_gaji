@@ -6,7 +6,7 @@ class Gaji_bulanan extends CI_Model
 {
     public function getAllData()
     {
-        $this->datatables->select('b.id, k.nama_karyawan, g.nama_golongan, g.jumlah_gaji_pokok, j.nama as nama_jabatan, b.gaji_tambahan, b.total_gaji,b.total_potongan,b.create_date');
+        $this->datatables->select('b.id, k.nama_karyawan, g.nama_golongan, g.jumlah_gaji_pokok, j.nama as nama_jabatan, b.gaji_tambahan, b.total_gaji,b.total_potongan,b.create_date,b.create_date,b.create_date');
         $this->datatables->from('gaji_bulanan b');
         $this->datatables->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
         $this->datatables->join('golongan g', 'g.id = k.id_golongan', 'left');
@@ -47,6 +47,17 @@ class Gaji_bulanan extends CI_Model
         $this->db->from('gaji_bulanan');
         $this->db->where('id', $id);
         return $this->db->get()->row();
+    }
+
+    public function getSlipGaji($id)
+    {
+        $this->db->select('b.id, k.nama_karyawan, g.nama_golongan, g.jumlah_gaji_pokok, j.nama as nama_jabatan, b.gaji_tambahan, b.total_gaji,b.total_potongan,b.create_date,b.create_date,b.create_date');
+        $this->db->from('gaji_bulanan b');
+        $this->db->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
+        $this->db->join('golongan g', 'g.id = k.id_golongan', 'left');
+        $this->db->join('jabatan j', 'j.id = g.id_jabatan', 'left');
+        $this->db->where('b.id', $id);
+        return $this->db->get()->result();
     }
 
     function update($id, $data)

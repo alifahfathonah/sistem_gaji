@@ -10,14 +10,14 @@ function btn_import($method, $btn_name)
 <?php
 function get_btn_group1($btn_edit, $btn_delete)
 {
-    $li_btn_edit    = '<button class="btn btn-sm btn-info" title="Edit Data" onClick=' . $btn_edit . '><li class="fa fa-pencil"></li></button>';
-    $li_btn_delete  = '<button class="btn btn-sm btn-danger" title="Hapus Data" onClick=' . $btn_delete . '><li class="fa fa-trash"></li></button>';
+    $li_btn_edit    = '<button class="badge bg-green" title="Edit Data" onClick=' . $btn_edit . '><li style="font-size:12px" class="fa fa-pencil"></li></button>';
+    $li_btn_delete  = '<button class="badge bg-red" title="Hapus Data" onClick=' . $btn_delete . '><li style="font-size:12px" class="fa fa-trash"></li></button>';
     return '<div class="text-center">' . $li_btn_edit . $li_btn_delete . '</div>';
 }
 
-function get_btn_ambilbrg($btn_edit)
+function get_btn_export($btn_edit)
 {
-    $li_btn_edit    = '<button class="btn btn-sm btn-info" title="Keluarkan Barang" onClick=' . $btn_edit . '><li class="fa fa-send"></li></button>';
+    $li_btn_edit    = '<button class="btn btn-sm btn-info" title="Cetak Slip Gaji" onClick=' . $btn_edit . '><li class="fa fa-print"></li></button>';
     return '<div class="text-center">' . $li_btn_edit . '</div>';
 }
 
