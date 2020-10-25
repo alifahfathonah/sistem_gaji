@@ -78,7 +78,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'fitra123',
 	'password' => '8{d=]GvYZ,iy',
-	'database' => '',
+	'database' => 'ybssb',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
