@@ -10,6 +10,10 @@
             ],
             "responsive": true,
             "dataType": 'JSON',
+            // "dom": 'Bfrtip',
+            // "buttons": [
+            //     'copy', 'csv', 'excel', 'pdf', 'print'
+            // ],
             "ajax": {
                 "url": "<?php echo site_url('administrator/gaji_bulanan/getAllData') ?>",
                 "type": "POST",
@@ -58,7 +62,12 @@
                 data = resp.data
                 $('[name="id"]').val(data.id);
                 $('[name="id_karyawan"]').val(data.id_karyawan);
-                $('[name="gaji_tambahan"]').val(data.gaji_tambahan);
+                $('[name="uang_transport"]').val(data.uang_transport);
+                $('[name="tunjangan_kinerja"]').val(data.tunjangan_kinerja);
+                $('[name="tunjangan_jabatan"]').val(data.tunjangan_jabatan);
+                $('[name="uang_extra_kurikuler"]').val(data.uang_extra_kurikuler);
+                $('[name="uang_lembur"]').val(data.uang_lembur);
+                $('[name="bonus_lain"]').val(data.bonus_lain);
                 $('[name="total_potongan"]').val(data.total_potongan);
                 $('[name="create_date"]').val(data.create_date);
                 $('.reset').hide();
@@ -176,23 +185,16 @@
                 <div class="x_title">
                     <h2>Data Gaji Bulanan</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        <li>
+                            <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
+                        <li class="fa fa-plus"></li> Tambah Data</button>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Settings 1</a>
-                                <a class="dropdown-item" href="#">Settings 2</a>
-                            </div>
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
                         </li>
                     </ul>
                     <div class="text-right">
-                        <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
-                            <li class="fa fa-plus"></li> Tambah Data
-                        </button>
-                        <a href="<?php echo base_url('administrator/exportGajiBulanan'); ?>">Export</a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -205,17 +207,21 @@
                                     <thead>
                                         <tr>
                                             <th style="font-size: 10px;">No</th>
+                                            <th style="font-size: 10px;">Tools</th>
+                                            <th style="font-size: 10px;">Cetak</th>
                                             <th style="font-size: 10px;">Nama Karyawan</th>
                                             <th style="font-size: 10px;">Nama Golongan</th>
                                             <th style="font-size: 10px;">Jumlah Gaji Pokok</th>
                                             <th style="font-size: 10px;">Nama Jabatan</th>
-                                            <th style="font-size: 10px;">Gaji Tambahan</th>
+                                            <th style="font-size: 10px;">Tunjangan Transport</th>
+                                            <th style="font-size: 10px;">Tunjangan Kinerja</th>
+                                            <th style="font-size: 10px;">Tunjangan Jabatan</th>
+                                            <th style="font-size: 10px;">Tunjangan Extrakurikuler</th>
+                                            <th style="font-size: 10px;">Tunjangan Lembur</th>
+                                            <th style="font-size: 10px;">Tunjangan Bonus Lain</th>
                                             <th style="font-size: 10px;">Total Potongan</th>
                                             <th style="font-size: 10px;">Total Gaji Bersih</th>
                                             <th style="font-size: 10px;">Create Date</th>
-                                            <th style="font-size: 10px;">Slip Gaji</th>
-                                            <th style="font-size: 10px;">Tools</th>
-
                                         </tr>
                                     </thead>
                                 </table>
@@ -230,8 +236,7 @@
 
 <!-- Modal -->
 <div id="modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-
+    <div class="modal-dialog modal-xl">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -243,40 +248,82 @@
             <?php echo form_open('', array('id' => 'form_inputan', 'method' => 'post')); ?>
             <div class="modal-body">
                 <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
-                <div class="field item form-group">
-                    <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
-                    <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                        <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left">
-                            <option value="">Pilih Karyawan</option>
-                            <?php foreach ($getKaryawan as $r) : ?>
-                                <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left">
+                                    <option value="">Pilih Karyawan</option>
+                                    <?php foreach ($getKaryawan as $r) : ?>
+                                        <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Uang Transport<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="uang_transport" value="0" name="uang_transport" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Tunjangan Kinerja<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="tunjangan_kinerja" value="0" name="tunjangan_kinerja" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Tunjangan Jabatan<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="tunjangan_jabatan" value="0" name="tunjangan_jabatan" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Extrakurikuler<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="uang_extra_kurikuler" value="0" name="uang_extra_kurikuler" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Lembur<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="uang_lembur" value="0" name="uang_lembur" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Bonus Lain<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="bonus_lain" value="0" name="bonus_lain" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Gaji Potongan<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" id="total_potongan" value="0" name="total_potongan" class="form-control has-feedback-left">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <?php date_default_timezone_set('Asia/Jakarta'); ?>
+                                <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="field item form-group">
-                    <label class="col-form-label col-md-4 col-sm-3">Gaji Tambahan<span class="required">*</span></label>
-                    <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                        <input type="number" id="gaji_tambahan" name="gaji_tambahan" class="form-control has-feedback-left">
-                        <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                </div>
-                <div class="field item form-group">
-                    <label class="col-form-label col-md-4 col-sm-3">Gaji Potongan<span class="required">*</span></label>
-                    <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                        <input type="number" id="total_potongan" name="total_potongan" class="form-control has-feedback-left">
-                        <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                </div>
-                <div class="field item form-group">
-                    <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
-                    <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                        <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                        <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
-                        <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                    </div>
-                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

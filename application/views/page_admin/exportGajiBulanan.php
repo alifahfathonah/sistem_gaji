@@ -85,8 +85,8 @@
                         <td>: <?php echo rupiah_format($getSlipGaji[0]->jumlah_gaji_pokok); ?></td>
                     </tr>
                     <tr>
-                        <th>Jumlah Gaji Tambahan</th>
-                        <td>: <?php echo rupiah_format($getSlipGaji[0]->gaji_tambahan); ?></td>
+                        <th>Jumlah Tunjangan Transportasi</th>
+                        <td>: <?php echo rupiah_format($getSlipGaji[0]->uang_transport); ?></td>
                     </tr>
                     <tr>
                         <th>Potongan Gaji</th>

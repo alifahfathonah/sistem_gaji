@@ -68,10 +68,16 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            <div style="width:100%" class="badge bg-blue">Sistem Pengelolaan Gaji</div>
+                            <div style="width:100%" class="badge bg-blue text-left">
+                                Sistem Pengelolaan Gaji
+                            </div>
                             <ul class="nav side-menu">
                                 <li><a href="<?php echo base_url('administrator'); ?>"><i class="fa fa-home"></i> Home/Dashboard </a></li>
-                                <li><a href="<?php echo base_url('administrator/gaji_bulanan') ?>"><i class="fa fa-edit"></i> Gaji Bulanan </span></a>
+                                <li><a><i class="fa fa-edit"></i> <span class="fa fa-chevron-down"></span>Gaji Bulanan </span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="<?php echo base_url('administrator/gaji_bulanan') ?>">Daftar Gaji Bulanan</a></li>
+                                        <li><a href="<?php echo base_url('administrator/laporan_gaji_bulanan') ?>">Laporan</a></li>
+                                    </ul>
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i> Bonus Kinerja</span></a>
                                 </li>
@@ -80,6 +86,10 @@
                                 <li><a><i class="fa fa-bar-chart-o"></i> Bonus Guru Terbaik </span></a>
                                 </li>
                                 <li><a><i class="fa fa-clone"></i>Data Kenaikan Kerja </span></a>
+                                </li>
+                                <li><a><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
+                                </li>
+                                <li><a><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
                                 </li>
                             </ul>
                         </div>
@@ -113,12 +123,6 @@
                                     <a class="dropdown-item" href="javascript:;">Change Password</a>
                                     <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                 </div>
-                            </li>
-
-                            <li role="presentation" class="nav-item">
-                                <a href="javascript:;" class=" info-number" id="navbarDropdown1" aria-expanded="false">
-                                    <i class="fa fa-television"></i>
-                                </a>
                             </li>
                         </ul>
                     </nav>
