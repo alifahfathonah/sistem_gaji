@@ -82,7 +82,7 @@ class Administrator extends CI_Controller
                 $data['uang_lembur']          = htmlspecialchars($this->input->post('uang_lembur'));
                 $data['bonus_lain']           = htmlspecialchars($this->input->post('bonus_lain'));
                 $data['total_potongan']       = htmlspecialchars($this->input->post('total_potongan'));
-                $data['total_gaji']           = (($getGaji[0]->total_gaji + $this->input->post('uang_transport') + $this->input->post('tunjangan_kinerja') + $this->input->post('tunjangan_jabatan') + $this->input->post('uang_extra_kurikuler') + $this->input->post('uang_lembur') + $this->input->post('bonus_lain')) - $this->input->post('total_potongan'));
+                $data['total_gaji']           = ((is_numeric($getGaji[0]->total_gaji) + ($this->input->post('uang_transport')) + ($this->input->post('tunjangan_kinerja')) + ($this->input->post('tunjangan_jabatan')) + ($this->input->post('uang_extra_kurikuler')) + ($this->input->post('uang_lembur')) + ($this->input->post('bonus_lain'))) - ($this->input->post('total_potongan')));
                 $data['create_date']          = $this->input->post('create_date');
                 $result['messages']             = '';
                 $result                 = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
