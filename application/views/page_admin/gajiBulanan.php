@@ -220,7 +220,7 @@
                                             <th style="font-size: 10px;">Tunjangan Lembur</th>
                                             <th style="font-size: 10px;">Tunjangan Bonus Lain</th>
                                             <th style="font-size: 10px;">Total Potongan</th>
-                                            <th style="font-size: 10px;">Total Gaji Bersih</th>
+                                            <th style="font-size: 10px;">Total Gaji Keseluruhan (Ex.Pajak)</th>
                                             <th style="font-size: 10px;">Create Date</th>
                                         </tr>
                                     </thead>

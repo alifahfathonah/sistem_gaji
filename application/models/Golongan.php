@@ -1,16 +1,12 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Gaji_bulanan extends CI_Model
+class Golongan extends CI_Model
 {
     public function getAllData()
     {
-        $this->datatables->select('b.id, k.nama_karyawan, g.nama_golongan, g.jumlah_gaji_pokok, j.nama_jabatan, b.uang_transport,b.tunjangan_kinerja,b.tunjangan_jabatan,b.uang_extra_kurikuler,b.uang_lembur,b.bonus_lain, b.total_gaji,b.total_potongan,b.create_date,b.create_date,b.create_date');
+        $this->datatables->select('id, level, nama');
         $this->datatables->from('gaji_bulanan b');
-        $this->datatables->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
-        $this->datatables->join('golongan g', 'g.id = k.id_golongan', 'left');
-        $this->datatables->join('jabatan j', 'j.id = g.id_jabatan', 'left');
         return $this->datatables->generate();
     }
 
@@ -22,7 +18,7 @@ class Gaji_bulanan extends CI_Model
 
     public function getGaji($id_golongan)
     {
-        $this->db->select('g.nama_golongan, g.jumlah_gaji_pokok, g.total_gaji');
+        $this->db->select('g.nama_golongan, g.jumlah_gaji_pokok');
         $this->db->from('karyawan k');
         $this->db->join('golongan g', 'g.id = k.id_golongan', 'left');
         $this->db->where('k.id_golongan', $id_golongan);
@@ -74,4 +70,4 @@ class Gaji_bulanan extends CI_Model
     }
 }
 
-/* End of file Gaji_bulanan.php */
+/* End of file ModelName.php */
