@@ -80,7 +80,7 @@
     }
 
     function print(id) {
-        window.location = "<?php echo base_url('administrator/printGajiBulanan') ?>/" + id;
+        window.open("<?php echo base_url('administrator/printGajiBulanan') ?>/" + id, '_blank');
     }
 
     function hapus(id) {
