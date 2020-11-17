@@ -87,9 +87,11 @@
                                 </li>
                                 <li><a><i class="fa fa-clone"></i>Data Kenaikan Kerja </span></a>
                                 </li>
-                                <li><a><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
+                                <li><a href="<?php echo base_url('administrator') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
                                 </li>
-                                <li><a><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
+                                <li><a href="<?php echo base_url('administrator') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
+                                </li>
+                                <li><a href="<?php echo base_url('administrator/karyawan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Data Karyawan </span></a>
                                 </li>
                             </ul>
                         </div>
