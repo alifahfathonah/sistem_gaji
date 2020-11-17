@@ -25,7 +25,7 @@ class Gaji_bulanan extends CI_Model
         $this->db->select('g.nama_golongan, g.jumlah_gaji_pokok, g.total_gaji');
         $this->db->from('karyawan k');
         $this->db->join('golongan g', 'g.id = k.id_golongan', 'left');
-        $this->db->where('k.id_golongan', $id_golongan);
+        $this->db->where('k.id_karyawan', $id_golongan);
         return $this->db->get()->result();
     }
 
