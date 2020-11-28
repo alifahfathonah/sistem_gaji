@@ -211,7 +211,7 @@
                                             <th style="font-size: 10px;">Cetak</th>
                                             <th style="font-size: 10px;">Nama Karyawan</th>
                                             <th style="font-size: 10px;">Nama Golongan</th>
-                                            <th style="font-size: 10px;">Jumlah Gaji Berdasarkan Golongan</th>
+                                            <th style="font-size: 10px;">Jumlah Gaji Pokok</th>
                                             <th style="font-size: 10px;">Nama Jabatan</th>
                                             <th style="font-size: 10px;">Tunjangan Transport</th>
                                             <th style="font-size: 10px;">Tunjangan Kinerja</th>
@@ -220,8 +220,8 @@
                                             <th style="font-size: 10px;">Tunjangan Lembur</th>
                                             <th style="font-size: 10px;">Tunjangan Bonus Lain</th>
                                             <th style="font-size: 10px;">Total Potongan</th>
-                                            <th style="font-size: 10px;">Total Gaji Keseluruhan (Ex.Pajak)</th>
-                                            <th style="font-size: 10px;">Date</th>
+                                            <th style="font-size: 10px;">Total Gaji Keseluruhan () (Ex.Pajak)</th>
+                                            <th style="font-size: 10px;">Create Date</th>
                                         </tr>
                                     </thead>
                                 </table>

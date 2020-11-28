@@ -15,7 +15,7 @@
             //     'copy', 'csv', 'excel', 'pdf', 'print'
             // ],
             "ajax": {
-                "url": "<?php echo site_url('administrator/gaji_bulanan/getAllData') ?>",
+                "url": "<?php echo site_url('administrator/bonusLebaran/getAllData') ?>",
                 "type": "POST",
                 "data": {
                     '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
@@ -55,7 +55,7 @@
             .removeClass('has-success')
             .find('#text-error').remove();
         $.ajax({
-            url: "<?php echo site_url('administrator/gaji_bulanan/getById/'); ?>/" + id,
+            url: "<?php echo site_url('administrator/bonusLebaran/getById/'); ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(resp) {
@@ -94,7 +94,7 @@
             },
             function() {
                 $.ajax({
-                    url: "<?php echo site_url('administrator/gaji_bulanan/delete'); ?>/" + id,
+                    url: "<?php echo site_url('administrator/bonusLebaran/delete'); ?>/" + id,
                     type: "POST",
                     dataType: "JSON",
                     data: {
@@ -124,9 +124,9 @@
         var csrf_hash = ''
         var url;
         if (save_method == 'add') {
-            url = '<?php echo base_url() ?>administrator/gaji_bulanan/addData';
+            url = '<?php echo base_url() ?>administrator/bonusLebaran/addData';
         } else {
-            url = '<?php echo base_url() ?>administrator/gaji_bulanan/update';
+            url = '<?php echo base_url() ?>administrator/bonusLebaran/update';
         }
         swal({
                 title: "Apakah anda sudah yakin ?",
@@ -208,20 +208,10 @@
                                         <tr>
                                             <th style="font-size: 10px;">No</th>
                                             <th style="font-size: 10px;">Tools</th>
-                                            <th style="font-size: 10px;">Cetak</th>
                                             <th style="font-size: 10px;">Nama Karyawan</th>
-                                            <th style="font-size: 10px;">Nama Golongan</th>
-                                            <th style="font-size: 10px;">Jumlah Gaji Berdasarkan Golongan</th>
                                             <th style="font-size: 10px;">Nama Jabatan</th>
-                                            <th style="font-size: 10px;">Tunjangan Transport</th>
-                                            <th style="font-size: 10px;">Tunjangan Kinerja</th>
-                                            <th style="font-size: 10px;">Tunjangan Jabatan</th>
-                                            <th style="font-size: 10px;">Tunjangan Extrakurikuler</th>
-                                            <th style="font-size: 10px;">Tunjangan Lembur</th>
-                                            <th style="font-size: 10px;">Tunjangan Bonus Lain</th>
-                                            <th style="font-size: 10px;">Total Potongan</th>
-                                            <th style="font-size: 10px;">Total Gaji Keseluruhan (Ex.Pajak)</th>
-                                            <th style="font-size: 10px;">Date</th>
+                                            <th style="font-size: 10px;">Total Gaji Bonus</th>
+                                            <th style="font-size: 10px;">Create Date</th>
                                         </tr>
                                     </thead>
                                 </table>
