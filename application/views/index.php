@@ -79,17 +79,17 @@
                                         <li><a href="<?php echo base_url('administrator/laporan_gaji_bulanan') ?>">Laporan</a></li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-desktop"></i> Bonus Kinerja</span></a>
+                                <li><a href="<?php echo base_url('administrator/bonusKinerja') ?>"><i class="fa fa-desktop"></i> Bonus Kinerja</span></a>
                                 </li>
-                                <li><a><i class="fa fa-table"></i> Bonus Lebaran </span></a>
+                                <li><a href="<?php echo base_url('administrator/bonusLebaran') ?>"><i class="fa fa-table"></i> Bonus Lebaran </span></a>
                                 </li>
-                                <li><a><i class="fa fa-bar-chart-o"></i> Bonus Guru Terbaik </span></a>
+                                <li><a href="<?php echo base_url('administrator/bonusGuruTerbaik') ?>"><i class="fa fa-bar-chart-o"></i> Bonus Guru Terbaik </span></a>
                                 </li>
-                                <li><a><i class="fa fa-clone"></i>Data Kenaikan Kerja </span></a>
+                                <li><a href="<?php echo base_url('administrator/kenaikanGaji') ?>"><i class="fa fa-clone"></i>Data Kenaikan Kerja </span></a>
                                 </li>
-                                <li><a href="<?php echo base_url('administrator') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
+                                <li><a href="<?php echo base_url('administrator/golongan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
                                 </li>
-                                <li><a href="<?php echo base_url('administrator') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
+                                <li><a href="<?php echo base_url('administrator/jabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/karyawan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Data Karyawan </span></a>
                                 </li>

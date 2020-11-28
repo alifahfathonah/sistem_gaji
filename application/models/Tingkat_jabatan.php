@@ -2,17 +2,9 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Jabatan extends CI_Model
+class Tingkat_jabatan extends CI_Model
 {
     public function getData()
-    {
-        $this->db->select('*');
-        $this->db->from('jabatan');
-        $this->db->order_by('id', 'desc');
-        return $this->db->get()->result();
-    }
-
-    public function getTingkatJabatan()
     {
         $this->db->select('*');
         $this->db->from('tingkat_jabatan');
@@ -22,43 +14,43 @@ class Jabatan extends CI_Model
 
     public function getAllData()
     {
-        $this->datatables->select('j.id, j.nama_jabatan, tj.nama as tingkat_jabatan, j.create_date');
-        $this->datatables->from('jabatan j');
-        $this->datatables->join('tingkat_jabatan tj', 'tj.id = j.id_tingkat_jabatan', 'left');
+        $this->datatables->select('id, nama, create_date');
+        $this->datatables->from('tingkat_jabatan');
         return $this->datatables->generate();
     }
 
     public function addData($data)
     {
-        $this->db->insert('jabatan', $data);
+        $this->db->insert('tingkat_jabatan', $data);
         return $this->db->affected_rows() > 0 ? $this->db->insert_id() : FALSE;
     }
 
     public function get_by_id($id)
     {
-        return $this->db->get_where('jabatan ap', array('ap.id' => $id))->result();
+        return $this->db->get_where('tingkat_jabatan ap', array('ap.id' => $id))->result();
     }
 
     public function getById($id)
     {
         $this->db->select('*');
-        $this->db->from('jabatan');
+        $this->db->from('tingkat_jabatan');
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
 
+
     function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update('jabatan', $data);
+        $this->db->update('tingkat_jabatan', $data);
         return $this->db->affected_rows();
     }
 
     function delete($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('jabatan');
+        $this->db->delete('tingkat_jabatan');
     }
 }
 
-/* End of file Jabatan.php */
+/* End of file Tingkat_jabatan.php */

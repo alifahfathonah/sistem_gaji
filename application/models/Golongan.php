@@ -5,8 +5,10 @@ class Golongan extends CI_Model
 {
     public function getAllData()
     {
-        $this->datatables->select('id, level, nama');
-        $this->datatables->from('golongan b');
+        $this->datatables->select('g.id, g.level, tj.nama as nama_golongan, j.nama_jabatan, g.jumlah_gaji_pokok, g.t_jalan_jalan, g.t_kesehatan, g.t_pelatihan, g.t_cuti_tahunan, g.t_study_banding, g.t_umroh, g.total_gaji,  g.create_date');
+        $this->datatables->from('golongan g');
+        $this->datatables->join('jabatan j', 'j.id = g.id_jabatan', 'left');
+        $this->datatables->join('tingkat_jabatan tj', 'tj.id = g.id_tingkat_jabatan', 'left');
         return $this->datatables->generate();
     }
 
@@ -26,13 +28,13 @@ class Golongan extends CI_Model
 
     public function get_by_id($id)
     {
-        return $this->db->get_where('gaji_bulanan ap', array('ap.id' => $id))->result();
+        return $this->db->get_where('golongan ap', array('ap.id' => $id))->result();
     }
 
     public function getById($id)
     {
         $this->db->select('*');
-        $this->db->from('gaji_bulanan');
+        $this->db->from('golongan');
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
@@ -40,14 +42,14 @@ class Golongan extends CI_Model
     function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update('gaji_bulanan', $data);
+        $this->db->update('golongan', $data);
         return $this->db->affected_rows();
     }
 
     function delete($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('gaji_bulanan');
+        $this->db->delete('golongan');
     }
 }
 

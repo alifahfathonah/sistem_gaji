@@ -1,5 +1,4 @@
 <script>
-    console.log('test')
     document.addEventListener("DOMContentLoaded", function(event) {
         table = $('#data').DataTable({
             "processing": true,
@@ -10,12 +9,12 @@
             ],
             "responsive": true,
             "dataType": 'JSON',
-            // "dom": 'Bfrtip',
-            // "buttons": [
-            //     'copy', 'csv', 'excel', 'pdf', 'print'
-            // ],
+            "dom": 'Bfrtip',
+            "buttons": [
+                'excel', 'pdf', 'print'
+            ],
             "ajax": {
-                "url": "<?php echo site_url('administrator/bonusKinerja/getAllData') ?>",
+                "url": "<?php echo site_url('administrator/jabatan/getAllData') ?>",
                 "type": "POST",
                 "data": {
                     '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
@@ -55,14 +54,14 @@
             .removeClass('has-success')
             .find('#text-error').remove();
         $.ajax({
-            url: "<?php echo site_url('administrator/bonusKinerja/getById/'); ?>/" + id,
+            url: "<?php echo site_url('administrator/jabatan/getById/'); ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(resp) {
                 data = resp.data
                 $('[name="id"]').val(data.id);
-                $('[name="id_karyawan"]').val(data.id_karyawan);
-                $('[name="nilai_kpi"]').val(data.nilai_kpi);
+                $('[name="nama_jabatan"]').val(data.nama_jabatan);
+                $('[name="tingkat_jabatan"]').val(data.id_tingkat_jabatan);
                 $('[name="create_date"]').val(data.create_date);
                 $('.reset').hide();
             },
@@ -72,6 +71,7 @@
         });
 
     }
+
 
     function hapus(id) {
         swal({
@@ -84,7 +84,7 @@
             },
             function() {
                 $.ajax({
-                    url: "<?php echo site_url('administrator/bonusKinerja/delete'); ?>/" + id,
+                    url: "<?php echo site_url('administrator/jabatan/delete'); ?>/" + id,
                     type: "POST",
                     dataType: "JSON",
                     data: {
@@ -114,9 +114,9 @@
         var csrf_hash = ''
         var url;
         if (save_method == 'add') {
-            url = '<?php echo base_url() ?>administrator/bonusKinerja/addData';
+            url = '<?php echo base_url() ?>administrator/jabatan/addData';
         } else {
-            url = '<?php echo base_url() ?>administrator/bonusKinerja/update';
+            url = '<?php echo base_url() ?>administrator/jabatan/update';
         }
         swal({
                 title: "Apakah anda sudah yakin ?",
@@ -173,11 +173,14 @@
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Data Bonus Kinerja</h2>
+                    <h2>Data Jabatan</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
-                            <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
-                        <li class="fa fa-plus"></li> Tambah Data</button>
+                            <button class="btn btn-success btn-sm" type="button" onclick="window.location='<?php echo base_url('administrator/tingkatJabatan') ?>'">
+                        <li class="fa fa-pencil"></li> Kelola Golongan Jabatan</button>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
+                            <li class="fa fa-plus"></li> Tambah Data
+                        </button>
                         </li>
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -198,11 +201,8 @@
                                         <tr>
                                             <th style="font-size: 10px;">No</th>
                                             <th style="font-size: 10px;">Tools</th>
-                                            <th style="font-size: 10px;">Nama Karyawan</th>
-                                            <th style="font-size: 10px;">Jabatan</th>
-                                            <th style="font-size: 10px;">Nilai KPI</th>
-                                            <th style="font-size: 10px;">Jumlah Bonus</th>
-                                            <th style="font-size: 10px;">Total Gaji</th>
+                                            <th style="font-size: 10px;">Nama Jabatan</th>
+                                            <th style="font-size: 10px;">Tingkat Jabatan</th>
                                             <th style="font-size: 10px;">Create Date</th>
                                         </tr>
                                     </thead>
@@ -223,7 +223,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <li class="fa fa-list"></li> Form Data Bonus Kinerja
+                    <li class="fa fa-list"></li> Form Data Jabatan
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -233,21 +233,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Nama Jabatan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left">
-                                    <option value="">Pilih Karyawan</option>
-                                    <?php foreach ($getKaryawan as $r) : ?>
-                                        <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <input type="text" class="form-control has-feedback-left" id="nama_jabatan" name="nama_jabatan">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Nilai KPI (Persentase)<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Tingkat Jabatan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="nilai_kpi" value="0" name="nilai_kpi" class="form-control has-feedback-left">
+                                <select name="tingkat_jabatan" id="tingkat_jabatan" class="form-control has-feedback-left">
+                                    <option value="">--Select--</option>
+                                    <?php foreach ($getTingkatJabatan as $r) { ?>
+                                        <option value="<?php echo $r->id; ?>"><?php echo $r->nama; ?></option>
+                                    <?php } ?>
+                                </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -255,10 +255,11 @@
                             <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                                <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d') ?>" class="form-control has-feedback-left" readonly>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
+
                     </div>
                 </div>
 

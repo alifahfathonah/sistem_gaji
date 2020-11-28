@@ -64,15 +64,23 @@
             dataType: "JSON",
             success: function(resp) {
                 data = resp.data
-                $('[name="id"]').val(data.id);
                 $('[name="id_karyawan"]').val(data.id_karyawan);
-                $('[name="uang_transport"]').val(data.uang_transport);
-                $('[name="tunjangan_kinerja"]').val(data.tunjangan_kinerja);
-                $('[name="tunjangan_jabatan"]').val(data.tunjangan_jabatan);
-                $('[name="uang_extra_kurikuler"]').val(data.uang_extra_kurikuler);
-                $('[name="uang_lembur"]').val(data.uang_lembur);
-                $('[name="bonus_lain"]').val(data.bonus_lain);
-                $('[name="total_potongan"]').val(data.total_potongan);
+                $('[name="role"]').val(data.role);
+                $('[name="nama_karyawan"]').val(data.nama_karyawan);
+                $('[name="tgl_lahir"]').val(data.tgl_lahir);
+                $('[name="jk"]').val(data.jk);
+                $('[name="email"]').val(data.email);
+                $('[name="password"]').val(data.password);
+                $('[name="no_hp"]').val(data.no_hp);
+                $('[name="alamat"]').val(data.alamat);
+                $('[name="id_jabatan"]').val(data.id_jabatan);
+                $('[name="jurusan"]').val(data.jurusan);
+                $('[name="universitas"]').val(data.universitas);
+                $('[name="pendidikan_terakhir"]').val(data.pendidikan_terakhir);
+                $('[name="tahun_masuk"]').val(data.tahun_masuk);
+                $('[name="status"]').val(data.status);
+                $('[name="gambar"]').val(data.gambar);
+                $('[name="id_golongan"]').val(data.id_golongan);
                 $('[name="create_date"]').val(data.create_date);
                 $('.reset').hide();
             },
@@ -206,8 +214,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card-box table-responsive">
-
-                                <table id="data" class="table table-striped table-bordered" style="width:100%">
+                                <table id="data" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th style="font-size: 10px;">No</th>
@@ -239,7 +246,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal -->
 <div id="modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-xl">
@@ -298,7 +304,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Password<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="password" name="password" class="form-control has-feedback-left">
+                                <input type="password" id="password" name="password" class="form-control has-feedback-left">
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -379,7 +385,7 @@
                                 <select name="id_golongan" id="id_golongan" class="form-control has-feedback-left">
                                     <option value="">Pilih Golongan</option>
                                     <?php foreach ($getGolongan as $r) { ?>
-                                        <option value="<?php echo $r->id ?>"><?php echo $r->nama_golongan; ?></option>
+                                        <option value="<?php echo $r->id ?>"><?php echo $r->nama; ?></option>
                                     <?php } ?>
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>

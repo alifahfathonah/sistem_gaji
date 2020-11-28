@@ -1,6 +1,5 @@
 <?php
 
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Karyawan extends CI_Model
@@ -44,17 +43,16 @@ class Karyawan extends CI_Model
 
     public function get_by_id($id)
     {
-        return $this->db->get_where('karyawan ap', array('ap.id' => $id))->result();
+        return $this->db->get_where('karyawan ap', array('ap.id_karyawan' => $id))->result();
     }
 
     public function getById($id)
     {
         $this->db->select('*');
         $this->db->from('karyawan');
-        $this->db->where('id', $id);
+        $this->db->where('id_karyawan', $id);
         return $this->db->get()->row();
     }
-
 
     function update($id, $data)
     {
