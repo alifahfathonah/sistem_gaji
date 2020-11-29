@@ -290,13 +290,13 @@ class Administrator extends CI_Controller
                     $result['messages'][$key] = form_error($key);
                 }
             } else {
-                $data['id']                   = htmlspecialchars($this->input->post('id'));
+                $data['id']               = htmlspecialchars($this->input->post('id'));
                 $getGaji            = $this->Gaji_bulanan->getGaji($this->input->post('id_karyawan'));
                 $data['id_karyawan']      = htmlspecialchars($this->input->post('id_karyawan'));
                 $data['total_gaji_bonus'] = ($getGaji[0]->jumlah_gaji_pokok + $getGaji[0]->total_gaji);
                 $data['create_date']      = $this->input->post('create_date');
-                $result['messages']             = '';
-                $result                 = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
+                $result['messages']         = '';
+                $result             = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
                 $this->Bonus_lebaran->update($data['id'], $data);
             }
             $csrf = array(
@@ -324,16 +324,16 @@ class Administrator extends CI_Controller
             $start = $this->input->post('start');
             $data  = array();
             foreach ($dt['data'] as $row) {
-                $id   = $row->id;
-                $th1  = '<div style="font-size:12px;">' . ++$start . '</div>';
-                $th2  = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
-                $th3  = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
-                $th4  = '<div style="font-size:12px;">' . $row->upload_portofolio . '</div>';
-                $th5  = '<div style="font-size:12px;">' . $row->keterangan . '</div>';
-                $th6  = '<div style="font-size:12px;">' . $row->jumlah_bonus . '</div>';
-                $th7  = '<div style="font-size:12px;">' . ($row->total_gaji) . '</div>';
+                $id  = $row->id;
+                $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
+                $th2 = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
+                $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
+                $th4 = '<div style="font-size:12px;">' . $row->upload_portofolio . '</div>';
+                $th5 = '<div style="font-size:12px;">' . $row->keterangan . '</div>';
+                $th6 = '<div style="font-size:12px;">' . $row->jumlah_bonus . '</div>';
+                $th7 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
                 $th8 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
-                $data[]     = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8));
+                $data[]    = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8));
             }
             $dt['data'] = $data;
             echo json_encode($dt);
@@ -343,42 +343,31 @@ class Administrator extends CI_Controller
             echo json_encode(array('data' => $data));
             die;
         } else if ($param == 'addData') {
-            $this->form_validation->set_rules("id_karyawan", "Nama Karyawan", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("uang_transport", "Tambahan Transport", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("tunjangan_kinerja", "Tambahan tunjangan kinerja", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("tunjangan_jabatan", "Tambahan tunjangan jabatan", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("uang_extra_kurikuler", "Tambahan tunjangan extrakurikuler", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("uang_lembur", "Tambahan Tunjangan Lembur", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("bonus_lain", "Tunjangan hari raya", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("total_potongan", "Total Potongan", "trim|required", array('required' => '{field} Wajib diisi !'));
+            $config['upload_path']   = "./gambar";
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|png|bmp';
+            $config['remove_spaces'] = TRUE;
+            if (!empty($_FILES['upload_portofolio']['name'])) {
+                $this->load->library('upload', $config);
+                $getGaji = $this->Gaji_bulanan->getGaji($this->input->post('id_karyawan'));
 
-            $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
-            if ($this->form_validation->run() == FALSE) {
-                $result = array('status' => 'error', 'msg' => 'Data yang anda isi Belum Benar!');
-                foreach ($_POST as $key => $value) {
-                    $result['messages'][$key] = form_error($key);
+                $db['upload_portofolio'] = $_FILES['upload_portofolio']['name'];
+                $db['id_karyawan']       = htmlspecialchars($this->input->post('id_karyawan'));
+                $db['keterangan']        = htmlspecialchars($this->input->post('keterangan'));
+                $db['jumlah_bonus']      = htmlspecialchars($this->input->post('jumlah_bonus'));
+                $db['total_gaji']        = ($getGaji[0]->total_gaji + $db['jumlah_bonus']);
+                $db['create_date']       = htmlspecialchars($this->input->post('create_date'));
+                $cekData             = $this->Guru_terbaik->getData();
+                if ($cekData[0]->upload_portofolio != $db['upload_portofolio']) {
+                    $this->Guru_terbaik->simpan_upload(str_replace(' ', '_', $db['upload_portofolio']), $db['id_karyawan'], $db['keterangan'], $db['jumlah_bonus'], $db['total_gaji'], $db['create_date']);
+                    $this->upload->do_upload('upload_portofolio');
+                    $this->session->set_flashdata('alert', 'Berhasil Mengupload Data');
+                    redirect('administrator/bonusGuruTerbaik');
+                } else {
+                    $this->session->set_flashdata('alert', 'Gagal Mengupload Data, Gambar yang anda pilih sudah ada!');
+
+                    redirect('administrator/bonusGuruTerbaik');
                 }
-            } else {
-                $getGaji                = $this->Gaji_bulanan->getGaji($this->input->post('id_karyawan'));
-                $data['id_karyawan']          = htmlspecialchars($this->input->post('id_karyawan'));
-                $data['uang_transport']       = htmlspecialchars($this->input->post('uang_transport'));
-                $data['tunjangan_kinerja']    = htmlspecialchars($this->input->post('tunjangan_kinerja'));
-                $data['tunjangan_jabatan']    = htmlspecialchars($this->input->post('tunjangan_jabatan'));
-                $data['uang_extra_kurikuler'] = htmlspecialchars($this->input->post('uang_extra_kurikuler'));
-                $data['uang_lembur']          = htmlspecialchars($this->input->post('uang_lembur'));
-                $data['bonus_lain']           = htmlspecialchars($this->input->post('bonus_lain'));
-                $data['total_potongan']       = htmlspecialchars($this->input->post('total_potongan'));
-                $data['total_gaji']           = ((($getGaji[0]->total_gaji) + ($this->input->post('uang_transport')) + ($this->input->post('tunjangan_kinerja')) + ($this->input->post('tunjangan_jabatan')) + ($this->input->post('uang_extra_kurikuler')) + ($this->input->post('uang_lembur')) + ($this->input->post('bonus_lain'))) - ($this->input->post('total_potongan')));
-                $data['create_date']          = $this->input->post('create_date');
-                $result['messages']             = '';
-                $result                 = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
-                $this->Gaji_bulanan->addData($data);
             }
-            $csrf = array(
-                'token' => $this->security->get_csrf_hash()
-            );
-            echo json_encode(array('result' => $result, 'csrf' => $csrf));
-            die;
         } else if ($param == 'update') {
             $this->form_validation->set_rules("id_karyawan", "Nama Karyawan", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_rules("uang_transport", "Tambahan Transport", "trim|required", array('required' => '{field} Wajib diisi !'));
@@ -418,8 +407,7 @@ class Administrator extends CI_Controller
             echo json_encode(array('result' => $result, 'csrf' => $csrf));
             die;
         } else if ($param == 'delete') {
-            $this->Gaji_bulanan->delete($id);
-            // $this->B_user_log_model->addLog(userLog('Hapus Data', $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name') . ' menghapus 1 data pada data pelanggan', $this->session->userdata('id')));
+            $this->Guru_terbaik->delete($id);
             $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
             echo json_encode(array('result' => $result));
             die;

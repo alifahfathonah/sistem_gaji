@@ -79,10 +79,6 @@
 
     }
 
-    function print(id) {
-        window.open("<?php echo base_url('administrator/printGajiBulanan') ?>/" + id, '_blank');
-    }
-
     function hapus(id) {
         swal({
                 title: "Apakah Yakin Akan Dihapus?",
@@ -228,101 +224,72 @@
 
 <!-- Modal -->
 <div id="modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-md">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <li class="fa fa-list"></li> Form Data Penggajian
+                    <li class="fa fa-list"></li> Form Data Bonus Guru Terbaik
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <?php echo form_open('', array('id' => 'form_inputan', 'method' => 'post')); ?>
-            <div class="modal-body">
-                <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left">
-                                    <option value="">Pilih Karyawan</option>
-                                    <?php foreach ($getKaryawan as $r) : ?>
-                                        <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+            <form action="<?php echo base_url('administrator/bonusGuruTerbaik/addData') ?>" id="form_inputan" method="post" class="form-horizontal" enctype="multipart/form-data">
+                <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
+                <div class="modal-body">
+                    <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left" required>
+                                        <option value="">Pilih Karyawan</option>
+                                        <?php foreach ($getKaryawan as $r) : ?>
+                                            <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Uang Transport<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="uang_transport" value="0" name="uang_transport" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Upload Portofolio<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="file" id="upload_portofolio" value="0" name="upload_portofolio" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tunjangan Kinerja<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="tunjangan_kinerja" value="0" name="tunjangan_kinerja" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Keterangan<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="text" id="keterangan" name="keterangan" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tunjangan Jabatan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="tunjangan_jabatan" value="0" name="tunjangan_jabatan" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Jumlah Bonus<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="number" id="jumlah_bonus" value="0" name="jumlah_bonus" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Extrakurikuler<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="uang_extra_kurikuler" value="0" name="uang_extra_kurikuler" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Lembur<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="uang_lembur" value="0" name="uang_lembur" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Bonus Lain<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="bonus_lain" value="0" name="bonus_lain" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Gaji Potongan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="total_potongan" value="0" name="total_potongan" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                                <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <?php date_default_timezone_set('Asia/Jakarta'); ?>
+                                    <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" onclick="alert('Apakah anda yakin ?')" class="btn btn-success btn-mini">Simpan</button>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success btn-sm" onclick="simpan()">Simpan</button>
-
-            </div>
-            <?php echo form_close() ?>
+                </div>
+                <?php echo form_close() ?>
         </div>
 
     </div>

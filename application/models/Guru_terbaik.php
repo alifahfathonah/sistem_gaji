@@ -7,7 +7,7 @@ class Guru_terbaik extends CI_Model
     public function getData()
     {
         $this->db->select('*');
-        $this->db->from('jabatan');
+        $this->db->from('guru_terbaik');
         $this->db->order_by('id', 'desc');
         return $this->db->get()->result();
     }
@@ -30,19 +30,30 @@ class Guru_terbaik extends CI_Model
 
     public function addData($data)
     {
-        $this->db->insert('jabatan', $data);
+        $this->db->insert('guru_terbaik', $data);
         return $this->db->affected_rows() > 0 ? $this->db->insert_id() : FALSE;
     }
 
+    function simpan_upload($upload_portofolio, $id_karyawan, $keterangan, $jumlah_bonus, $total_gaji, $create_date)
+    {
+        $data['id_karyawan']       = $id_karyawan;
+        $data['upload_portofolio'] = $upload_portofolio;
+        $data['keterangan']        = $keterangan;
+        $data['jumlah_bonus']      = $jumlah_bonus;
+        $data['total_gaji']        = $total_gaji;
+        $data['create_date']       = $create_date;
+        $result              = $this->db->insert('guru_terbaik', $data);
+        return $result;
+    }
     public function get_by_id($id)
     {
-        return $this->db->get_where('jabatan ap', array('ap.id' => $id))->result();
+        return $this->db->get_where('guru_terbaik ap', array('ap.id' => $id))->result();
     }
 
     public function getById($id)
     {
         $this->db->select('*');
-        $this->db->from('jabatan');
+        $this->db->from('guru_terbaik');
         $this->db->where('id', $id);
         return $this->db->get()->row();
     }
@@ -50,14 +61,21 @@ class Guru_terbaik extends CI_Model
     function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update('jabatan', $data);
+        $this->db->update('guru_terbaik', $data);
         return $this->db->affected_rows();
     }
 
+    public function _deleteImage($id)
+    {
+        $product = $this->getById($id);
+        $filename = explode(".", $product->upload_portofolio)[0];
+        return array_map('unlink', glob(FCPATH . "gambar/$filename.*"));
+    }
     function delete($id)
     {
+        $this->_deleteImage($id);
         $this->db->where('id', $id);
-        $this->db->delete('jabatan');
+        $this->db->delete('guru_terbaik');
     }
 }
 
