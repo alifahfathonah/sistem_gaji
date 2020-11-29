@@ -237,7 +237,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <li class="fa fa-list"></li> Form Data Jabatan
+                    <li class="fa fa-list"></li> Form Data Golongan
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -310,7 +310,7 @@
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Pilih Golongan<span class="required">*</span></label>
+                            <label class="col-form-label col-md-4 col-sm-3">Pilih Golongan Jabatan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <select name="id_tingkat_jabatan" id="id_tingkat_jabatan" class="form-control has-feedback-left">
                                     <option value="">--Pilih Golongan--</option>

@@ -91,6 +91,8 @@
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/jabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
                                 </li>
+                                <li><a href="<?php echo base_url('administrator/tingkatJabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Jabatan </span></a>
+                                </li>
                                 <li><a href="<?php echo base_url('administrator/karyawan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Data Karyawan </span></a>
                                 </li>
                             </ul>

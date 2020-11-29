@@ -269,6 +269,8 @@
                                     <option value="">Role</option>
                                     <option value="1">Administrator</option>
                                     <option value="2">Yayasan</option>
+                                    <option value="3">Pegawai</option>
+
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
@@ -290,7 +292,11 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Jenis Kelamin <span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" id="jk" name="jk" class="form-control has-feedback-left">
+                                <select name="jk" id="jk" class="form-control has-feedback-left">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="LK">Laki-laki</option>
+                                    <option value="PR">Perempuan</option>
+                                </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -385,7 +391,7 @@
                                 <select name="id_golongan" id="id_golongan" class="form-control has-feedback-left">
                                     <option value="">Pilih Golongan</option>
                                     <?php foreach ($getGolongan as $r) { ?>
-                                        <option value="<?php echo $r->id ?>"><?php echo $r->nama; ?></option>
+                                        <option value="<?php echo $r->id ?>"><?php echo $r->nama_golongan; ?></option>
                                     <?php } ?>
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>

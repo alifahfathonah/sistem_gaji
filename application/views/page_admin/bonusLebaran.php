@@ -226,7 +226,7 @@
 
 <!-- Modal -->
 <div id="modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-md">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -239,7 +239,7 @@
             <div class="modal-body">
                 <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
@@ -252,57 +252,7 @@
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Uang Transport<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="uang_transport" value="0" name="uang_transport" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tunjangan Kinerja<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="tunjangan_kinerja" value="0" name="tunjangan_kinerja" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tunjangan Jabatan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="tunjangan_jabatan" value="0" name="tunjangan_jabatan" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Extrakurikuler<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="uang_extra_kurikuler" value="0" name="uang_extra_kurikuler" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Lembur<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="uang_lembur" value="0" name="uang_lembur" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Tambahan Bonus Lain<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="bonus_lain" value="0" name="bonus_lain" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Gaji Potongan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="number" id="total_potongan" value="0" name="total_potongan" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
+
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
