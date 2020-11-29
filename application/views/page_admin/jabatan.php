@@ -169,46 +169,42 @@
     }
 </script>
 <div class="right_col" role="main">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Data Jabatan</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <button class="btn btn-success btn-sm" type="button" onclick="window.location='<?php echo base_url('administrator/tingkatJabatan') ?>'">
-                        <li class="fa fa-pencil"></li> Kelola Golongan Jabatan</button>
-                        <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
-                            <li class="fa fa-plus"></li> Tambah Data
-                        </button>
-                        </li>
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                    </ul>
-                    <div class="text-right">
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-box table-responsive">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Data Jabatan</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <button class="btn btn-success btn-sm" type="button" onclick="window.location='<?php echo base_url('administrator/tingkatJabatan') ?>'">
+                <li class="fa fa-pencil"></li> Kelola Golongan Jabatan</button>
+                <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
+                    <li class="fa fa-plus"></li> Tambah Data
+                </button>
+                </li>
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="text-right">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
 
-                                <table id="data" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th style="font-size: 10px;">No</th>
-                                            <th style="font-size: 10px;">Tools</th>
-                                            <th style="font-size: 10px;">Nama Jabatan</th>
-                                            <th style="font-size: 10px;">Tingkat Jabatan</th>
-                                            <th style="font-size: 10px;">Create Date</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
+                        <table id="data" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="font-size: 10px;">No</th>
+                                    <th style="font-size: 10px;">Tools</th>
+                                    <th style="font-size: 10px;">Nama Jabatan</th>
+                                    <th style="font-size: 10px;">Tingkat Jabatan</th>
+                                    <th style="font-size: 10px;">Create Date</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>

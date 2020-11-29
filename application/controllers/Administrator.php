@@ -9,7 +9,7 @@ class Administrator extends CI_Controller
     {
         parent::__construct();
         //Do your magic here
-        $this->load->model(array('Gaji_bulanan', 'Karyawan', 'Jabatan', 'Golongan', 'Tingkat_jabatan', 'Bonus_kinerja', 'Bonus_lebaran'));
+        $this->load->model(array('Gaji_bulanan', 'Karyawan', 'Jabatan', 'Golongan', 'Tingkat_jabatan', 'Bonus_kinerja', 'Bonus_lebaran', 'Guru_terbaik'));
     }
 
     public function index()
@@ -320,34 +320,26 @@ class Administrator extends CI_Controller
         $view['getKaryawan']     = $this->Karyawan->getData();
         $view['getGajiTambahan'] = $this->Gaji_bulanan->getGajiTambahan();
         if ($param == 'getAllData') {
-            $dt    = $this->Gaji_bulanan->getAllData();
+            $dt    = $this->Guru_terbaik->getAllData();
             $start = $this->input->post('start');
             $data  = array();
             foreach ($dt['data'] as $row) {
                 $id   = $row->id;
                 $th1  = '<div style="font-size:12px;">' . ++$start . '</div>';
                 $th2  = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
-                $th3  = get_btn_export('print("' . $id . '")');
-                $th4  = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
-                $th5  = '<div style="font-size:12px;">' . $row->nama_golongan . '</div>';
-                $th6  = '<div style="font-size:12px;">' . $row->jumlah_gaji_pokok . '</div>';
-                $th7  = '<div style="font-size:12px;">' . $row->nama_jabatan . '</div>';
-                $th8  = '<div style="font-size:12px;">' . ($row->uang_transport) . '</div>';
-                $th9  = '<div style="font-size:12px;">' . ($row->tunjangan_kinerja) . '</div>';
-                $th10 = '<div style="font-size:12px;">' . ($row->tunjangan_jabatan) . '</div>';
-                $th11 = '<div style="font-size:12px;">' . ($row->uang_extra_kurikuler) . '</div>';
-                $th12 = '<div style="font-size:12px;">' . ($row->uang_lembur) . '</div>';
-                $th13 = '<div style="font-size:12px;">' . ($row->bonus_lain) . '</div>';
-                $th14 = '<div style="font-size:12px;">' . ($row->total_potongan) . '</div>';
-                $th15 = '<div style="font-size:12px;">' . ($row->total_gaji) . '</div>';
-                $th16 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
-                $data[]     = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8, $th9, $th10, $th11, $th12, $th13, $th14, $th15, $th16));
+                $th3  = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
+                $th4  = '<div style="font-size:12px;">' . $row->upload_portofolio . '</div>';
+                $th5  = '<div style="font-size:12px;">' . $row->keterangan . '</div>';
+                $th6  = '<div style="font-size:12px;">' . $row->jumlah_bonus . '</div>';
+                $th7  = '<div style="font-size:12px;">' . ($row->total_gaji) . '</div>';
+                $th8 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
+                $data[]     = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8));
             }
             $dt['data'] = $data;
             echo json_encode($dt);
             die;
         } else if ($param == 'getById') {
-            $data = $this->Gaji_bulanan->getById($id);
+            $data = $this->Guru_terbaik->getById($id);
             echo json_encode(array('data' => $data));
             die;
         } else if ($param == 'addData') {
@@ -434,7 +426,6 @@ class Administrator extends CI_Controller
         }
         $this->load->view('index', $view);
     }
-
 
     public function golongan($param = '', $id = '')
     {
