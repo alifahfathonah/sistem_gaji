@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 29, 2020 at 04:38 PM
+-- Generation Time: Dec 10, 2020 at 08:24 PM
 -- Server version: 5.7.32-0ubuntu0.18.04.1
 -- PHP Version: 7.1.33-24+ubuntu18.04.1+deb.sury.org+1
 
@@ -58,7 +58,8 @@ CREATE TABLE `bonus_kinerja` (
 
 INSERT INTO `bonus_kinerja` (`id`, `id_karyawan`, `nilai_kpi`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
 (1, '6', '13', '650000', '6820000', '2020-11-28'),
-(2, '8', '80', '960000', '2160023', '2020-11-29');
+(2, '8', '80', '960000', '2160023', '2020-11-29'),
+(3, '8', '30', '360000', '1560023', '2020-12-06');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,8 @@ CREATE TABLE `bonus_lebaran` (
 
 INSERT INTO `bonus_lebaran` (`id`, `id_karyawan`, `total_gaji_bonus`, `create_date`) VALUES
 (1, '6', '11170000', '2020-11-29'),
-(2, '8', '2400023', '2020-11-29');
+(2, '8', '2400023', '2020-11-29'),
+(3, '6', '11170000', '2020-12-06');
 
 -- --------------------------------------------------------
 
@@ -106,8 +108,7 @@ CREATE TABLE `gaji_bulanan` (
 --
 
 INSERT INTO `gaji_bulanan` (`id`, `id_karyawan`, `uang_transport`, `tunjangan_kinerja`, `tunjangan_jabatan`, `uang_extra_kurikuler`, `uang_lembur`, `bonus_lain`, `total_gaji`, `total_potongan`, `create_date`) VALUES
-(24, '6', '1000000', '1220000', '1000000', '3300000', '15000', '0', '12705000', '0', '2020-11-27'),
-(25, '8', '600000', '0', '0', '0', '0', '0', '1800023', '0', '2020-11-29');
+(2, '8', '0', '0', '0', '0', '0', '0', '1200023', '0', '2020-12-09');
 
 -- --------------------------------------------------------
 
@@ -171,8 +172,16 @@ CREATE TABLE `guru_terbaik` (
   `upload_portofolio` text NOT NULL,
   `keterangan` text NOT NULL,
   `jumlah_bonus` text NOT NULL,
-  `total_gaji` text NOT NULL
+  `total_gaji` text NOT NULL,
+  `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `guru_terbaik`
+--
+
+INSERT INTO `guru_terbaik` (`id`, `id_karyawan`, `upload_portofolio`, `keterangan`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
+(9, '8', 'Selection_001.png', 'sdasdsad', '60', '1200083', '2020-11-30');
 
 -- --------------------------------------------------------
 
@@ -207,7 +216,6 @@ CREATE TABLE `karyawan` (
   `tgl_lahir` date NOT NULL,
   `jk` varchar(12) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
   `no_hp` varchar(14) NOT NULL,
   `alamat` varchar(100) NOT NULL,
   `id_jabatan` varchar(100) NOT NULL,
@@ -218,6 +226,8 @@ CREATE TABLE `karyawan` (
   `status` enum('Aktif','Keluar','Pindah') NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `id_golongan` text NOT NULL,
+  `gaji_pokok` text NOT NULL,
+  `total_gaji` text NOT NULL,
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -225,9 +235,23 @@ CREATE TABLE `karyawan` (
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`id_karyawan`, `role`, `nama_karyawan`, `tgl_lahir`, `jk`, `email`, `password`, `no_hp`, `alamat`, `id_jabatan`, `jurusan`, `universitas`, `pendidikan_terakhir`, `tahun_masuk`, `status`, `gambar`, `id_golongan`, `create_date`) VALUES
-(6, '1', 'Fitra Arrafiq', '2020-11-27', 'Laki-laki', 'fitraarrafiq@gmail.com', 'fitra123', '082390091029', 'medan, pekanbaru riau', '4', 'Sistem Informasi', 'Politeknik Caltex Riau', 'D4', '2016', 'Aktif', 'gada', '4', '2020-11-27'),
-(8, '3', 'Agus Salimss', '2020-11-30', 'PR', 'asdasd@sdgsdg', 'asdasda', '123434', 'asdad', '4', 'asdasd', 'asdasd', 'asdasd', '1231231', 'Aktif', 'gada', '5', '2020-11-29');
+INSERT INTO `karyawan` (`id_karyawan`, `role`, `nama_karyawan`, `tgl_lahir`, `jk`, `email`, `no_hp`, `alamat`, `id_jabatan`, `jurusan`, `universitas`, `pendidikan_terakhir`, `tahun_masuk`, `status`, `gambar`, `id_golongan`, `gaji_pokok`, `total_gaji`, `create_date`) VALUES
+(6, '1', 'Fitra Arrafiq', '2020-11-27', 'Laki-laki', 'fitraarrafiq@gmail.com', '082390091029', 'medan, pekanbaru riau', '4', 'Sistem Informasi', 'Politeknik Caltex Riau', 'D4', '2016', 'Aktif', 'gada', '4', '', '', '2020-11-27'),
+(8, '3', 'Agus Salimss', '2020-11-30', 'PR', 'asdasd@sdgsdg', '123434', 'asdad', '4', 'asdasd', 'asdasd', 'asdasd', '1231231', 'Aktif', 'gada', '5', '', '', '2020-11-29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kenaikan_gaji`
+--
+
+CREATE TABLE `kenaikan_gaji` (
+  `id` int(11) NOT NULL,
+  `id_karyawan` text NOT NULL,
+  `persentase` text NOT NULL,
+  `jumlah_kenaikan` text NOT NULL,
+  `total_gaji` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -352,6 +376,12 @@ ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`id_karyawan`);
 
 --
+-- Indexes for table `kenaikan_gaji`
+--
+ALTER TABLE `kenaikan_gaji`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tingkat_jabatan`
 --
 ALTER TABLE `tingkat_jabatan`
@@ -383,19 +413,19 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT for table `bonus_kinerja`
 --
 ALTER TABLE `bonus_kinerja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bonus_lebaran`
 --
 ALTER TABLE `bonus_lebaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `gaji_bulanan`
 --
 ALTER TABLE `gaji_bulanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `gaji_tambahan`
@@ -413,7 +443,7 @@ ALTER TABLE `golongan`
 -- AUTO_INCREMENT for table `guru_terbaik`
 --
 ALTER TABLE `guru_terbaik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -426,6 +456,12 @@ ALTER TABLE `jabatan`
 --
 ALTER TABLE `karyawan`
   MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `kenaikan_gaji`
+--
+ALTER TABLE `kenaikan_gaji`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tingkat_jabatan`
