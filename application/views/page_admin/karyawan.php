@@ -308,13 +308,6 @@
                             </div>
                         </div>
                         <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Password<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="password" id="password" name="password" class="form-control has-feedback-left">
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
-                        <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">No Hp<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <input type="text" id="no_hp" name="no_hp" class="form-control has-feedback-left">

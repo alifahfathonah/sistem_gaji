@@ -49,8 +49,8 @@
 
     function ubah(id) {
         save_method = 'update';
-        $('#form_inputan')[0].reset();
-        $('#modal').modal('show');
+        $('#form_inputan1')[0].reset();
+        $('#modal1').modal('show');
         $('.form-group').removeClass('has-error')
             .removeClass('has-success')
             .find('#text-error').remove();
@@ -62,13 +62,9 @@
                 data = resp.data
                 $('[name="id"]').val(data.id);
                 $('[name="id_karyawan"]').val(data.id_karyawan);
-                $('[name="uang_transport"]').val(data.uang_transport);
-                $('[name="tunjangan_kinerja"]').val(data.tunjangan_kinerja);
-                $('[name="tunjangan_jabatan"]').val(data.tunjangan_jabatan);
-                $('[name="uang_extra_kurikuler"]').val(data.uang_extra_kurikuler);
-                $('[name="uang_lembur"]').val(data.uang_lembur);
-                $('[name="bonus_lain"]').val(data.bonus_lain);
-                $('[name="total_potongan"]').val(data.total_potongan);
+                $('[name="upload_portofolio"]').val(data.upload_portofolio);
+                $('[name="keterangan"]').val(data.keterangan);
+                $('[name="jumlah_bonus"]').val(data.jumlah_bonus);
                 $('[name="create_date"]').val(data.create_date);
                 $('.reset').hide();
             },
@@ -222,7 +218,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Add -->
 <div id="modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
         <!-- Modal content-->
@@ -234,6 +230,79 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <form action="<?php echo base_url('administrator/bonusGuruTerbaik/addData') ?>" id="form_inputan" method="post" class="form-horizontal" enctype="multipart/form-data">
+                <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
+                <div class="modal-body">
+                    <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left" required>
+                                        <option value="">Pilih Karyawan</option>
+                                        <?php foreach ($getKaryawan as $r) : ?>
+                                            <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Upload Portofolio<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="file" id="upload_portofolio" value="0" name="upload_portofolio" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Keterangan<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="text" id="keterangan" name="keterangan" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Jumlah Bonus<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="number" id="jumlah_bonus" value="0" name="jumlah_bonus" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <?php date_default_timezone_set('Asia/Jakarta'); ?>
+                                    <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    <button type="submit" onclick="alert('Apakah anda yakin ?')" class="btn btn-success btn-mini">Simpan</button>
+
+                </div>
+                <?php echo form_close() ?>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Update -->
+<div id="modal1" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <li class="fa fa-list"></li> Form Update Bonus Guru Terbaik
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="<?php echo base_url('administrator/bonusGuruTerbaik/update') ?>" id="form_inputan1" method="post" class="form-horizontal" enctype="multipart/form-data">
                 <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
                 <div class="modal-body">
                     <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>

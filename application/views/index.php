@@ -85,7 +85,7 @@
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/bonusGuruTerbaik') ?>"><i class="fa fa-bar-chart-o"></i> Bonus Guru Terbaik </span></a>
                                 </li>
-                                <li><a href="<?php echo base_url('administrator/kenaikanGaji') ?>"><i class="fa fa-clone"></i>Data Kenaikan Kerja </span></a>
+                                <li><a href="<?php echo base_url('administrator/kenaikanGaji') ?>"><i class="fa fa-clone"></i>Data Kenaikan Gaji </span></a>
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/golongan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
                                 </li>

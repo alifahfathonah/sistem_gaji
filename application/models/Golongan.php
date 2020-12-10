@@ -40,6 +40,14 @@ class Golongan extends CI_Model
         return $this->db->get_where('golongan ap', array('ap.id' => $id))->result();
     }
 
+    public function getGajiByGolongan($id)
+    {
+        $this->db->select('jumlah_gaji_pokok, total_gaji');
+        $this->db->from('golongan');
+        $this->db->where('id', $id);
+        return $this->db->get()->result();
+    }
+
     public function getById($id)
     {
         $this->db->select('*');
