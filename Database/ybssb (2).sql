@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2020 at 08:24 PM
+-- Generation Time: Dec 11, 2020 at 11:47 AM
 -- Server version: 5.7.32-0ubuntu0.18.04.1
 -- PHP Version: 7.1.33-24+ubuntu18.04.1+deb.sury.org+1
 
@@ -52,15 +52,6 @@ CREATE TABLE `bonus_kinerja` (
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `bonus_kinerja`
---
-
-INSERT INTO `bonus_kinerja` (`id`, `id_karyawan`, `nilai_kpi`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
-(1, '6', '13', '650000', '6820000', '2020-11-28'),
-(2, '8', '80', '960000', '2160023', '2020-11-29'),
-(3, '8', '30', '360000', '1560023', '2020-12-06');
-
 -- --------------------------------------------------------
 
 --
@@ -73,15 +64,6 @@ CREATE TABLE `bonus_lebaran` (
   `total_gaji_bonus` text NOT NULL,
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bonus_lebaran`
---
-
-INSERT INTO `bonus_lebaran` (`id`, `id_karyawan`, `total_gaji_bonus`, `create_date`) VALUES
-(1, '6', '11170000', '2020-11-29'),
-(2, '8', '2400023', '2020-11-29'),
-(3, '6', '11170000', '2020-12-06');
 
 -- --------------------------------------------------------
 
@@ -102,13 +84,6 @@ CREATE TABLE `gaji_bulanan` (
   `total_potongan` text NOT NULL,
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `gaji_bulanan`
---
-
-INSERT INTO `gaji_bulanan` (`id`, `id_karyawan`, `uang_transport`, `tunjangan_kinerja`, `tunjangan_jabatan`, `uang_extra_kurikuler`, `uang_lembur`, `bonus_lain`, `total_gaji`, `total_potongan`, `create_date`) VALUES
-(2, '8', '0', '0', '0', '0', '0', '0', '1200023', '0', '2020-12-09');
 
 -- --------------------------------------------------------
 
@@ -152,14 +127,6 @@ CREATE TABLE `golongan` (
   `create_date` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `golongan`
---
-
-INSERT INTO `golongan` (`id`, `level`, `jumlah_gaji_pokok`, `t_jalan_jalan`, `t_kesehatan`, `t_pelatihan`, `t_cuti_tahunan`, `t_study_banding`, `t_umroh`, `total_gaji`, `id_tingkat_jabatan`, `id_jabatan`, `create_date`) VALUES
-(4, 2, '5000000', '10000', '20000', '30000', '10000', '100000', '1000000', '6170000', '6', 4, '2020-11-27'),
-(5, 3, '1200000', '23', '0', '0', '0', '0', '0', '1200023', '5', 4, '2020-11-29');
-
 -- --------------------------------------------------------
 
 --
@@ -175,13 +142,6 @@ CREATE TABLE `guru_terbaik` (
   `total_gaji` text NOT NULL,
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `guru_terbaik`
---
-
-INSERT INTO `guru_terbaik` (`id`, `id_karyawan`, `upload_portofolio`, `keterangan`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
-(9, '8', 'Selection_001.png', 'sdasdsad', '60', '1200083', '2020-11-30');
 
 -- --------------------------------------------------------
 
@@ -201,7 +161,8 @@ CREATE TABLE `jabatan` (
 --
 
 INSERT INTO `jabatan` (`id`, `nama_jabatan`, `id_tingkat_jabatan`, `create_date`) VALUES
-(4, 'Guru SD', '6', '2020-11-27');
+(6, 'Kepala Sekolah', '8', '2020-12-11'),
+(7, 'Guru SD', '6', '2020-12-11');
 
 -- --------------------------------------------------------
 
@@ -230,14 +191,6 @@ CREATE TABLE `karyawan` (
   `total_gaji` text NOT NULL,
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `karyawan`
---
-
-INSERT INTO `karyawan` (`id_karyawan`, `role`, `nama_karyawan`, `tgl_lahir`, `jk`, `email`, `no_hp`, `alamat`, `id_jabatan`, `jurusan`, `universitas`, `pendidikan_terakhir`, `tahun_masuk`, `status`, `gambar`, `id_golongan`, `gaji_pokok`, `total_gaji`, `create_date`) VALUES
-(6, '1', 'Fitra Arrafiq', '2020-11-27', 'Laki-laki', 'fitraarrafiq@gmail.com', '082390091029', 'medan, pekanbaru riau', '4', 'Sistem Informasi', 'Politeknik Caltex Riau', 'D4', '2016', 'Aktif', 'gada', '4', '', '', '2020-11-27'),
-(8, '3', 'Agus Salimss', '2020-11-30', 'PR', 'asdasd@sdgsdg', '123434', 'asdad', '4', 'asdasd', 'asdasd', 'asdasd', '1231231', 'Aktif', 'gada', '5', '', '', '2020-11-29');
 
 -- --------------------------------------------------------
 
@@ -270,11 +223,11 @@ CREATE TABLE `tingkat_jabatan` (
 --
 
 INSERT INTO `tingkat_jabatan` (`id`, `nama`, `create_date`) VALUES
-(1, 'Manajemen', '2020-11-22'),
 (3, 'Keuangan', '2020-11-22'),
 (4, 'Administrasi', '2020-11-22'),
 (5, 'Keamanan dan Kebersihan', '2020-11-22'),
-(6, 'Guru', '2020-11-22');
+(6, 'Guru', '2020-11-22'),
+(8, 'Manajemen', '2020-12-11');
 
 -- --------------------------------------------------------
 
@@ -296,6 +249,45 @@ CREATE TABLE `transaksi_gaji_tambahan` (
 --
 
 CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `oauth_provider` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `oauth_uid` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_number` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `address` text COLLATE utf8_unicode_ci NOT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locale` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` enum('administrator','manajer','unit','ka_gudang','office') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `block_status` int(3) NOT NULL,
+  `online_status` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `time_online` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time_offline` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_unit` varchar(45) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `oauth_provider`, `oauth_uid`, `first_name`, `last_name`, `username`, `password`, `email`, `phone_number`, `address`, `gender`, `locale`, `picture`, `link`, `role`, `created`, `modified`, `block_status`, `online_status`, `time_online`, `time_offline`, `id_unit`) VALUES
+(42, '', '', 'First', 'Administrator', 'admin_penggajian', '0192023a7bbd73250516f069df18b500', '', '081562442811', 'Jalan Dr. Setia Budhi No. 57, Rintis, Lima Puluh, Kota Pekanbaru, Riau (28141)', NULL, NULL, NULL, '', 'administrator', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'online', '2020-12-11 04:47:39', '2020-12-11 04:47:39', ''),
+(49, '', '', 'Admin', 'Office', 'office123', '34abc02a6df39facbf57b09fc68bb256', '', '081199223344', 'Jalan Dr. Setia Budhi No. 57, Rintis, Lima Puluh, Kota Pekanbaru, Riau (28141)', NULL, NULL, NULL, '', 'office', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 'online', '2020-08-02 03:51:33', '2020-08-02 03:51:33', 'U-001');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users1`
+--
+
+CREATE TABLE `users1` (
   `id_users` int(255) NOT NULL,
   `role` enum('1','2','3','4','5','6') NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -306,10 +298,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `users1`
 --
 
-INSERT INTO `users` (`id_users`, `role`, `name`, `email`, `password`, `jabatan`, `poto`) VALUES
+INSERT INTO `users1` (`id_users`, `role`, `name`, `email`, `password`, `jabatan`, `poto`) VALUES
 (16, '1', 'Supervisor', 'supervisor@gmail.com', 'supervisor', 'Supervisor', 'LogoAsr.png'),
 (22, '2', 'Asmarini', 'asmarini@gmail.com', '12345678', 'Karyawan Tata Usaha', 'IMG-20191008-WA0009.jpg'),
 (23, '3', 'Junita,SE', 'junita@gmail.com', 'junita', 'Bendahara', 'download.png'),
@@ -397,6 +389,12 @@ ALTER TABLE `transaksi_gaji_tambahan`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users1`
+--
+ALTER TABLE `users1`
   ADD PRIMARY KEY (`id_users`);
 
 --
@@ -413,19 +411,19 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT for table `bonus_kinerja`
 --
 ALTER TABLE `bonus_kinerja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bonus_lebaran`
 --
 ALTER TABLE `bonus_lebaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gaji_bulanan`
 --
 ALTER TABLE `gaji_bulanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `gaji_tambahan`
@@ -437,37 +435,37 @@ ALTER TABLE `gaji_tambahan`
 -- AUTO_INCREMENT for table `golongan`
 --
 ALTER TABLE `golongan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `guru_terbaik`
 --
 ALTER TABLE `guru_terbaik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `kenaikan_gaji`
 --
 ALTER TABLE `kenaikan_gaji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tingkat_jabatan`
 --
 ALTER TABLE `tingkat_jabatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `transaksi_gaji_tambahan`
@@ -479,6 +477,12 @@ ALTER TABLE `transaksi_gaji_tambahan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `users1`
+--
+ALTER TABLE `users1`
   MODIFY `id_users` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
