@@ -7,7 +7,7 @@ class Gaji_bulanan extends CI_Model
 {
     public function getAllData()
     {
-        $this->datatables->select('b.id, k.nama_karyawan, tj.nama as nama_golongan, g.jumlah_gaji_pokok as gaji_pokok, j.nama_jabatan, b.uang_transport,b.tunjangan_kinerja,b.tunjangan_jabatan,b.uang_extra_kurikuler,b.uang_lembur,b.bonus_lain, b.total_gaji,b.total_potongan,b.create_date,b.create_date,b.create_date');
+        $this->datatables->select('b.id, k.nama_karyawan, tj.nama as nama_golongan, k.gaji_pokok, j.nama_jabatan, b.uang_transport,b.tunjangan_kinerja,b.tunjangan_jabatan,b.uang_extra_kurikuler,b.uang_lembur,b.bonus_lain, b.total_gaji,b.total_potongan,b.create_date,b.create_date,b.create_date');
         $this->datatables->from('gaji_bulanan b');
         $this->datatables->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
         $this->datatables->join('golongan g', 'g.id = k.id_golongan', 'left');
@@ -28,6 +28,14 @@ class Gaji_bulanan extends CI_Model
         $this->db->from('karyawan k');
         $this->db->join('golongan g', 'g.id = k.id_golongan', 'left');
         $this->db->where('k.id_karyawan', $id_golongan);
+        return $this->db->get()->result();
+    }
+
+    public function getGajiKar($id_kar)
+    {
+        $this->db->select('*');
+        $this->db->from('karyawan');
+        $this->db->where('id_karyawan', $id_kar);
         return $this->db->get()->result();
     }
 

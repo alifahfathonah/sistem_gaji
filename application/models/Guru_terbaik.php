@@ -22,7 +22,7 @@ class Guru_terbaik extends CI_Model
 
     public function getAllData()
     {
-        $this->datatables->select('gt.id , k.nama_karyawan, gt.upload_portofolio, gt.keterangan, gt.jumlah_bonus, gt.total_gaji, gt.create_date, gt.create_date');
+        $this->datatables->select('gt.id , k.nama_karyawan, gt.upload_portofolio, gt.keterangan, gt.jumlah_bonus, gt.create_date, gt.create_date');
         $this->datatables->from('guru_terbaik gt');
         $this->datatables->join('karyawan k', 'k.id_karyawan = gt.id_karyawan', 'left');
         return $this->datatables->generate();

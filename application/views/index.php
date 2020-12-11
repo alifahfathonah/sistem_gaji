@@ -64,7 +64,46 @@
 
                     <div class="clearfix"></div>
                     <br />
-
+                    <script type="text/javascript">
+                        function logout() {
+                            swal({
+                                    title: "Do you want to logout ?",
+                                    type: "warning",
+                                    // imageUrl: "<?php echo base_url() ?>assets/images/user.png",
+                                    text: "Click yes if you have been finished all the transactions in this system ",
+                                    showCancelButton: true,
+                                    showLoaderOnConfirm: true,
+                                    confirmButtonText: "Yes",
+                                    closeOnConfirm: false
+                                },
+                                function() {
+                                    $.ajax({
+                                        url: "<?php echo site_url('auth/logout'); ?>",
+                                        type: "POST",
+                                        dataType: "JSON",
+                                        data: {
+                                            '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
+                                        },
+                                        success: function(data) {
+                                            $url = '<?php echo base_url('/auth/') ?>';
+                                            setTimeout(() => {
+                                                $(location).attr('href', $url)
+                                            }, 1400);
+                                            return swal({
+                                                html: true,
+                                                timer: 1300,
+                                                showConfirmButton: false,
+                                                title: data['msg'],
+                                                type: data['status']
+                                            });
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            alert('Error to Log out, check the connection or configuration !');
+                                        }
+                                    });
+                                });
+                        }
+                    </script>
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
@@ -102,11 +141,11 @@
                     <!-- /sidebar menu -->
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" style="width: 100%;background-color: brown;color: #ccc;" data-placement="top" title="Logout" href="login.html">
+                    <!-- <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" style="width: 100%;background-color: brown;color: #ccc;" onclick="logout()" data-placement="top" title="Logout">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout !
                         </a>
-                    </div>
+                    </div> -->
                     <!-- /menu footer buttons -->
                 </div>
             </div>
@@ -120,13 +159,9 @@
                     <nav class="nav navbar-nav">
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="fa fa-user"></span> John Doe
-                                </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;">Change Password</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                                </div>
+                                <button onclick="logout()" class="user-profile btn btn-danger btn-sm"> <span class="glyphicon glyphicon-off"></span> Logout
+                                </button>
+
                             </li>
                         </ul>
                     </nav>

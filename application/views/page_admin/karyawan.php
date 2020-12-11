@@ -382,7 +382,7 @@
                                 <select name="id_golongan" id="id_golongan" class="form-control has-feedback-left">
                                     <option value="">Pilih Golongan</option>
                                     <?php foreach ($getGolongan as $r) { ?>
-                                        <option value="<?php echo $r->id ?>"><?php echo $r->nama_golongan; ?></option>
+                                        <option value="<?php echo $r->id ?>"><?php echo $r->nama_golongan . ' (' . $r->level . ')'; ?></option>
                                     <?php } ?>
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>

@@ -24,7 +24,7 @@ class Golongan extends CI_Model
 
     public function getDataGolongan()
     {
-        $this->db->select('g.id, tj.nama as nama_golongan');
+        $this->db->select('g.id, tj.nama as nama_golongan, g.level');
         $this->db->from('golongan g');
         $this->db->join('tingkat_jabatan tj', 'tj.id = g.id_tingkat_jabatan', 'left');
         $this->db->order_by('g.id', 'desc');

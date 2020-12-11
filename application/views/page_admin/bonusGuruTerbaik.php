@@ -49,29 +49,30 @@
 
     function ubah(id) {
         save_method = 'update';
-        $('#form_inputan1')[0].reset();
-        $('#modal1').modal('show');
-        $('.form-group').removeClass('has-error')
-            .removeClass('has-success')
-            .find('#text-error').remove();
-        $.ajax({
-            url: "<?php echo site_url('administrator/bonusGuruTerbaik/getById/'); ?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(resp) {
-                data = resp.data
-                $('[name="id"]').val(data.id);
-                $('[name="id_karyawan"]').val(data.id_karyawan);
-                $('[name="upload_portofolio"]').val(data.upload_portofolio);
-                $('[name="keterangan"]').val(data.keterangan);
-                $('[name="jumlah_bonus"]').val(data.jumlah_bonus);
-                $('[name="create_date"]').val(data.create_date);
-                $('.reset').hide();
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('Error Get Data From Ajax');
-            }
-        });
+        // $('#form_inputan1')[0].reset();
+        // $('#modal1').modal('show');
+        // $('.form-group').removeClass('has-error')
+        //     .removeClass('has-success')
+        //     .find('#text-error').remove();
+        // $.ajax({
+        //     url: "<?php echo site_url('administrator/bonusGuruTerbaik/getById/'); ?>/" + id,
+        //     type: "GET",
+        //     dataType: "JSON",
+        //     success: function(resp) {
+        //         data = resp.data
+        //         $('[name="id"]').val(data.id);
+        //         $('[name="id_karyawan"]').val(data.id_karyawan);
+        //         $('[name="upload_portofolio"]').val(data.upload_portofolio);
+        //         $('[name="keterangan"]').val(data.keterangan);
+        //         $('[name="jumlah_bonus"]').val(data.jumlah_bonus);
+        //         $('[name="create_date"]').val(data.create_date);
+        //         $('.reset').hide();
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         alert('Error Get Data From Ajax');
+        //     }
+        // });
+        alert('Sedang dalam pengerjaan');
 
     }
 
@@ -204,7 +205,7 @@
                                             <th style="font-size: 10px;">Portofolio</th>
                                             <th style="font-size: 10px;">Keterangan</th>
                                             <th style="font-size: 10px;">Jumlah Bonus</th>
-                                            <th style="font-size: 10px;">Total Gaji</th>
+                                            <!-- <th style="font-size: 10px;">Total Gaji</th> -->
                                             <th style="font-size: 10px;">Create Date</th>
                                         </tr>
                                     </thead>
