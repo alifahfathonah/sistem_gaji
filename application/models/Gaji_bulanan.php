@@ -1,5 +1,6 @@
 <?php
-
+/* Developed by : Fitra Arrafiq
+Copyright Allright Reserve. */
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Gaji_bulanan extends CI_Model

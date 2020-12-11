@@ -1,5 +1,6 @@
 <?php
-
+/* Developed by : Fitra Arrafiq
+Copyright Allright Reserve. */
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Administrator extends CI_Controller
@@ -159,9 +160,8 @@ class Administrator extends CI_Controller
                 $th4 = '<div style="font-size:12px;">' . $row->nama_jabatan . '</div>';
                 $th5 = '<div style="font-size:12px;">' . ($row->nilai_kpi) . ' % </div>';
                 $th6 = '<div style="font-size:12px;">' . rupiah_format($row->jumlah_bonus) . '</div>';
-                $th7 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
-                $th8 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
-                $data[]    = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8));
+                $th7 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
+                $data[]    = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7));
             }
             $dt['data'] = $data;
             echo json_encode($dt);
@@ -522,10 +522,13 @@ class Administrator extends CI_Controller
             echo json_encode(array('result' => $result, 'csrf' => $csrf));
             die;
         } else if ($param == 'delete') {
-            $this->Golongan->delete($id);
-            // $this->B_user_log_model->addLog(userLog('Hapus Data', $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name') . ' menghapus 1 data pada data pelanggan', $this->session->userdata('id')));
-
-            $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+            $getDataKaryawan = $this->Karyawan->getByIdGolongan($id);
+            if ($getDataKaryawan) {
+                $this->Golongan->delete($id);
+                $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+            } else {
+                $result = array('status' => 'error', 'msg' => 'Gagal dihapus, Data sedang digunakan !');
+            }
             echo json_encode(array('result' => $result));
             die;
         }
@@ -717,8 +720,11 @@ class Administrator extends CI_Controller
                 $th15 = '<div style="font-size:12px;">' . ($row->status) . '</div>';
                 $th16 = '<div style="font-size:12px;">' . ($row->gambar) . '</div>';
                 $th17 = '<div style="font-size:12px;">' . ($row->id_golongan) . '</div>';
-                $th18 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
-                $data[]     = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8, $th9, $th10, $th11, $th12, $th13, $th14, $th15, $th16, $th17, $th18));
+                $th18 = '<div style="font-size:12px;">' . rupiah_format($row->gaji_pokok) . '</div>';
+                $th19 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
+
+                $th20 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
+                $data[]     = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8, $th9, $th10, $th11, $th12, $th13, $th14, $th15, $th16, $th17, $th18, $th19, $th20));
             }
             $dt['data'] = $data;
             echo json_encode($dt);
@@ -750,7 +756,7 @@ class Administrator extends CI_Controller
                     $result['messages'][$key] = form_error($key);
                 }
             } else {
-                $getGolongan = $this->Golongan->getGajiByGolongan($this->input->post('id_golongan'));
+                $getGolongan           = $this->Golongan->getGajiByGolongan($this->input->post('id_golongan'));
                 $data['role']                = htmlspecialchars($this->input->post('role'));
                 $data['nama_karyawan']       = htmlspecialchars($this->input->post('nama_karyawan'));
                 $data['tgl_lahir']           = htmlspecialchars($this->input->post('tgl_lahir'));
@@ -784,7 +790,6 @@ class Administrator extends CI_Controller
             $this->form_validation->set_rules("tgl_lahir", "Tambahan tunjangan kinerja", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_rules("jk", "Tambahan tunjangan jabatan", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_rules("email", "Tambahan tunjangan extrakurikuler", "trim|required", array('required' => '{field} Wajib diisi !'));
-            $this->form_validation->set_rules("password", "Tambahan Tunjangan Lembur", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_rules("no_hp", "Tunjangan hari raya", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_rules("alamat", "Alamat", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_rules("id_jabatan", "Id Jabatan", "trim|required", array('required' => '{field} Wajib diisi !'));
@@ -802,13 +807,13 @@ class Administrator extends CI_Controller
                     $result['messages'][$key] = form_error($key);
                 }
             } else {
-                $data['id_karyawan']         = htmlspecialchars($this->input->post('id_karyawan'));
+                $data['id_karyawan']         = $this->input->post('id_karyawan');
+                $getGolongan           = $this->Golongan->getGajiByGolongan($this->input->post('id_golongan'));
                 $data['role']                = htmlspecialchars($this->input->post('role'));
                 $data['nama_karyawan']       = htmlspecialchars($this->input->post('nama_karyawan'));
                 $data['tgl_lahir']           = htmlspecialchars($this->input->post('tgl_lahir'));
                 $data['jk']                  = htmlspecialchars($this->input->post('jk'));
                 $data['email']               = htmlspecialchars($this->input->post('email'));
-                $data['password']            = htmlspecialchars($this->input->post('password'));
                 $data['no_hp']               = htmlspecialchars($this->input->post('no_hp'));
                 $data['alamat']              = htmlspecialchars($this->input->post('alamat'));
                 $data['id_jabatan']          = htmlspecialchars($this->input->post('id_jabatan'));
@@ -819,6 +824,8 @@ class Administrator extends CI_Controller
                 $data['status']              = htmlspecialchars($this->input->post('status'));
                 $data['gambar']              = htmlspecialchars($this->input->post('gambar'));
                 $data['id_golongan']         = htmlspecialchars($this->input->post('id_golongan'));
+                $data['gaji_pokok']          = $getGolongan[0]->jumlah_gaji_pokok;
+                $data['total_gaji']          = $getGolongan[0]->total_gaji;
                 $data['create_date']         = $this->input->post('create_date');
                 $result['messages']            = '';
                 $result                = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
@@ -830,8 +837,15 @@ class Administrator extends CI_Controller
             echo json_encode(array('result' => $result, 'csrf' => $csrf));
             die;
         } else if ($param == 'delete') {
+            $getKenaikanGaji = $this->Kenaikan_gaji->getKenaikanGajiByIdKaryawan($id);
+            $getIdKenaikanGajiByIdKaryawan = $this->Kenaikan_gaji->getIdKenaikanGajiByIdKaryawan($id);
+            // if ($getKenaikanGaji) {
+            $result = array('status' => 'error', 'msg' => 'Gagal dihapus, Data sedang digunakan untuk data kenaikan gaji !');
+            // } else {
             $this->Karyawan->delete($id);
+            $this->Kenaikan_gaji->delete($getIdKenaikanGajiByIdKaryawan->id);
             $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+            // }
             echo json_encode(array('result' => $result));
             die;
         }
@@ -847,9 +861,10 @@ class Administrator extends CI_Controller
 
     function kenaikanGaji($param = '', $id = '')
     {
-        $view['title']      = 'Tingkat Jabatan';
-        $view['pageName']   = 'kenaikanGaji';
-        $view['getJabatan'] = $this->Kenaikan_gaji->getData();
+        $view['title']       = 'Tingkat Jabatan';
+        $view['pageName']    = 'kenaikanGaji';
+        $view['getJabatan']  = $this->Kenaikan_gaji->getData();
+        $view['getKaryawan'] = $this->Karyawan->getData();
         if ($param == 'getAllData') {
             $dt    = $this->Kenaikan_gaji->getAllData();
             $start = $this->input->post('start');
@@ -859,9 +874,9 @@ class Administrator extends CI_Controller
                 $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
                 $th2 = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
                 $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
-                $th4 = '<div style="font-size:12px;">' . $row->persentase . '</div>';
-                $th5 = '<div style="font-size:12px;">' . $row->jumlah_kenaikan . '</div>';
-                $th6 = '<div style="font-size:12px;">' . $row->total_gaji . '</div>';
+                $th4 = '<div style="font-size:12px;">' . $row->persentase . ' % </div>';
+                $th5 = '<div style="font-size:12px;">' . rupiah_format($row->jumlah_kenaikan) . '</div>';
+                $th6 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
                 $data[]    = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6));
             }
             $dt['data'] = $data;
@@ -882,13 +897,24 @@ class Administrator extends CI_Controller
                 }
             } else {
                 $data['id_karyawan']     = htmlspecialchars($this->input->post('id_karyawan'));
+                $gajiKaryawan      = $this->Karyawan->getDataKaryawanById($data['id_karyawan']);
                 $data['persentase']      = htmlspecialchars($this->input->post('persentase'));
-                $data['jumlah_kenaikan'] = ($data['persentase']);
-                $data['total_gaji']      = htmlspecialchars($this->input->post('total_gaji'));
+                $data['jumlah_kenaikan'] = $gajiKaryawan[0]->gaji_pokok * ($data['persentase'] / 100);
+                $data['total_gaji']      = ($gajiKaryawan[0]->gaji_pokok + $data['jumlah_kenaikan']);
+
+                $data_karyawan['gaji_pokok'] = $data['total_gaji'];
 
                 $result['messages'] = '';
-                $result     = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
-                $this->Kenaikan_gaji->addData($data);
+                // Function to get Data Karyawan
+                $getIdKaryawan = $this->Kenaikan_gaji->getByIdKaryawan($data['id_karyawan']);
+                $getTotGajiKaryawan = ($gajiKaryawan[0]->total_gaji + $data['jumlah_kenaikan']);
+                if ($getIdKaryawan) {
+                    $result     = array('status' => 'error', 'msg' => 'Data Gagal di record atau data sudah ada !');
+                } else {
+                    $result     = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $this->Kenaikan_gaji->addData($data);
+                    $this->Karyawan->updateGaji($data['id_karyawan'], $data_karyawan['gaji_pokok'], $getTotGajiKaryawan);
+                }
             }
             $csrf = array(
                 'token' => $this->security->get_csrf_hash()
@@ -897,7 +923,7 @@ class Administrator extends CI_Controller
             die;
         } else if ($param == 'update') {
             $this->form_validation->set_rules("id_karyawan", "Nama Karyawan", "trim|required", array('required' => '{field} Wajib diisi !'));
-
+            $this->form_validation->set_rules("persentase", "Persentase Kenaikan", "trim|required", array('required' => '{field} Wajib diisi !'));
             $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
             if ($this->form_validation->run() == FALSE) {
                 $result = array('status' => 'error', 'msg' => 'Data yang anda isi belum benar !');
@@ -905,12 +931,15 @@ class Administrator extends CI_Controller
                     $result['messages'][$key] = form_error($key);
                 }
             } else {
-                $data['id']          = htmlspecialchars($this->input->post('id'));
-                $data['nama']        = htmlspecialchars($this->input->post('nama'));
-                $data['create_date'] = htmlspecialchars($this->input->post('create_date'));
-                $result['messages']    = '';
-                $result        = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
-                $this->Tingkat_jabatan->update($data['id'], $data);
+                $data['id']              = htmlspecialchars($this->input->post('id'));
+                $data['id_karyawan']     = htmlspecialchars($this->input->post('id_karyawan'));
+                $getDataGaji       = $this->Karyawan->getDataKaryawanById($data['id_karyawan']);
+                $data['persentase']      = htmlspecialchars($this->input->post('persentase'));
+                $data['jumlah_kenaikan'] = $getDataGaji[0]->gaji_pokok * ($data['persentase'] / 100);
+                $data['total_gaji']      = ($getDataGaji[0]->gaji_pokok + $data['jumlah_kenaikan']);
+                $result['messages']        = '';
+                $result            = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
+                $this->Kenaikan_gaji->update($data['id'], $data);
             }
             $csrf = array(
                 'token' => $this->security->get_csrf_hash()
@@ -918,8 +947,14 @@ class Administrator extends CI_Controller
             echo json_encode(array('result' => $result, 'csrf' => $csrf));
             die;
         } else if ($param == 'delete') {
-            $this->Tingkat_jabatan->delete($id);
-            $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+            $getData = $this->Kenaikan_gaji->getById($id);
+            $getByIdKar = $this->Kenaikan_gaji->getKenaikanGajiByIdKaryawan($getData->id_karyawan);
+            if (!$getByIdKar) {
+                $this->Kenaikan_gaji->delete($id);
+                $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+            } else {
+                $result = array('status' => 'error', 'msg' => 'Gagal dihapus, data sedang digunakan !');
+            }
             echo json_encode(array('result' => $result));
             die;
         }

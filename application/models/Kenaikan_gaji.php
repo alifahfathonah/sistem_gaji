@@ -1,4 +1,6 @@
 <?php
+/* Developed by : Fitra Arrafiq
+Copyright Allright Reserve. */
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Kenaikan_gaji extends CI_Model
@@ -13,7 +15,7 @@ class Kenaikan_gaji extends CI_Model
 
     public function getAllData()
     {
-        $this->datatables->select('j.id, k.nama_karyawan, j.jumlah_kenaikan, j.total_gaji, j.total_gaji');
+        $this->datatables->select('j.id, k.nama_karyawan, j.persentase, j.jumlah_kenaikan, j.total_gaji');
         $this->datatables->from('kenaikan_gaji j');
         $this->datatables->join('karyawan k', 'k.id_karyawan = j.id_karyawan', 'left');
         return $this->datatables->generate();
@@ -25,9 +27,41 @@ class Kenaikan_gaji extends CI_Model
         return $this->db->affected_rows() > 0 ? $this->db->insert_id() : FALSE;
     }
 
+    public function getByIdKaryawan($id_kar)
+    {
+        $this->db->select('*');
+        $this->db->from('kenaikan_gaji');
+        $this->db->where('id_karyawan', $id_kar);
+        return $this->db->get()->result();
+    }
+
+    public function getKenaikanGajiByIdKaryawan($id_kar)
+    {
+        $this->db->select('*');
+        $this->db->from('kenaikan_gaji');
+        $this->db->where('id_karyawan', $id_kar);
+        return $this->db->get()->result();
+    }
+
     public function get_by_id($id)
     {
         return $this->db->get_where('kenaikan_gaji ap', array('ap.id' => $id))->result();
+    }
+
+    public function getIdKenaikanGajiByIdKaryawan($id_kar)
+    {
+        $this->db->select('*');
+        $this->db->from('kenaikan_gaji');
+        $this->db->where('id_karyawan', $id_kar);
+        return $this->db->get()->row();
+    }
+
+    public function getIdKaryawanByIdKenaikanGaji($id)
+    {
+        $this->db->select('*');
+        $this->db->from('kenaikan_gaji');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
     }
 
     public function getById($id)

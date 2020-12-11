@@ -91,10 +91,6 @@
 
     }
 
-    function print(id) {
-        window.open("<?php echo base_url('administrator/printGajiBulanan') ?>/" + id, '_blank');
-    }
-
     function hapus(id) {
         swal({
                 title: "Apakah Yakin Akan Dihapus?",
@@ -234,6 +230,8 @@
                                             <th style="font-size: 10px;">Status</th>
                                             <th style="font-size: 10px;">Foto</th>
                                             <th style="font-size: 10px;">Id Golongan</th>
+                                            <th style="font-size: 10px;">Gaji Pokok</th>
+                                            <th style="font-size: 10px;">Gaji Keseluruhan</th>
                                             <th style="font-size: 10px;">Date</th>
                                         </tr>
                                     </thead>

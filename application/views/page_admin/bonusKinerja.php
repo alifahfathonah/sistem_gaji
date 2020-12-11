@@ -1,4 +1,6 @@
 <script>
+    /* Developed by : Fitra Arrafiq
+Copyright Allright Reserve. */
     console.log('test')
     document.addEventListener("DOMContentLoaded", function(event) {
         table = $('#data').DataTable({
@@ -202,7 +204,6 @@
                                             <th style="font-size: 10px;">Jabatan</th>
                                             <th style="font-size: 10px;">Nilai KPI</th>
                                             <th style="font-size: 10px;">Jumlah Bonus</th>
-                                            <th style="font-size: 10px;">Total Gaji</th>
                                             <th style="font-size: 10px;">Create Date</th>
                                         </tr>
                                     </thead>

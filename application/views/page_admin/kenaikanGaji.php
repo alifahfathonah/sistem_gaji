@@ -1,4 +1,6 @@
 <script>
+    /* Developed by : Fitra Arrafiq
+Copyright Allright Reserve. */
     document.addEventListener("DOMContentLoaded", function(event) {
         table = $('#data').DataTable({
             "processing": true,
@@ -199,7 +201,7 @@
                                     <th style="font-size: 10px;">Nama Karyawan</th>
                                     <th style="font-size: 10px;">Persentase</th>
                                     <th style="font-size: 10px;">Jumlah Kenaikan</th>
-                                    <th style="font-size: 10px;">Total Gaji</th>
+                                    <th style="font-size: 10px;">Gaji Pokok</th>
                                 </tr>
                             </thead>
                         </table>
@@ -229,7 +231,12 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="id_karyawan" name="id_karyawan">
+                                <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left">
+                                    <option value="">Pilih Karyawan</option>
+                                    <?php foreach ($getKaryawan as $r) { ?>
+                                        <option value="<?php echo $r->id_karyawan ?>"><?php echo $r->nama_karyawan ?></option>
+                                    <?php } ?>
+                                </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -238,21 +245,21 @@
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <select name="persentase" id="persentase" class="form-control has-feedback-left">
                                     <option value="">--Select--</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
+                                    <option value="1">1 %</option>
+                                    <option value="2">2 %</option>
+                                    <option value="3">3 %</option>
+                                    <option value="4">4 %</option>
+                                    <option value="5">5 %</option>
+                                    <option value="6">6 %</option>
+                                    <option value="7">7 %</option>
+                                    <option value="8">8 %</option>
+                                    <option value="9">9 %</option>
+                                    <option value="10">10 %</option>
+                                    <option value="11">11 %</option>
+                                    <option value="12">12 %</option>
+                                    <option value="13">13 %</option>
+                                    <option value="14">14 %</option>
+                                    <option value="15">15 %</option>
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>

@@ -1,12 +1,13 @@
 <?php
-
+/* Developed by : Fitra Arrafiq
+Copyright Allright Reserve. */
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Bonus_kinerja extends CI_Model
 {
     public function getAllData()
     {
-        $this->datatables->select('b.id, k.nama_karyawan, j.nama_jabatan, b.nilai_kpi, b.jumlah_bonus, b.total_gaji, b.create_date,  b.create_date');
+        $this->datatables->select('b.id, k.nama_karyawan, j.nama_jabatan, b.nilai_kpi, b.jumlah_bonus, b.create_date,  b.create_date');
         $this->datatables->from('bonus_kinerja b');
         $this->datatables->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
         $this->datatables->join('golongan g', 'g.id = k.id_golongan', 'left');
