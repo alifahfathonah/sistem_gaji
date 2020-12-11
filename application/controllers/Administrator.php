@@ -837,7 +837,7 @@ class Administrator extends CI_Controller
             echo json_encode(array('result' => $result, 'csrf' => $csrf));
             die;
         } else if ($param == 'delete') {
-            $getKenaikanGaji = $this->Kenaikan_gaji->getKenaikanGajiByIdKaryawan($id);
+            $getKenaikanGaji               = $this->Kenaikan_gaji->getKenaikanGajiByIdKaryawan($id);
             $getIdKenaikanGajiByIdKaryawan = $this->Kenaikan_gaji->getIdKenaikanGajiByIdKaryawan($id);
             // if ($getKenaikanGaji) {
             $result = array('status' => 'error', 'msg' => 'Gagal dihapus, Data sedang digunakan untuk data kenaikan gaji !');
@@ -906,12 +906,12 @@ class Administrator extends CI_Controller
 
                 $result['messages'] = '';
                 // Function to get Data Karyawan
-                $getIdKaryawan = $this->Kenaikan_gaji->getByIdKaryawan($data['id_karyawan']);
+                $getIdKaryawan      = $this->Kenaikan_gaji->getByIdKaryawan($data['id_karyawan']);
                 $getTotGajiKaryawan = ($gajiKaryawan[0]->total_gaji + $data['jumlah_kenaikan']);
                 if ($getIdKaryawan) {
-                    $result     = array('status' => 'error', 'msg' => 'Data Gagal di record atau data sudah ada !');
+                    $result = array('status' => 'error', 'msg' => 'Data Gagal di record atau data sudah ada !');
                 } else {
-                    $result     = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $result = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
                     $this->Kenaikan_gaji->addData($data);
                     $this->Karyawan->updateGaji($data['id_karyawan'], $data_karyawan['gaji_pokok'], $getTotGajiKaryawan);
                 }
@@ -932,13 +932,17 @@ class Administrator extends CI_Controller
                 }
             } else {
                 $data['id']              = htmlspecialchars($this->input->post('id'));
+                $kenaikanGaji = $this->Kenaikan_gaji->getById($data['id']);
                 $data['id_karyawan']     = htmlspecialchars($this->input->post('id_karyawan'));
                 $getDataGaji       = $this->Karyawan->getDataKaryawanById($data['id_karyawan']);
                 $data['persentase']      = htmlspecialchars($this->input->post('persentase'));
                 $data['jumlah_kenaikan'] = $getDataGaji[0]->gaji_pokok * ($data['persentase'] / 100);
-                $data['total_gaji']      = ($getDataGaji[0]->gaji_pokok + $data['jumlah_kenaikan']);
+                $data['total_gaji']      = (($getDataGaji[0]->gaji_pokok + $data['jumlah_kenaikan']) - $kenaikanGaji->jumlah_kenaikan);
                 $result['messages']        = '';
                 $result            = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
+                $data_karyawan['gaji_pokok']      = (($getDataGaji[0]->gaji_pokok + $data['jumlah_kenaikan']) - $kenaikanGaji->jumlah_kenaikan);
+                $getTotGajiKaryawan = (($getDataGaji[0]->total_gaji + $data['jumlah_kenaikan']) - $kenaikanGaji->jumlah_kenaikan);
+                $this->Karyawan->updateGaji($data['id_karyawan'], $data_karyawan['gaji_pokok'], $getTotGajiKaryawan);
                 $this->Kenaikan_gaji->update($data['id'], $data);
             }
             $csrf = array(
@@ -947,7 +951,7 @@ class Administrator extends CI_Controller
             echo json_encode(array('result' => $result, 'csrf' => $csrf));
             die;
         } else if ($param == 'delete') {
-            $getData = $this->Kenaikan_gaji->getById($id);
+            $getData    = $this->Kenaikan_gaji->getById($id);
             $getByIdKar = $this->Kenaikan_gaji->getKenaikanGajiByIdKaryawan($getData->id_karyawan);
             if (!$getByIdKar) {
                 $this->Kenaikan_gaji->delete($id);
