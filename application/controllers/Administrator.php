@@ -523,7 +523,7 @@ class Administrator extends CI_Controller
                 $this->form_validation->set_rules("t_cuti_tahunan", "Tunjangan cuti Tahunan", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("t_study_banding", "Tunjangan Study Banding", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("t_umroh", "Tunjangan Umroh", "trim|required", array('required' => '{field} Wajib diisi !'));
-                $this->form_validation->set_rules("id_tingkat_jabatan", "Golongan", "trim|required", array('required' => '{field} Wajib diisi !'));
+                // $this->form_validation->set_rules("id_tingkat_jabatan", "Golongan", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("id_jabatan", "Jabatan", "trim|required", array('required' => '{field} Wajib diisi !'));
 
                 $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
@@ -542,8 +542,9 @@ class Administrator extends CI_Controller
                     $data['t_study_banding']    = htmlspecialchars($this->input->post('t_study_banding'));
                     $data['t_umroh']            = htmlspecialchars($this->input->post('t_umroh'));
                     $data['total_gaji']         = ($data['jumlah_gaji_pokok'] + $data['t_jalan_jalan'] + $data['t_kesehatan'] + $data['t_pelatihan'] + $data['t_cuti_tahunan'] + $data['t_study_banding'] + $data['t_umroh']);
-                    $data['id_tingkat_jabatan'] = htmlspecialchars($this->input->post('id_tingkat_jabatan'));
                     $data['id_jabatan']         = htmlspecialchars($this->input->post('id_jabatan'));
+                    $getTingkatJabatan = $this->Jabatan->getById($data['id_jabatan']);
+                    $data['id_tingkat_jabatan'] = $getTingkatJabatan->id_tingkat_jabatan;
                     $data['create_date']        = $this->input->post('create_date');
                     $result['messages']           = '';
                     $result               = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
@@ -556,7 +557,6 @@ class Administrator extends CI_Controller
                 die;
             } else if ($param == 'update') {
                 $this->form_validation->set_rules("level", "Level", "trim|required", array('required' => '{field} Wajib diisi !'));
-                $this->form_validation->set_rules("nama_golongan", "Nama Golongan", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("jumlah_gaji_pokok", "Jumlah Gaji Pokok", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("t_jalan_jalan", "Tunjangan Jalan-jalan", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("t_kesehatan", "Tunjangan Kesehatan", "trim|required", array('required' => '{field} Wajib diisi !'));
@@ -564,8 +564,7 @@ class Administrator extends CI_Controller
                 $this->form_validation->set_rules("t_cuti_tahunan", "Tunjangan cuti Tahunan", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("t_study_banding", "Tunjangan Study Banding", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("t_umroh", "Tunjangan Umroh", "trim|required", array('required' => '{field} Wajib diisi !'));
-                $this->form_validation->set_rules("total_gaji", "Total Gaji", "trim|required", array('required' => '{field} Wajib diisi !'));
-                $this->form_validation->set_rules("id_tingkat_jabatan", "Golongan", "trim|required", array('required' => '{field} Wajib diisi !'));
+                // $this->form_validation->set_rules("id_tingkat_jabatan", "Golongan", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("id_jabatan", "Jabatan", "trim|required", array('required' => '{field} Wajib diisi !'));
 
                 $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
@@ -577,7 +576,6 @@ class Administrator extends CI_Controller
                 } else {
                     $data['id']                 = htmlspecialchars($this->input->post('id'));
                     $data['level']              = htmlspecialchars($this->input->post('level'));
-                    $data['nama_golongan']      = htmlspecialchars($this->input->post('nama_golongan'));
                     $data['jumlah_gaji_pokok']  = htmlspecialchars($this->input->post('jumlah_gaji_pokok'));
                     $data['t_jalan_jalan']      = htmlspecialchars($this->input->post('t_jalan_jalan'));
                     $data['t_kesehatan']        = htmlspecialchars($this->input->post('t_kesehatan'));
@@ -585,9 +583,10 @@ class Administrator extends CI_Controller
                     $data['t_cuti_tahunan']     = htmlspecialchars($this->input->post('t_cuti_tahunan'));
                     $data['t_study_banding']    = htmlspecialchars($this->input->post('t_study_banding'));
                     $data['t_umroh']            = htmlspecialchars($this->input->post('t_umroh'));
-                    $data['total_gaji']         = htmlspecialchars($this->input->post('total_gaji'));
-                    $data['id_tingkat_jabatan'] = htmlspecialchars($this->input->post('id_tingkat_jabatan'));
+                    $data['total_gaji']         = ($data['jumlah_gaji_pokok'] + $data['t_jalan_jalan'] + $data['t_kesehatan'] + $data['t_pelatihan'] + $data['t_cuti_tahunan'] + $data['t_study_banding'] + $data['t_umroh']);
                     $data['id_jabatan']         = htmlspecialchars($this->input->post('id_jabatan'));
+                    $getTingkatJabatan = $this->Jabatan->getById($data['id_jabatan']);
+                    $data['id_tingkat_jabatan'] = $getTingkatJabatan->id_tingkat_jabatan;
                     $data['create_date']        = $this->input->post('create_date');
                     $result['messages']           = '';
                     $result               = array('status' => 'success', 'msg' => 'Data Berhasil diubah');

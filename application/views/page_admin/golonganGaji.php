@@ -309,7 +309,7 @@
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
-                        <div class="field item form-group">
+                        <!-- <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Pilih Golongan Jabatan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <select name="id_tingkat_jabatan" id="id_tingkat_jabatan" class="form-control has-feedback-left">
@@ -320,7 +320,7 @@
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Pilih Jabatan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
