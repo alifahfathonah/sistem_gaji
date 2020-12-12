@@ -20,6 +20,14 @@ class Jabatan extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function getIdJabByGolongan($id_jab)
+    {
+        $this->db->select('*');
+        $this->db->from('golongan');
+        $this->db->where('id_jabatan', $id_jab);
+        return $this->db->get()->result();
+    }
+
     public function getAllData()
     {
         $this->datatables->select('j.id, j.nama_jabatan, tj.nama as tingkat_jabatan, j.create_date');

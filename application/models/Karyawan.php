@@ -66,10 +66,10 @@ class Karyawan extends CI_Model
 
     public function getByIdGolongan($id_gol)
     {
-        $this->db->select('*');
+        $this->db->select('id_golongan');
         $this->db->from('karyawan');
         $this->db->where('id_golongan', $id_gol);
-        $this->db->get()->result();
+        return $this->db->get()->row();
     }
 
     public function getById($id)

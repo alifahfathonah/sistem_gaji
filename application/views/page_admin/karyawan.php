@@ -1,5 +1,5 @@
 <script>
-    console.log('test')
+    console.log('developed by: Fitra Arrafiq; contact:fitraarrafiq@gmail.com; wa:082390091029; phone:082288383066;');
     document.addEventListener("DOMContentLoaded", function(event) {
         table = $('#data').DataTable({
             "processing": true,
@@ -126,6 +126,17 @@
             });
     }
 
+    function cekJabGol() {
+        <?php if (empty($getJabatan)) { ?>
+            alert('Anda tidak dapat mengisi data karyawan, karena data jabatan tidak ditemukan sama sekali, silahkan isi data jabatan terlebih dahulu !');
+            window.location = '<?php echo base_url('administrator/jabatan') ?>';
+        <?php } else if (empty($getGolongan)) { ?>
+            alert('Anda tidak dapat mengisi data karyawan, karena data golongan tidak ditemukan sama sekali, silahkan isi data golongan terlebih dahulu !');
+            window.location = '<?php echo base_url('administrator/golongan') ?>';
+        <?php } else { ?>
+            tambah();
+        <?php } ?>
+    }
 
     function simpan() {
         var token_name = '<?php echo $this->security->get_csrf_token_name(); ?>'
@@ -186,6 +197,7 @@
             });
     }
 </script>
+
 <div class="right_col" role="main">
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
@@ -194,7 +206,7 @@
                     <h2>Data Karyawan</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
-                            <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="cekJabGol();">
                         <li class="fa fa-plus"></li> Tambah Data</button>
                         </li>
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>

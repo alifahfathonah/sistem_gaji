@@ -600,7 +600,7 @@ class Administrator extends CI_Controller
                 die;
             } else if ($param == 'delete') {
                 $getDataKaryawan = $this->Karyawan->getByIdGolongan($id);
-                if (!$getDataKaryawan) {
+                if (empty($getDataKaryawan->id_golongan)) {
                     $this->Golongan->delete($id);
                     $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
                 } else {
@@ -698,8 +698,13 @@ class Administrator extends CI_Controller
                 echo json_encode(array('result' => $result, 'csrf' => $csrf));
                 die;
             } else if ($param == 'delete') {
-                $this->Jabatan->delete($id);
-                $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+                $cekJabatan = $this->Jabatan->getIdJabByGolongan($id);
+                if (empty($cekJabatan)) {
+                    $this->Jabatan->delete($id);
+                    $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+                } else {
+                    $result = array('status' => 'error', 'msg' => 'Gagal, Dokumen sedang digunakan oleh data golongan!');
+                }
                 echo json_encode(array('result' => $result));
                 die;
             }
@@ -813,6 +818,7 @@ class Administrator extends CI_Controller
             $view['pageName']    = 'karyawan';
             $view['getJabatan']  = $this->Jabatan->getData();
             $view['getGolongan'] = $this->Golongan->getDataGolongan();
+            $view['getDataGol'] = $this->Golongan->getData();
             if ($param == 'getAllData') {
                 $dt    = $this->Karyawan->getAllData();
                 $start = $this->input->post('start');
