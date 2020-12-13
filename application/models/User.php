@@ -21,7 +21,7 @@ class User extends CI_Model
 
     function get_all_data_ajax()
     {
-        $this->datatables->select('id, first_name, last_name, username, address,phone_number,role,id_unit,address');
+        $this->datatables->select('id, first_name, last_name, username, role');
         $this->datatables->from('users');
         return $this->datatables->generate();
     }

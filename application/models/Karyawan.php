@@ -37,11 +37,22 @@ class Karyawan extends CI_Model
         return $this->datatables->generate();
     }
 
+
+
     public function getGender($gender)
     {
         $this->db->select('count(jk) as tot_gender, jk');
         $this->db->from('karyawan');
         $this->db->where('jk', $gender);
+        return $this->db->get()->result();
+    }
+
+    public function countKaryawan()
+    {
+        $this->db->select('count(id_karyawan) as jml_karyawan');
+        $this->db->from('karyawan');
+        $this->db->order_by('id_karyawan', 'desc');
+
         return $this->db->get()->result();
     }
 

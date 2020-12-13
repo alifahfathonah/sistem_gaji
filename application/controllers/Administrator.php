@@ -29,10 +29,13 @@ class Administrator extends CI_Controller
         } else {
             $view['title']    = 'Dashboard';
             $view['pageName'] = 'home';
+            $view['countKaryawan'] = $this->Karyawan->countKaryawan();
+            $view['getGenderWoman'] = $this->Karyawan->getGender('LK');
+            $view['getGenderMan'] = $this->Karyawan->getGender('PR');
+            $view['countGuruTerbaik'] = $this->Guru_terbaik->countGuruTerbaik();
             $this->load->view('index', $view);
         }
     }
-
 
     public function gaji_bulanan($param = '', $id = '')
     {
@@ -59,8 +62,8 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id   = $row->id;
                     $th1  = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2  = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()');
-                    $th3  = (get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()'));
+                    $th2  = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'hapus("' . $id . '")' :  'pesan()');
+                    $th3  = (get_btn_export($this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'print("' . $id . '")' : 'pesan()'));
                     $th4  = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th5  = '<div style="font-size:12px;">' . $row->nama_golongan . '</div>';
                     $th6  = '<div style="font-size:12px;">' . rupiah_format($row->gaji_pokok) . '</div>';
@@ -194,7 +197,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->nama_jabatan . '</div>';
                     $th5 = '<div style="font-size:12px;">' . ($row->nilai_kpi) . ' % </div>';
@@ -295,7 +298,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->nama_jabatan . '</div>';
                     $th5 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji_bonus) . '</div>';
@@ -390,11 +393,11 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
-                    $th4 = '<div style="font-size:12px;">' . $row->upload_portofolio . '</div>';
+                    $th4 = '<div style="font-size:12px;"><img src="../gambar/' . $row->upload_portofolio . '" width="100px" height=""></div>';
                     $th5 = '<div style="font-size:12px;">' . $row->keterangan . '</div>';
-                    $th6 = '<div style="font-size:12px;">' . $row->jumlah_bonus . '</div>';
+                    $th6 = '<div style="font-size:12px;">' . rupiah_format($row->jumlah_bonus) . '</div>';
                     // $th7 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
                     $th8 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
                     $data[]    = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th8));
@@ -454,7 +457,6 @@ class Administrator extends CI_Controller
                         redirect('administrator/bonusGuruTerbaik');
                     } else {
                         $this->session->set_flashdata('alert', 'Gagal Mengupload Data, Gambar yang anda pilih sudah ada!');
-
                         redirect('administrator/bonusGuruTerbaik');
                     }
                 }
@@ -1015,7 +1017,7 @@ class Administrator extends CI_Controller
             redirect('auth/force_logout');
         } else {
             $this->load->library('pdfgenerator');
-            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $view['getSlipGaji'] = $this->Guru_terbaik->getSlipGaji($id);
             $this->load->view('page_admin/slipBonusGuruTerbaik', $view);
         }
     }
@@ -1035,7 +1037,7 @@ class Administrator extends CI_Controller
             redirect('auth/force_logout');
         } else {
             $this->load->library('pdfgenerator');
-            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $view['getSlipGaji'] = $this->Bonus_kinerja->getSlipGaji($id);
             $this->load->view('page_admin/slipBonusKinerja', $view);
         }
     }
@@ -1055,8 +1057,8 @@ class Administrator extends CI_Controller
             redirect('auth/force_logout');
         } else {
             $this->load->library('pdfgenerator');
-            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
-            $this->load->view('page_admin/slipBonusLebaran', $view);
+            $view['getSlipGaji'] = $this->Bonus_lebaran->getSlipGaji($id);
+            $this->load->view('page_admin/slipBonuslebaran', $view);
         }
     }
 
@@ -1075,7 +1077,7 @@ class Administrator extends CI_Controller
             redirect('auth/force_logout');
         } else {
             $this->load->library('pdfgenerator');
-            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $view['getSlipGaji'] = $this->Kenaikan_gaji->getSlipGaji($id);
             $this->load->view('page_admin/slipKenaikanGaji', $view);
         }
     }
@@ -1105,7 +1107,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->persentase . ' % </div>';
                     $th5 = '<div style="font-size:12px;">' . rupiah_format($row->jumlah_kenaikan) . '</div>';
@@ -1202,6 +1204,102 @@ class Administrator extends CI_Controller
     public function reportGajiBulanan($param = '', $id = '')
     {
         # code...
+    }
+
+    public function pengguna($param = '', $id = '')
+    {
+        $temp = $this->User->getuserById($this->session->userdata('id'));
+        if (!$this->session->userdata('loggedIn')) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in untuk mengakses sistem !');
+            redirect('/auth/');
+        } else if ($temp[0]->online_status != "online") {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else {
+            $view['pageName']                    = 'pengguna';
+            $view['title']                       = 'Data Pengguna Sistem';
+            $view['getKaryawan']                = $this->Karyawan->getData();
+            if ($param == 'getAllData') {
+                $dt = $this->User->get_all_data_ajax();
+                $start = $this->input->post('start');
+                $data = array();
+                foreach ($dt['data'] as $row) {
+                    $id = ($row->id);
+                    $th1 = ++$start;
+                    $th2 = get_btn_group1('ubah(' . $id . ')', 'hapus(' . $id . ')');
+                    $th3 = $row->first_name;
+                    // $th4 = $row->last_name;
+                    $th4 = '<i>' . $row->username . '</i>';
+                    $th5 = $row->role;
+                    $data[] = gathered_data(array($th1, $th2, $th3, $th4, $th5));
+                }
+                $dt['data'] = $data;
+                echo json_encode($dt);
+                die;
+            } else if ($param == 'addData') {
+                $this->form_validation->set_rules("first_name", "First Name", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("username", "Username", "trim|required|is_unique[users.username]", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("password", "Password", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("role", "Role", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
+                if ($this->form_validation->run() == FALSE) {
+                    $result = array('status' => 'error', 'msg' => 'Data yang anda isi Belum Benar!');
+                    foreach ($_POST as $key => $value) {
+                        $result['messages'][$key] = form_error($key);
+                    }
+                } else {
+                    $data['first_name']   = htmlspecialchars($this->input->post('first_name'));
+                    $data['username']     = htmlspecialchars($this->input->post('username'));
+                    $data['password']     = md5($this->input->post('password'));
+                    $data['role']         = htmlspecialchars($this->input->post('role'));
+                    $result['messages']   = '';
+                    $result               = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $this->User->addData($data);
+                }
+                $csrf = array(
+                    'token' => $this->security->get_csrf_hash()
+                );
+                echo json_encode(array('result' => $result, 'csrf' => $csrf));
+                die;
+            } else if ($param == 'getById') {
+                $data = $this->User->get_by_id($id);
+                echo json_encode(array('data' => $data));
+                die;
+            } else if ($param == 'update') {
+                $this->form_validation->set_rules("first_name", "First Name", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("username", "Username", "trim|required", array('required' => '{field} Wajib diisi !'));
+                // $this->form_validation->set_rules("password", "Password", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("role", "Role", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
+                if ($this->form_validation->run() == FALSE) {
+                    $result = array('status' => 'error', 'msg' => 'Data yang anda isi belum benar !');
+                    foreach ($_POST as $key => $value) {
+                        $result['messages'][$key] = form_error($key);
+                    }
+                } else {
+                    $data['id']           = ($this->input->post('id'));
+                    $data['first_name']   = htmlspecialchars($this->input->post('first_name'));
+                    $data['username']     = htmlspecialchars($this->input->post('username'));
+                    // $data['password']     = md5($this->input->post('password'));
+                    $data['role']         = htmlspecialchars($this->input->post('role'));
+                    $result['messages']   = '';
+                    $result = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
+                    $this->User->update($data['id'], $data);
+                }
+                $csrf = array(
+                    'token' => $this->security->get_csrf_hash()
+                );
+                echo json_encode(array('result' => $result, 'csrf' => $csrf));
+                die;
+            } else if ($param == 'delete') {
+                $this->User->delete($id);
+                $result = array('status' => 'success', 'msg' => 'Data berhasil dihapus !');
+                echo json_encode(array('result' => $result));
+                die;
+            }
+
+            $this->load->view('index', $view);
+        }
     }
 }
 

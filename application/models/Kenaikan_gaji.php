@@ -27,6 +27,14 @@ class Kenaikan_gaji extends CI_Model
         return $this->db->affected_rows() > 0 ? $this->db->insert_id() : FALSE;
     }
 
+    public function getSlipGaji()
+    {
+        $this->db->select('j.id, k.nama_karyawan, j.persentase, j.jumlah_kenaikan, j.total_gaji');
+        $this->db->from('kenaikan_gaji j');
+        $this->db->join('karyawan k', 'k.id_karyawan = j.id_karyawan', 'left');
+        return $this->db->get()->result();
+    }
+
     public function getByIdKaryawan($id_kar)
     {
         $this->db->select('*');

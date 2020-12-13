@@ -12,6 +12,17 @@ class Guru_terbaik extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function countGuruTerbaik()
+    {
+        $this->db->select('count(gt.id) as tot_guru, k.nama_karyawan, YEAR(gt.create_date) as tahun');
+        $this->db->from('guru_terbaik gt');
+        $this->db->join('karyawan k ', 'k.id_karyawan = gt.id_karyawan', 'left');
+        $this->db->group_by('gt.id_karyawan');
+        $this->db->where('YEAR(gt.create_date)', date('Y'));
+        $this->db->where('MONTH(gt.create_date)', date('m'));
+        return $this->db->get()->result();
+    }
+
     public function getTingkatJabatan()
     {
         $this->db->select('*');
@@ -26,6 +37,14 @@ class Guru_terbaik extends CI_Model
         $this->datatables->from('guru_terbaik gt');
         $this->datatables->join('karyawan k', 'k.id_karyawan = gt.id_karyawan', 'left');
         return $this->datatables->generate();
+    }
+
+    public function getSlipGaji()
+    {
+        $this->db->select('gt.id , k.nama_karyawan, gt.upload_portofolio, gt.keterangan, gt.jumlah_bonus, gt.create_date, gt.create_date');
+        $this->db->from('guru_terbaik gt');
+        $this->db->join('karyawan k', 'k.id_karyawan = gt.id_karyawan', 'left');
+        return $this->db->get()->result();
     }
 
     public function addData($data)

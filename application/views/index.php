@@ -1,3 +1,10 @@
+<!-- Developed By Fitra Arrafiq
+Fitechnone company
+Contact Us : fitraarrafiq@gmail.com
+Phone Number : 082288383066
+#!This Source code is copyright protected
+#!Kode program sistem ini memiliki perlindungan hak cipta
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,11 +162,11 @@
 
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <?php echo 'Welcome ! ' . $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name') ?>
+                                <?php echo 'Welcome ! ' . $this->session->userdata('first_name') ?>
                                 <button onclick="logout()" class="user-profile btn btn-danger btn-sm"> <span class="glyphicon glyphicon-off"></span> Logout
                                 </button>
                                 <?php if ($this->session->userdata('role') == 'administrator') { ?>
-                                    <button onclick="logout()" class="user-profile btn btn-warning btn-sm"> <span class="fa fa-cogs"></span> Users Management
+                                    <button onclick="window.location='<?php echo base_url('administrator/pengguna') ?>'" class="user-profile btn btn-warning btn-sm"> <span class="fa fa-cogs"></span> Users Management
                                     </button>
                                 <?php } else {
                                 } ?>
@@ -177,7 +184,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    <p style="font-size: 10px;">Contact us: fitraarrafiq@gmail.com <br>Copyright fitechnone Allrights Reserved.</p>
                 </div>
                 <div class="clearfix"></div>
             </footer>

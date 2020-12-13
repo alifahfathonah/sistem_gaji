@@ -30,7 +30,7 @@ class Bonus_kinerja extends CI_Model
         $this->db->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
         $this->db->join('golongan g', 'g.id = k.id_golongan', 'left');
         $this->db->join('jabatan j', 'j.id = k.id_jabatan', 'left');
-        $this->db->where('bk.id', $id);
+        $this->db->where('b.id', $id);
         return $this->db->get()->result();
     }
 
