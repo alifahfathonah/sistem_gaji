@@ -130,7 +130,7 @@
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/jabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
                                 </li>
-                                <li><a href="<?php echo base_url('administrator/tingkatJabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Jabatan </span></a>
+                                <li><a href="<?php echo base_url('administrator/tingkatJabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Tingkat Jabatan </span></a>
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/karyawan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Data Karyawan </span></a>
                                 </li>
@@ -159,6 +159,7 @@
                     <nav class="nav navbar-nav">
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <?php echo 'Welcome ! ' . $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name') ?>
                                 <button onclick="logout()" class="user-profile btn btn-danger btn-sm"> <span class="glyphicon glyphicon-off"></span> Logout
                                 </button>
 

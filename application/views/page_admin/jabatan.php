@@ -175,7 +175,7 @@
             <ul class="nav navbar-right panel_toolbox">
                 <li>
                     <button class="btn btn-success btn-sm" type="button" onclick="window.location='<?php echo base_url('administrator/tingkatJabatan') ?>'">
-                <li class="fa fa-pencil"></li> Kelola Golongan Jabatan</button>
+                <li class="fa fa-pencil"></li> Kelola Tingkat Jabatan</button>
                 <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
                     <li class="fa fa-plus"></li> Tambah Data
                 </button>

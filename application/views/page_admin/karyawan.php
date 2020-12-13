@@ -1,3 +1,41 @@
+<style>
+    #chartdiv {
+        width: 40%;
+        height: 200px;
+    }
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+
+<!-- Chart code -->
+<script>
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "pie",
+        "theme": "none",
+        "dataProvider": [{
+            "country": "Laki-laki",
+            "value": 260
+        }, {
+            "country": "Perempuan",
+            "value": 201
+        }],
+        "valueField": "value",
+        "titleField": "country",
+        "outlineAlpha": 0.4,
+        "depth3D": 15,
+        "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+        "angle": 30,
+        "export": {
+            "enabled": false
+        },
+    });
+</script>
+
+
 <script>
     console.log('developed by: Fitra Arrafiq; contact:fitraarrafiq@gmail.com; wa:082390091029; phone:082288383066;');
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -199,56 +237,55 @@
 </script>
 
 <div class="right_col" role="main">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Data Karyawan</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <button class="btn btn-primary btn-sm" type="button" onclick="cekJabGol();">
-                        <li class="fa fa-plus"></li> Tambah Data</button>
-                        </li>
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                    </ul>
-                    <div class="text-right">
-                    </div>
-                    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <div id="chartdiv"></div>
+                <h2>Data Karyawan</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="cekJabGol();">
+                    <li class="fa fa-plus"></li> Tambah Data</button>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="text-right">
                 </div>
-                <div class="x_content">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                                <table id="data" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th style="font-size: 10px;">No</th>
-                                            <th style="font-size: 10px;">Tools</th>
-                                            <th style="font-size: 10px;">Role</th>
-                                            <th style="font-size: 10px;">Nama Karyawan</th>
-                                            <th style="font-size: 10px;">Tanggal Lahir</th>
-                                            <th style="font-size: 10px;">Jenis Kelamin</th>
-                                            <th style="font-size: 10px;">Email</th>
-                                            <th style="font-size: 10px;">No Hp</th>
-                                            <th style="font-size: 10px;">Alamat</th>
-                                            <th style="font-size: 10px;">Id Jabatan</th>
-                                            <th style="font-size: 10px;">Jurusan</th>
-                                            <th style="font-size: 10px;">Universitas</th>
-                                            <th style="font-size: 10px;">Pendidikan Terakhir</th>
-                                            <th style="font-size: 10px;">Tahun Masuk</th>
-                                            <th style="font-size: 10px;">Status</th>
-                                            <th style="font-size: 10px;">Foto</th>
-                                            <th style="font-size: 10px;">Id Golongan</th>
-                                            <th style="font-size: 10px;">Gaji Pokok</th>
-                                            <th style="font-size: 10px;">Gaji Keseluruhan</th>
-                                            <th style="font-size: 10px;">Date</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <table id="data" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 10px;">No</th>
+                                        <th style="font-size: 10px;">Tools</th>
+                                        <th style="font-size: 10px;">Role</th>
+                                        <th style="font-size: 10px;">Nama Karyawan</th>
+                                        <th style="font-size: 10px;">Tanggal Lahir</th>
+                                        <th style="font-size: 10px;">Jenis Kelamin</th>
+                                        <th style="font-size: 10px;">Email</th>
+                                        <th style="font-size: 10px;">No Hp</th>
+                                        <th style="font-size: 10px;">Alamat</th>
+                                        <th style="font-size: 10px;">Id Jabatan</th>
+                                        <th style="font-size: 10px;">Jurusan</th>
+                                        <th style="font-size: 10px;">Universitas</th>
+                                        <th style="font-size: 10px;">Pendidikan Terakhir</th>
+                                        <th style="font-size: 10px;">Tahun Masuk</th>
+                                        <th style="font-size: 10px;">Status</th>
+                                        <th style="font-size: 10px;">Foto</th>
+                                        <th style="font-size: 10px;">Id Golongan</th>
+                                        <th style="font-size: 10px;">Gaji Pokok</th>
+                                        <th style="font-size: 10px;">Gaji Keseluruhan</th>
+                                        <th style="font-size: 10px;">Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>

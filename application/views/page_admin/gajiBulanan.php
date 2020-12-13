@@ -179,53 +179,51 @@
     }
 </script>
 <div class="right_col" role="main">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Data Gaji Bulanan</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
-                        <li class="fa fa-plus"></li> Tambah Data</button>
-                        </li>
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                    </ul>
-                    <div class="text-right">
-                    </div>
-                    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Data Gaji Bulanan</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="tambah()">
+                    <li class="fa fa-plus"></li> Tambah Data</button>
+                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="text-right">
                 </div>
-                <div class="x_content">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-box table-responsive">
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
 
-                                <table id="data" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th style="font-size: 10px;">No</th>
-                                            <th style="font-size: 10px;">Tools</th>
-                                            <th style="font-size: 10px;">Cetak</th>
-                                            <th style="font-size: 10px;">Nama Karyawan</th>
-                                            <th style="font-size: 10px;">Nama Golongan</th>
-                                            <th style="font-size: 10px;">Jumlah Gaji Pokok</th>
-                                            <th style="font-size: 10px;">Nama Jabatan</th>
-                                            <th style="font-size: 10px;">Tunjangan Transport</th>
-                                            <th style="font-size: 10px;">Tunjangan Kinerja</th>
-                                            <th style="font-size: 10px;">Tunjangan Jabatan</th>
-                                            <th style="font-size: 10px;">Tunjangan Extrakurikuler</th>
-                                            <th style="font-size: 10px;">Tunjangan Lembur</th>
-                                            <th style="font-size: 10px;">Tunjangan Bonus Lain</th>
-                                            <th style="font-size: 10px;">Total Potongan</th>
-                                            <th style="font-size: 10px;">Total Gaji Keseluruhan () (Ex.Pajak)</th>
-                                            <th style="font-size: 10px;">Create Date</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                            <table id="data" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 10px;">No</th>
+                                        <th style="font-size: 10px;">Tools</th>
+                                        <th style="font-size: 10px;">Cetak</th>
+                                        <th style="font-size: 10px;">Nama Karyawan</th>
+                                        <th style="font-size: 10px;">Nama Golongan</th>
+                                        <th style="font-size: 10px;">Jumlah Gaji Pokok</th>
+                                        <th style="font-size: 10px;">Nama Jabatan</th>
+                                        <th style="font-size: 10px;">Tunjangan Transport</th>
+                                        <th style="font-size: 10px;">Tunjangan Kinerja</th>
+                                        <th style="font-size: 10px;">Tunjangan Jabatan</th>
+                                        <th style="font-size: 10px;">Tunjangan Extrakurikuler</th>
+                                        <th style="font-size: 10px;">Tunjangan Lembur</th>
+                                        <th style="font-size: 10px;">Tunjangan Bonus Lain</th>
+                                        <th style="font-size: 10px;">Total Potongan</th>
+                                        <th style="font-size: 10px;">Total Gaji Keseluruhan () (Ex.Pajak)</th>
+                                        <th style="font-size: 10px;">Create Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
