@@ -263,21 +263,21 @@
                                     <tr>
                                         <th style="font-size: 10px;">No</th>
                                         <th style="font-size: 10px;">Tools</th>
-                                        <th style="font-size: 10px;">Role</th>
+                                        <!-- <th style="font-size: 10px;">Role</th> -->
                                         <th style="font-size: 10px;">Nama Karyawan</th>
                                         <th style="font-size: 10px;">Tanggal Lahir</th>
                                         <th style="font-size: 10px;">Jenis Kelamin</th>
                                         <th style="font-size: 10px;">Email</th>
                                         <th style="font-size: 10px;">No Hp</th>
                                         <th style="font-size: 10px;">Alamat</th>
-                                        <th style="font-size: 10px;">Id Jabatan</th>
+                                        <th style="font-size: 10px;">Nama Jabatan</th>
                                         <th style="font-size: 10px;">Jurusan</th>
                                         <th style="font-size: 10px;">Universitas</th>
                                         <th style="font-size: 10px;">Pendidikan Terakhir</th>
                                         <th style="font-size: 10px;">Tahun Masuk</th>
                                         <th style="font-size: 10px;">Status</th>
                                         <th style="font-size: 10px;">Foto</th>
-                                        <th style="font-size: 10px;">Id Golongan</th>
+                                        <th style="font-size: 10px;"> Golongan</th>
                                         <th style="font-size: 10px;">Gaji Pokok</th>
                                         <th style="font-size: 10px;">Gaji Keseluruhan</th>
                                         <th style="font-size: 10px;">Date</th>
@@ -307,7 +307,7 @@
                 <?php echo form_input(array('id' => 'id_karyawan', 'name' => 'id_karyawan', 'type' => 'hidden')); ?>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="field item form-group">
+                        <!-- <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Role<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <select name="role" id="role" class="form-control has-feedback-left">
@@ -319,7 +319,7 @@
                                 </select>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">

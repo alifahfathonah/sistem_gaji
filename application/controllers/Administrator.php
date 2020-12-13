@@ -832,26 +832,26 @@ class Administrator extends CI_Controller
                     $id   = $row->id_karyawan;
                     $th1  = '<div style="font-size:12px;">' . ++$start . '</div>';
                     $th2  = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
-                    $th3  = '<div style="font-size:12px;">' . $row->role . '</div>';
+                    // $th3  = '<div style="font-size:12px;">' . $row->role . '</div>';
                     $th4  = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th5  = '<div style="font-size:12px;">' . $row->tgl_lahir . '</div>';
                     $th6  = '<div style="font-size:12px;">' . $row->jk . '</div>';
                     $th7  = '<div style="font-size:12px;">' . ($row->email) . '</div>';
                     $th8  = '<div style="font-size:12px;">' . ($row->no_hp) . '</div>';
                     $th9  = '<div style="font-size:12px;">' . ($row->alamat) . '</div>';
-                    $th10 = '<div style="font-size:12px;">' . ($row->id_jabatan) . '</div>';
+                    $th10 = '<div style="font-size:12px;">' . ($row->nama_jabatan) . '</div>';
                     $th11 = '<div style="font-size:12px;">' . ($row->jurusan) . '</div>';
                     $th12 = '<div style="font-size:12px;">' . ($row->universitas) . '</div>';
                     $th13 = '<div style="font-size:12px;">' . ($row->pendidikan_terakhir) . '</div>';
                     $th14 = '<div style="font-size:12px;">' . ($row->tahun_masuk) . '</div>';
                     $th15 = '<div style="font-size:12px;">' . ($row->status) . '</div>';
                     $th16 = '<div style="font-size:12px;">' . ($row->gambar) . '</div>';
-                    $th17 = '<div style="font-size:12px;">' . ($row->id_golongan) . '</div>';
+                    $th17 = '<div style="font-size:12px;">' . ($row->level) . '</div>';
                     $th18 = '<div style="font-size:12px;">' . rupiah_format($row->gaji_pokok) . '</div>';
                     $th19 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
 
                     $th20 = '<div style="font-size:12px;">' . tgl_indo($row->create_date) . '</div>';
-                    $data[]     = gathered_data(array($th1, $th2, $th3, $th4, $th5, $th6, $th7, $th8, $th9, $th10, $th11, $th12, $th13, $th14, $th15, $th16, $th17, $th18, $th19, $th20));
+                    $data[]     = gathered_data(array($th1, $th2, $th4, $th5, $th6, $th7, $th8, $th9, $th10, $th11, $th12, $th13, $th14, $th15, $th16, $th17, $th18, $th19, $th20));
                 }
                 $dt['data'] = $data;
                 echo json_encode($dt);
@@ -884,7 +884,7 @@ class Administrator extends CI_Controller
                     }
                 } else {
                     $getGolongan           = $this->Golongan->getGajiByGolongan($this->input->post('id_golongan'));
-                    $data['role']                = htmlspecialchars($this->input->post('role'));
+                    // $data['role']                = htmlspecialchars($this->input->post('role'));
                     $data['nama_karyawan']       = htmlspecialchars($this->input->post('nama_karyawan'));
                     $data['tgl_lahir']           = htmlspecialchars($this->input->post('tgl_lahir'));
                     $data['jk']                  = htmlspecialchars($this->input->post('jk'));
@@ -912,7 +912,7 @@ class Administrator extends CI_Controller
                 echo json_encode(array('result' => $result, 'csrf' => $csrf));
                 die;
             } else if ($param == 'update') {
-                $this->form_validation->set_rules("role", "Role Pengguna", "trim|required", array('required' => '{field} Wajib diisi !'));
+                // $this->form_validation->set_rules("role", "Role Pengguna", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("nama_karyawan", "Tambahan Transport", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("tgl_lahir", "Tambahan tunjangan kinerja", "trim|required", array('required' => '{field} Wajib diisi !'));
                 $this->form_validation->set_rules("jk", "Tambahan tunjangan jabatan", "trim|required", array('required' => '{field} Wajib diisi !'));
@@ -936,7 +936,7 @@ class Administrator extends CI_Controller
                 } else {
                     $data['id_karyawan']         = $this->input->post('id_karyawan');
                     $getGolongan           = $this->Golongan->getGajiByGolongan($this->input->post('id_golongan'));
-                    $data['role']                = htmlspecialchars($this->input->post('role'));
+                    // $data['role']                = htmlspecialchars($this->input->post('role'));
                     $data['nama_karyawan']       = htmlspecialchars($this->input->post('nama_karyawan'));
                     $data['tgl_lahir']           = htmlspecialchars($this->input->post('tgl_lahir'));
                     $data['jk']                  = htmlspecialchars($this->input->post('jk'));

@@ -14,30 +14,29 @@ class Karyawan extends CI_Model
 
     public function getAllData()
     {
-        $this->datatables->select('id_karyawan,
-        role,
-        nama_karyawan,
-        tgl_lahir,
-        jk,
-        email,
-        no_hp,
-        alamat,
-        id_jabatan,
-        jurusan,
-        universitas,
-        pendidikan_terakhir,
-        tahun_masuk,
-        status,
-        gambar,
-        id_golongan,
-        gaji_pokok,
-        total_gaji,
-        create_date');
-        $this->datatables->from('karyawan');
+        $this->datatables->select('k.id_karyawan,
+        k.nama_karyawan,
+        k.tgl_lahir,
+        k.jk,
+        k.email,
+        k.no_hp,
+        k.alamat,
+        j.nama_jabatan,
+        k.jurusan,
+        k.universitas,
+        k.pendidikan_terakhir,
+        k.tahun_masuk,
+        k.status,
+        k.gambar,
+        g.level,
+        k.gaji_pokok,
+        k.total_gaji,
+        k.create_date');
+        $this->datatables->from('karyawan k');
+        $this->datatables->join('golongan g', 'g.id = k.id_golongan', 'left');
+        $this->datatables->join('jabatan j', 'j.id = k.id_jabatan', 'left');
         return $this->datatables->generate();
     }
-
-
 
     public function getGender($gender)
     {
