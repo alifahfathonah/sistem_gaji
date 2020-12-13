@@ -13,7 +13,7 @@ Copyright Allright Reserve. */
             "dataType": 'JSON',
             "dom": 'Bfrtip',
             "buttons": [
-                'excel', 'pdf', 'print'
+                'excel', 'print'
             ],
             "ajax": {
                 "url": "<?php echo site_url('administrator/kenaikanGaji/getAllData') ?>",
@@ -33,6 +33,10 @@ Copyright Allright Reserve. */
     });
 
     var save_method;
+
+    function pesan() {
+        alert('Sorry, you can not use this feature, You are not allowed to access it !');
+    }
 
     function updateAllTable() {
         table.ajax.reload();
@@ -73,6 +77,9 @@ Copyright Allright Reserve. */
 
     }
 
+    function print(id) {
+        window.open("<?php echo base_url('administrator/slipKenaikanGaji') ?>/" + id, '_blank');
+    }
 
     function hapus(id) {
         swal({

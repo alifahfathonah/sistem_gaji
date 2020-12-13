@@ -37,6 +37,14 @@ class Karyawan extends CI_Model
         return $this->datatables->generate();
     }
 
+    public function getGender($gender)
+    {
+        $this->db->select('count(jk) as tot_gender, jk');
+        $this->db->from('karyawan');
+        $this->db->where('jk', $gender);
+        return $this->db->get()->result();
+    }
+
     public function getDataKaryawanById($id)
     {
         $this->db->select('id_karyawan,gaji_pokok, total_gaji');

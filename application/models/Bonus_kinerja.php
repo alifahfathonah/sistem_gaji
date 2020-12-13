@@ -23,6 +23,17 @@ class Bonus_kinerja extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function getSlipGaji($id)
+    {
+        $this->db->select('b.id, k.nama_karyawan, j.nama_jabatan, b.nilai_kpi, b.jumlah_bonus, b.create_date,  b.create_date');
+        $this->db->from('bonus_kinerja b');
+        $this->db->join('karyawan k', 'k.id_karyawan = b.id_karyawan', 'left');
+        $this->db->join('golongan g', 'g.id = k.id_golongan', 'left');
+        $this->db->join('jabatan j', 'j.id = k.id_jabatan', 'left');
+        $this->db->where('bk.id', $id);
+        return $this->db->get()->result();
+    }
+
     public function addData($data)
     {
         $this->db->insert('bonus_kinerja', $data);

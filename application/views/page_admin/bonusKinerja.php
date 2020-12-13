@@ -12,10 +12,10 @@ Copyright Allright Reserve. */
             ],
             "responsive": true,
             "dataType": 'JSON',
-            // "dom": 'Bfrtip',
-            // "buttons": [
-            //     'copy', 'csv', 'excel', 'pdf', 'print'
-            // ],
+            "dom": 'Bfrtip',
+            "buttons": [
+                'excel', 'print'
+            ],
             "ajax": {
                 "url": "<?php echo site_url('administrator/bonusKinerja/getAllData') ?>",
                 "type": "POST",
@@ -37,6 +37,14 @@ Copyright Allright Reserve. */
 
     function updateAllTable() {
         table.ajax.reload();
+    }
+
+    function pesan() {
+        alert('Sorry, you can not use this feature, You are not allowed to access it !');
+    }
+
+    function print(id) {
+        window.open("<?php echo base_url('administrator/slipBonusKinerja') ?>/" + id, '_blank');
     }
 
     function tambah() {

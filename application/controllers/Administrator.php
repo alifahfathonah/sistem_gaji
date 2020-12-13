@@ -33,6 +33,7 @@ class Administrator extends CI_Controller
         }
     }
 
+
     public function gaji_bulanan($param = '', $id = '')
     {
         $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
@@ -58,8 +59,8 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id   = $row->id;
                     $th1  = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2  = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
-                    $th3  = get_btn_export('print("' . $id . '")');
+                    $th2  = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()');
+                    $th3  = (get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()'));
                     $th4  = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th5  = '<div style="font-size:12px;">' . $row->nama_golongan . '</div>';
                     $th6  = '<div style="font-size:12px;">' . rupiah_format($row->gaji_pokok) . '</div>';
@@ -193,7 +194,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->nama_jabatan . '</div>';
                     $th5 = '<div style="font-size:12px;">' . ($row->nilai_kpi) . ' % </div>';
@@ -294,7 +295,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->nama_jabatan . '</div>';
                     $th5 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji_bonus) . '</div>';
@@ -389,7 +390,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->upload_portofolio . '</div>';
                     $th5 = '<div style="font-size:12px;">' . $row->keterangan . '</div>';
@@ -818,6 +819,9 @@ class Administrator extends CI_Controller
             $view['getJabatan']  = $this->Jabatan->getData();
             $view['getGolongan'] = $this->Golongan->getDataGolongan();
             $view['getDataGol'] = $this->Golongan->getData();
+            $view['getGenderWoman'] = $this->Karyawan->getGender('PR');
+            $view['getGenderMan'] = $this->Karyawan->getGender('LK');
+
             if ($param == 'getAllData') {
                 $dt    = $this->Karyawan->getAllData();
                 $start = $this->input->post('start');
@@ -976,7 +980,7 @@ class Administrator extends CI_Controller
         }
     }
 
-    public function printGajiBulanan($id)
+    public function slipGajiBulanan($id)
     {
         $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
         $temp = $this->User->getuserById($this->session->userdata('id'));
@@ -992,7 +996,87 @@ class Administrator extends CI_Controller
         } else {
             $this->load->library('pdfgenerator');
             $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
-            $this->load->view('page_admin/exportGajiBulanan', $view);
+            $this->load->view('page_admin/slipGajiBulanan', $view);
+        }
+    }
+
+    public function slipBonusGuruTerbaik($id)
+    {
+        $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
+        $temp = $this->User->getuserById($this->session->userdata('id'));
+        if (!$this->session->userdata('loggedIn')) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in untuk mengakses sistem !');
+            redirect('/auth/');
+        } else if ($temp[0]->online_status != "online") {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else if (count_time_since(strtotime($userOnById[0]->time_online)) > 7100) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else {
+            $this->load->library('pdfgenerator');
+            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $this->load->view('page_admin/slipBonusGuruTerbaik', $view);
+        }
+    }
+
+    public function slipBonusKinerja($id)
+    {
+        $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
+        $temp = $this->User->getuserById($this->session->userdata('id'));
+        if (!$this->session->userdata('loggedIn')) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in untuk mengakses sistem !');
+            redirect('/auth/');
+        } else if ($temp[0]->online_status != "online") {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else if (count_time_since(strtotime($userOnById[0]->time_online)) > 7100) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else {
+            $this->load->library('pdfgenerator');
+            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $this->load->view('page_admin/slipBonusKinerja', $view);
+        }
+    }
+
+    public function slipBonusLebaran($id)
+    {
+        $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
+        $temp = $this->User->getuserById($this->session->userdata('id'));
+        if (!$this->session->userdata('loggedIn')) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in untuk mengakses sistem !');
+            redirect('/auth/');
+        } else if ($temp[0]->online_status != "online") {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else if (count_time_since(strtotime($userOnById[0]->time_online)) > 7100) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else {
+            $this->load->library('pdfgenerator');
+            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $this->load->view('page_admin/slipBonusLebaran', $view);
+        }
+    }
+
+    public function slipKenaikanGaji($id)
+    {
+        $userOnById = $this->User->getOnlineUserById($this->session->userdata('id'));
+        $temp = $this->User->getuserById($this->session->userdata('id'));
+        if (!$this->session->userdata('loggedIn')) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in untuk mengakses sistem !');
+            redirect('/auth/');
+        } else if ($temp[0]->online_status != "online") {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else if (count_time_since(strtotime($userOnById[0]->time_online)) > 7100) {
+            $this->session->set_flashdata('result_login', 'Silahkan Log in kembali untuk mengakses sistem !');
+            redirect('auth/force_logout');
+        } else {
+            $this->load->library('pdfgenerator');
+            $view['getSlipGaji'] = $this->Gaji_bulanan->getSlipGaji($id);
+            $this->load->view('page_admin/slipKenaikanGaji', $view);
         }
     }
 
@@ -1021,7 +1105,7 @@ class Administrator extends CI_Controller
                 foreach ($dt['data'] as $row) {
                     $id  = $row->id;
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
-                    $th2 = get_btn_group1('ubah("' . $id . '")', 'hapus("' . $id . '")');
+                    $th2 = get_btn_group1('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' ? 'hapus("' . $id . '")' : 'pesan()') . get_btn_export($this->session->userdata('role') == 'administrator' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
                     $th4 = '<div style="font-size:12px;">' . $row->persentase . ' % </div>';
                     $th5 = '<div style="font-size:12px;">' . rupiah_format($row->jumlah_kenaikan) . '</div>';
@@ -1113,6 +1197,11 @@ class Administrator extends CI_Controller
             }
             $this->load->view('index', $view);
         }
+    }
+
+    public function reportGajiBulanan($param = '', $id = '')
+    {
+        # code...
     }
 }
 

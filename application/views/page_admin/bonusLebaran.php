@@ -10,10 +10,10 @@
             ],
             "responsive": true,
             "dataType": 'JSON',
-            // "dom": 'Bfrtip',
-            // "buttons": [
-            //     'copy', 'csv', 'excel', 'pdf', 'print'
-            // ],
+            "dom": 'Bfrtip',
+            "buttons": [
+                'excel', 'print'
+            ],
             "ajax": {
                 "url": "<?php echo site_url('administrator/bonusLebaran/getAllData') ?>",
                 "type": "POST",
@@ -35,6 +35,14 @@
 
     function updateAllTable() {
         table.ajax.reload();
+    }
+
+    function pesan() {
+        alert('Sorry, you can not use this feature, You are not allowed to access it !');
+    }
+
+    function print(id) {
+        window.open("<?php echo base_url('administrator/slipBonusLebaran') ?>/" + id, '_blank');
     }
 
     function tambah() {
@@ -79,9 +87,7 @@
 
     }
 
-    function print(id) {
-        window.open("<?php echo base_url('administrator/printGajiBulanan') ?>/" + id, '_blank');
-    }
+
 
     function hapus(id) {
         swal({

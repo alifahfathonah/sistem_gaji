@@ -112,12 +112,7 @@
                             </div>
                             <ul class="nav side-menu">
                                 <li><a href="<?php echo base_url('administrator'); ?>"><i class="fa fa-home"></i> Home/Dashboard </a></li>
-                                <li><a><i class="fa fa-edit"></i> <span class="fa fa-chevron-down"></span>Gaji Bulanan </span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="<?php echo base_url('administrator/gaji_bulanan') ?>">Daftar Gaji Bulanan</a></li>
-                                        <li><a href="<?php echo base_url('administrator/laporan_gaji_bulanan') ?>">Laporan</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="<?php echo base_url('administrator/gaji_bulanan'); ?>"><i class="fa fa-edit"></i> Gaji Bulanan </a></li>
                                 <li><a href="<?php echo base_url('administrator/bonusKinerja') ?>"><i class="fa fa-desktop"></i> Bonus Kinerja</span></a>
                                 </li>
                                 <li><a href="<?php echo base_url('administrator/bonusLebaran') ?>"><i class="fa fa-table"></i> Bonus Lebaran </span></a>
@@ -157,12 +152,17 @@
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
+
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <?php echo 'Welcome ! ' . $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name') ?>
                                 <button onclick="logout()" class="user-profile btn btn-danger btn-sm"> <span class="glyphicon glyphicon-off"></span> Logout
                                 </button>
-
+                                <?php if ($this->session->userdata('role') == 'administrator') { ?>
+                                    <button onclick="logout()" class="user-profile btn btn-warning btn-sm"> <span class="fa fa-cogs"></span> Users Management
+                                    </button>
+                                <?php } else {
+                                } ?>
                             </li>
                         </ul>
                     </nav>

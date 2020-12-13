@@ -17,7 +17,7 @@ function get_btn_group1($btn_edit, $btn_delete)
 
 function get_btn_export($btn_edit)
 {
-    $li_btn_edit    = '<button class="btn btn-sm btn-info" title="Cetak Slip Gaji" onClick=' . $btn_edit . '><li class="fa fa-print"></li></button>';
+    $li_btn_edit    = '<button class="btn btn-sm btn-info" title="Cetak" onClick=' . $btn_edit . '><li class="fa fa-print"></li></button>';
     return '<div class="text-center">' . $li_btn_edit . '</div>';
 }
 

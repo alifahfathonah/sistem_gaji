@@ -10,10 +10,10 @@
             ],
             "responsive": true,
             "dataType": 'JSON',
-            "dom": 'Bfrtip',
-            "buttons": [
-                'excel', 'print'
-            ],
+            // "dom": 'Bfrtip',
+            // "buttons": [
+            //     'copy', 'csv', 'excel', 'pdf', 'print'
+            // ],
             "ajax": {
                 "url": "<?php echo site_url('administrator/gaji_bulanan/getAllData') ?>",
                 "type": "POST",
@@ -80,7 +80,7 @@
     }
 
     function print(id) {
-        window.open("<?php echo base_url('administrator/slipGajiBulanan') ?>/" + id, '_blank');
+        window.open("<?php echo base_url('administrator/printGajiBulanan') ?>/" + id, '_blank');
     }
 
     function hapus(id) {

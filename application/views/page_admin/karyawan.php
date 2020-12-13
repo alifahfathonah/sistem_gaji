@@ -17,24 +17,22 @@
         "type": "pie",
         "theme": "none",
         "dataProvider": [{
-            "country": "Laki-laki",
-            "value": 260
-        }, {
             "country": "Perempuan",
-            "value": 201
-        }],
-        "valueField": "value",
+            "litres": <?php echo $getGenderWoman[0]->tot_gender; ?>
+        }, {
+            "country": "Laki-laki",
+            "litres": <?php echo $getGenderMan[0]->tot_gender; ?>
+        }, ],
+        "valueField": "litres",
         "titleField": "country",
-        "outlineAlpha": 0.4,
-        "depth3D": 15,
-        "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
-        "angle": 30,
+        "balloon": {
+            "fixedPosition": true
+        },
         "export": {
             "enabled": false
-        },
+        }
     });
 </script>
-
 
 <script>
     console.log('developed by: Fitra Arrafiq; contact:fitraarrafiq@gmail.com; wa:082390091029; phone:082288383066;');

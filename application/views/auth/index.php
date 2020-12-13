@@ -1,3 +1,4 @@
+<!-- Developed By Fitra Arrafiq; fitraarrafiq@gmail.com -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,9 +26,6 @@
 </head>
 
 <body style="background-size: 100%;">
-
-    <a class="hiddenanchor" id="signup"></a>
-    <a class="hiddenanchor" id="signin"></a>
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
@@ -65,51 +63,14 @@
 
                 </div>
                 <?php echo form_close(); ?>
-                <div class="text" style="color:white;">
-                    <p><?php echo date('Y'); ?> All Rights Reserved. <br> Developed by. Privacy and Terms</p>
-                </div>
             </section>
+            <div class="text" style="color:white;font-size:9px;">
+                <p>Privacy and Terms<br>Developed by fitechone.co.id <br>Our Contact : fitraarrafiq@gmail.com <br> Copyright <?php echo date('Y'); ?> All Rights Reserved.</p>
+            </div>
         </div>
 
-        <div id="register" class="animate form registration_form">
-            <section class="login_content">
-                <form>
-                    <h1>Create Account</h1>
-                    <div>
-                        <input type="text" class="form-control" placeholder="Username" required="" />
-                    </div>
-                    <div>
-                        <input type="email" class="form-control" placeholder="Email" required="" />
-                    </div>
-                    <div>
-                        <input type="password" class="form-control" placeholder="Password" required="" />
-                    </div>
-                    <div>
-                        <a class="btn btn-default submit" href="index.html">Submit</a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="separator">
-                        <p class="change_link">Already a member ?
-                            <a href="#signin" class="to_register"> Log in </a>
-                        </p>
-
-                        <div class="clearfix"></div>
-                        <br />
-
-                        <div>
-                            <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                            <p>@<?php echo date('Y'); ?> All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                        </div>
-                    </div>
-                </form>
-            </section>
-        </div>
     </div>
-
-
-
 </body>
+
 
 </html>
