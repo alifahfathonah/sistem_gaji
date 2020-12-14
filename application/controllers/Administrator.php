@@ -323,7 +323,7 @@ class Administrator extends CI_Controller
                 } else {
                     $getGaji            = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
                     $data['id_karyawan']      = htmlspecialchars($this->input->post('id_karyawan'));
-                    $data['total_gaji_bonus'] = ($getGaji[0]->gaji_pokok + $getGaji[0]->total_gaji);
+                    $data['total_gaji_bonus'] = ($getGaji[0]->gaji_pokok);
                     $data['create_date']      = $this->input->post('create_date');
                     $result['messages']         = '';
                     $result             = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
@@ -347,7 +347,7 @@ class Administrator extends CI_Controller
                     $data['id']               = htmlspecialchars($this->input->post('id'));
                     $getGaji            = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
                     $data['id_karyawan']      = htmlspecialchars($this->input->post('id_karyawan'));
-                    $data['total_gaji_bonus'] = ($getGaji[0]->gaji_pokok + $getGaji[0]->total_gaji);
+                    $data['total_gaji_bonus'] = ($getGaji[0]->gaji_pokok);
                     $data['create_date']      = $this->input->post('create_date');
                     $result['messages']         = '';
                     $result             = array('status' => 'success', 'msg' => 'Data Berhasil diubah');

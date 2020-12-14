@@ -264,8 +264,9 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-4 col-sm-3">Keterangan<span class="required">*</span></label>
                                 <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                    <input type="text" id="keterangan" name="keterangan" class="form-control has-feedback-left" required>
-                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                    <textarea name="keterangan" id="keterangan" class="form-control"></textarea>
+                                    <!-- <input type="text" id="keterangan" name="keterangan" class="form-control has-feedback-left" required> -->
+                                    <!-- <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span> -->
                                 </div>
                             </div>
                             <div class="field item form-group">
@@ -334,13 +335,14 @@
                                     <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
-                            <div class="field item form-group">
+                            <!-- <div class="field item form-group">
                                 <label class="col-form-label col-md-4 col-sm-3">Keterangan<span class="required">*</span></label>
                                 <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control has-feedback-left"></textarea>
                                     <input type="text" id="keterangan" name="keterangan" class="form-control has-feedback-left" required>
                                     <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-4 col-sm-3">Jumlah Bonus<span class="required">*</span></label>
                                 <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
