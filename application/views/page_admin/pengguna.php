@@ -255,7 +255,9 @@
                                 <option value="">--Role--</option>
                                 <option value="administrator">Administrator</option>
                                 <option value="yayasan">Yayasan</option>
+                                <option value="keuangan">Keuangan</option>
                                 <option value="pegawai">Pegawai</option>
+
                             </select>
                         </div>
                     </div>

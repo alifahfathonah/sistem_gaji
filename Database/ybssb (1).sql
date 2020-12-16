@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 13, 2020 at 11:00 PM
+-- Generation Time: Dec 17, 2020 at 05:17 AM
 -- Server version: 5.7.32-0ubuntu0.18.04.1
 -- PHP Version: 7.1.33-24+ubuntu18.04.1+deb.sury.org+1
 
@@ -57,7 +57,7 @@ CREATE TABLE `bonus_kinerja` (
 --
 
 INSERT INTO `bonus_kinerja` (`id`, `id_karyawan`, `nilai_kpi`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
-(2, '9', '10', '2323000', '25553000', '2020-12-13');
+(36, '10', '20', '4600000', '27600000', '2020-12-24');
 
 -- --------------------------------------------------------
 
@@ -71,13 +71,6 @@ CREATE TABLE `bonus_lebaran` (
   `total_gaji_bonus` text NOT NULL,
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bonus_lebaran`
---
-
-INSERT INTO `bonus_lebaran` (`id`, `id_karyawan`, `total_gaji_bonus`, `create_date`) VALUES
-(1, '9', '46000000', '2020-12-13');
 
 -- --------------------------------------------------------
 
@@ -142,6 +135,7 @@ CREATE TABLE `golongan` (
   `t_cuti_tahunan` text NOT NULL,
   `t_study_banding` text NOT NULL,
   `t_umroh` text NOT NULL,
+  `kenaikan_gaji_20_persen` text NOT NULL,
   `total_gaji` text NOT NULL,
   `id_tingkat_jabatan` text NOT NULL,
   `id_jabatan` int(11) NOT NULL,
@@ -152,8 +146,9 @@ CREATE TABLE `golongan` (
 -- Dumping data for table `golongan`
 --
 
-INSERT INTO `golongan` (`id`, `level`, `jumlah_gaji_pokok`, `t_jalan_jalan`, `t_kesehatan`, `t_pelatihan`, `t_cuti_tahunan`, `t_study_banding`, `t_umroh`, `total_gaji`, `id_tingkat_jabatan`, `id_jabatan`, `create_date`) VALUES
-(12, 2, '23000000', '0', '0', '0', '0', '0', '0', '23000000', '6', 8, '2020-12-12');
+INSERT INTO `golongan` (`id`, `level`, `jumlah_gaji_pokok`, `t_jalan_jalan`, `t_kesehatan`, `t_pelatihan`, `t_cuti_tahunan`, `t_study_banding`, `t_umroh`, `kenaikan_gaji_20_persen`, `total_gaji`, `id_tingkat_jabatan`, `id_jabatan`, `create_date`) VALUES
+(12, 2, '23000000', '0', '0', '0', '0', '0', '0', '0', '23000000', '6', 8, '2020-12-12'),
+(13, 1, '2000000', '0', '0', '0', '0', '0', '0', '150000', '2150000', '6', 8, '2020-12-14');
 
 -- --------------------------------------------------------
 
@@ -176,9 +171,7 @@ CREATE TABLE `guru_terbaik` (
 --
 
 INSERT INTO `guru_terbaik` (`id`, `id_karyawan`, `upload_portofolio`, `keterangan`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
-(3, '9', 'taman_okura1.png', 'none', '500000', '23730000', '2020-12-13'),
-(4, '10', 'setelah_login.png', 'none', '70', '23000070', '2020-12-13'),
-(5, '9', 'Selection_005.png', 'none', '220', '23230220', '2020-12-13');
+(19, '10', 'taman_okura1.png', 'adassss', '30', '23000030', '2020-12-17');
 
 -- --------------------------------------------------------
 
@@ -234,9 +227,8 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`id_karyawan`, `role`, `nama_karyawan`, `tgl_lahir`, `jk`, `email`, `no_hp`, `alamat`, `id_jabatan`, `jurusan`, `universitas`, `pendidikan_terakhir`, `tahun_masuk`, `status`, `gambar`, `id_golongan`, `gaji_pokok`, `total_gaji`, `create_date`) VALUES
-(8, '2', 'sad', '2020-12-19', 'LK', 'adasd', 'adasd', 'asdasd', '8', 'adasd', 'asdasd', 'asdasd', 'asdasd', '', 'asdasd', '12', '23000000', '23000000', '2020-12-12'),
-(9, '2', 'Riska Pradana', '2020-12-13', 'PR', 'riska@gmail.com', '082399224444', 'Medan', '8', 'Pekanbaru', 'PCR', 'S2', '2008', 'Aktif', 'Not yet', '12', '23230000', '23230000', '2020-12-13'),
-(10, '2', 'agus boker', '2020-12-13', 'PR', 'agus@gmail.com', '0823990091122', 'Medan', '8', 'Pekanbaru', 'PCR', 'S2', '2009', 'Aktif', 'none', '12', '23000000', '23000000', '2020-12-13');
+(8, '2', 'Arifin', '2020-12-19', 'LK', 'adasd', 'adasd', 'asdasd', '8', 'adasd', 'asdasd', 'asdasd', 'asdasd', 'Aktif', 'asdasd', '12', '23460000', '23460000', '2020-12-12'),
+(10, '2', 'Fitra Arrafiq', '2020-12-13', 'LK', 'agus@gmail.com', '0823990091122', 'Medan', '8', 'Pekanbaru', 'PCR', 'S2', '2009', 'Aktif', 'none', '12', '23000000', '23000000', '2020-12-13');
 
 -- --------------------------------------------------------
 
@@ -257,7 +249,7 @@ CREATE TABLE `kenaikan_gaji` (
 --
 
 INSERT INTO `kenaikan_gaji` (`id`, `id_karyawan`, `persentase`, `jumlah_kenaikan`, `total_gaji`) VALUES
-(1, '9', '1', '230000', '23230000');
+(2, '8', '2', '460000', '23460000');
 
 -- --------------------------------------------------------
 
@@ -320,9 +312,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `role`, `block_status`, `online_status`, `time_online`, `time_offline`) VALUES
-(42, 'sad', 'Arrafiq', 'admin_penggajian', '0192023a7bbd73250516f069df18b500', '', 'administrator', 0, 'offline', '2020-12-13 15:57:06', '2020-12-13 15:57:06'),
-(50, 'agus boker', '', 'agus123', '01c3c766ce47082b1b130daedd347ffd', '', 'pegawai', 0, 'offline', '2020-12-13 15:54:42', '2020-12-13 15:54:42'),
-(51, 'Riska Pradana', '', 'riska123', 'a61fec1781fc3e2be92403ee1c65342a', '', 'yayasan', 0, 'offline', '2020-12-13 14:41:58', '2020-12-13 14:41:58');
+(42, 'Fitra Arrafiq', 'Arrafiq', 'super_admin', '0192023a7bbd73250516f069df18b500', '', 'administrator', 0, 'online', '2020-12-16 22:15:36', '2020-12-16 22:15:36'),
+(51, 'Riska Pradana', '', 'riska123', 'a61fec1781fc3e2be92403ee1c65342a', '', 'yayasan', 0, 'offline', '2020-12-14 17:37:03', '2020-12-14 17:37:03'),
+(52, 'Arifin', '', 'keuangan', '87cbf810625de2ff054ac8b841e135df', '', 'pegawai', 0, 'online', '2020-12-14 17:38:58', '2020-12-14 17:38:58');
 
 -- --------------------------------------------------------
 
@@ -454,13 +446,13 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT for table `bonus_kinerja`
 --
 ALTER TABLE `bonus_kinerja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `bonus_lebaran`
 --
 ALTER TABLE `bonus_lebaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `gaji_bulanan`
@@ -478,13 +470,13 @@ ALTER TABLE `gaji_tambahan`
 -- AUTO_INCREMENT for table `golongan`
 --
 ALTER TABLE `golongan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `guru_terbaik`
 --
 ALTER TABLE `guru_terbaik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -502,7 +494,7 @@ ALTER TABLE `karyawan`
 -- AUTO_INCREMENT for table `kenaikan_gaji`
 --
 ALTER TABLE `kenaikan_gaji`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tingkat_jabatan`
@@ -520,7 +512,7 @@ ALTER TABLE `transaksi_gaji_tambahan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `users1`
