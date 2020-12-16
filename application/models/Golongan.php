@@ -7,7 +7,7 @@ class Golongan extends CI_Model
 {
     public function getAllData()
     {
-        $this->datatables->select('g.id, g.level, tj.nama as nama_golongan, j.nama_jabatan, g.jumlah_gaji_pokok, g.t_jalan_jalan, g.t_kesehatan, g.t_pelatihan, g.t_cuti_tahunan, g.t_study_banding, g.t_umroh, g.total_gaji,  g.create_date');
+        $this->datatables->select('g.id, g.level, tj.nama as nama_golongan, j.nama_jabatan, g.jumlah_gaji_pokok, g.t_jalan_jalan, g.t_kesehatan, g.t_pelatihan, g.t_cuti_tahunan, g.t_study_banding, g.t_umroh, g.kenaikan_gaji_20_persen, g.total_gaji, g.create_date');
         $this->datatables->from('golongan g');
         $this->datatables->join('jabatan j', 'j.id = g.id_jabatan', 'left');
         $this->datatables->join('tingkat_jabatan tj', 'tj.id = g.id_tingkat_jabatan', 'left');

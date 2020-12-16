@@ -262,7 +262,7 @@ Copyright Allright Reserve. */
                             <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
                                 <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                                <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                <input type="text" id="create_date" name="create_date" value="2020-12-24" class="form-control has-feedback-left" readonly>
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>

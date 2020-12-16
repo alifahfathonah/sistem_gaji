@@ -15,12 +15,37 @@ class Bonus_kinerja extends CI_Model
         return $this->datatables->generate();
     }
 
+    public function getCountBonusKinerja()
+    {
+        $this->db->select('bk.id_karyawan,k.nama_karyawan, bk.nilai_kpi, bk.create_date');
+        $this->db->from('bonus_kinerja bk');
+        $this->db->join('karyawan k', 'k.id_karyawan = bk.id_karyawan', 'left');
+        $this->db->order_by('bk.id', 'desc');
+        return $this->db->get()->result();
+    }
+
     public function getData()
     {
         $this->db->select('*');
         $this->db->from('bonus_kinerja');
         $this->db->order_by('id', 'desc');
         return $this->db->get()->result();
+    }
+
+    function getTahunByIdKaryawan($id_karyawan)
+    {
+        $this->db->select('YEAR(create_date) as tahun');
+        $this->db->from('bonus_kinerja');
+        $this->db->where('id_karyawan', $id_karyawan);
+        return $this->db->get()->row();
+    }
+
+    public function getBonusKinerja($idKaryawan)
+    {
+        $this->db->select('id,YEAR(create_date) as tahun');
+        $this->db->from('bonus_kinerja');
+        $this->db->where('id_karyawan', $idKaryawan);
+        return $this->db->get()->row();
     }
 
     public function getSlipGaji($id)

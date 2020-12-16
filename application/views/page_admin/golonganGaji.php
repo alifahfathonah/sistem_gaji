@@ -68,6 +68,7 @@
                 $('[name="t_cuti_tahunan"]').val(data.t_cuti_tahunan);
                 $('[name="t_study_banding"]').val(data.t_study_banding);
                 $('[name="t_umroh"]').val(data.t_umroh);
+                $('[name="kenaikan_gaji_20_persen"]').val(data.kenaikan_gaji_20_persen);
                 $('[name="id_tingkat_jabatan"]').val(data.id_tingkat_jabatan);
                 $('[name="id_jabatan"]').val(data.id_jabatan);
                 $('[name="create_date"]').val(data.create_date);
@@ -206,7 +207,7 @@
                                         <th style="font-size: 10px;">No</th>
                                         <th style="font-size: 10px;">Tools</th>
                                         <th style="font-size: 10px;">Tingkat Golongan</th>
-                                        <th style="font-size: 10px;">Nama Golongan</th>
+                                        <th style="font-size: 10px;">Tingkat Jabatan</th>
                                         <th style="font-size: 10px;">Nama Jabatan</th>
                                         <th style="font-size: 10px;">Jumlah Gaji Pokok</th>
                                         <th style="font-size: 10px;">Tunjangan Jalan-jalan</th>
@@ -215,6 +216,7 @@
                                         <th style="font-size: 10px;">Tunjangan Cuti Tahunan</th>
                                         <th style="font-size: 10px;">Tunjangan Study Banding</th>
                                         <th style="font-size: 10px;">Tunjangan Umroh</th>
+                                        <th style="font-size: 10px;">Kenaikan Gaji 20%</th>
                                         <th style="font-size: 10px;">Total Gaji</th>
                                         <th style="font-size: 10px;">Create Date</th>
                                     </tr>
@@ -244,6 +246,18 @@
                 <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Pilih Jabatan<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <select name="id_jabatan" id="id_jabatan" class="form-control has-feedback-left">
+                                    <option value="">--Pilih Jabatan--</option>
+                                    <?php foreach ($getJabatan as $row) { ?>
+                                        <option value="<?php echo $row->id ?>"><?php echo $row->nama_jabatan; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Tingkat Golongan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
@@ -307,6 +321,13 @@
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3">Kenaikan Gaji 20%<span class="required">*</span></label>
+                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                <input type="number" class="form-control has-feedback-left" value="0" id="kenaikan_gaji_20_persen" name="kenaikan_gaji_20_persen">
+                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
                         <!-- <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Pilih Golongan Jabatan<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
@@ -319,18 +340,7 @@
                                 <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div> -->
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3">Pilih Jabatan<span class="required">*</span></label>
-                            <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
-                                <select name="id_jabatan" id="id_jabatan" class="form-control has-feedback-left">
-                                    <option value="">--Pilih Jabatan--</option>
-                                    <?php foreach ($getJabatan as $row) { ?>
-                                        <option value="<?php echo $row->id ?>"><?php echo $row->nama_jabatan; ?></option>
-                                    <?php } ?>
-                                </select>
-                                <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                        </div>
+
                         <div class="field item form-group">
                             <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
                             <div class="col-md-8 xdisplay_inputx form-group row has-feedback">

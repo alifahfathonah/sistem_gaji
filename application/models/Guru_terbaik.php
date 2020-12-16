@@ -39,11 +39,12 @@ class Guru_terbaik extends CI_Model
         return $this->datatables->generate();
     }
 
-    public function getSlipGaji()
+    public function getSlipGaji($id)
     {
         $this->db->select('gt.id , k.nama_karyawan, gt.upload_portofolio, gt.keterangan, gt.jumlah_bonus, gt.create_date, gt.create_date');
         $this->db->from('guru_terbaik gt');
         $this->db->join('karyawan k', 'k.id_karyawan = gt.id_karyawan', 'left');
+        $this->db->where('gt.id', $id);
         return $this->db->get()->result();
     }
 
@@ -75,6 +76,12 @@ class Guru_terbaik extends CI_Model
         $this->db->from('guru_terbaik');
         $this->db->where('id', $id);
         return $this->db->get()->row();
+    }
+
+    public function updateGbr($id, $data)
+    {
+        $this->_deleteImage($id);
+        return $this->db->query('update guru_terbaik set upload_portofolio="' . $data . '" where id="' . $id . '"');
     }
 
     function update($id, $data)

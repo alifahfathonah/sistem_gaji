@@ -47,6 +47,8 @@ Phone Number : 082288383066
     <link href="<?php echo base_url('assets') ?>/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url('assets') ?>/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+
+
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url('assets') ?>/build/css/custom.min.css" rel="stylesheet">
     <style type="text/css">
@@ -62,7 +64,7 @@ Phone Number : 082288383066
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="https://fitraarrafiq@gmail.com" class="site_title"><i class="fa fa-bar-chart"></i> <span title="fitechnone.site; fitraarrafiq@gmail.com">Payroll Sys... </span>
+                        <a href="index.html" class="site_title"><i class="fa fa-bar-chart"></i> <span title="">Payroll Sys... </span>
                         </a>
 
                     </div>
@@ -182,7 +184,7 @@ Phone Number : 082288383066
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    <p style="font-size: 10px;color:white">Contact us: fitraarrafiq@gmail.com <br>Copyright fitechnone Allrights Reserved.</p>
+                    <p style="font-size: 10px;">Contact us: fitraarrafiq@gmail.com <br>Copyright fitechnone Allrights Reserved.</p>
                 </div>
                 <div class="clearfix"></div>
             </footer>
@@ -248,9 +250,9 @@ Phone Number : 082288383066
     <script src="<?php echo base_url('assets') ?>/vendors/jszip/dist/jszip.min.js"></script>
     <script src="<?php echo base_url('assets') ?>/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="<?php echo base_url('assets') ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('assets/') ?>build/js/custom.min.js"></script>
-
 
 </body>
 

@@ -91,7 +91,7 @@ class auth extends CI_Controller
         // $this->B_user_log_model->addLog(userLog('Logout System',  $this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name') . ' Logout dari System', $this->session->userdata('id')));
         $this->User->change_on_off($user_id, online_status('offline'));
         // Redirect to login page
-        echo json_encode(array("status" => 'success', 'msg' => 'Thanks for using this system !'));
+        echo json_encode(array("status" => 'success', 'msg' => 'Terimakasih telah menggunakan sistem ini !'));
     }
 
     public function force_logout()

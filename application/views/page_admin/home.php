@@ -6,12 +6,13 @@
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 
 
 <!-- Chart Bar -->
 <script>
-    var chart = AmCharts.makeChart("chartdiv2", {
+    var chart = AmCharts.makeChart("chartdiv1", {
         "type": "serial",
         "addClassNames": true,
         "theme": "none",
@@ -42,7 +43,7 @@
         "startDuration": 1,
         "graphs": [{
             "alphaField": "alpha",
-            "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+            "balloonText": "<span style='font-size:12px;'> [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
             "fillAlphas": 1,
             "title": "Income",
             "type": "column",
@@ -50,7 +51,7 @@
             "dashLengthField": "dashLengthColumn"
         }, {
             "id": "graph2",
-            "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+            "balloonText": "<span style='font-size:12px;'> [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
             "bullet": "round",
             "lineThickness": 3,
             "bulletSize": 7,
@@ -72,6 +73,72 @@
         },
         "export": {
             "enabled": true
+        }
+    });
+</script>
+
+<script>
+    var chart = AmCharts.makeChart("chartdiv2", {
+        "type": "serial",
+        "addClassNames": true,
+        "theme": "light",
+        "autoMargins": false,
+        "marginLeft": 30,
+        "marginRight": 8,
+        "marginTop": 10,
+        "marginBottom": 26,
+        "balloon": {
+            "adjustBorderColor": false,
+            "horizontalPadding": 10,
+            "verticalPadding": 8,
+            "color": "#FFFFFF"
+        },
+
+        "dataProvider": [
+            <?php foreach ($getCountBonusKinerja as $row) { ?> {
+                    "year": "<?php echo $row->nama_karyawan; ?>",
+                    "income": <?php echo $row->nilai_kpi; ?>,
+                    "expenses": <?php echo $row->nilai_kpi; ?>
+                },
+            <?php } ?>
+        ],
+        "valueAxes": [{
+            "axisAlpha": 0,
+            "position": "left"
+        }],
+        "startDuration": 1,
+        "graphs": [{
+            "alphaField": "alpha",
+            "balloonText": "<span style='font-size:12px;'> [[category]]:<br><span style='font-size:20px;'>[[value]] %</span> [[additional]]</span>",
+            "fillAlphas": 1,
+            "title": "Pegawai",
+            "type": "column",
+            "valueField": "income",
+            "dashLengthField": "dashLengthColumn"
+        }, {
+            "id": "graph2",
+            "balloonText": "<span style='font-size:12px;'>[[category]]:<br><span style='font-size:20px;'>[[value]] %</span> [[additional]]</span>",
+            "bullet": "round",
+            "lineThickness": 3,
+            "bulletSize": 7,
+            "bulletBorderAlpha": 1,
+            "bulletColor": "#0000FF",
+            "useLineColorForBulletBorder": true,
+            "bulletBorderThickness": 3,
+            "fillAlphas": 0,
+            "lineAlpha": 1,
+            "title": "Expenses",
+            "valueField": "expenses",
+            "dashLengthField": "dashLengthLine"
+        }],
+        "categoryField": "year",
+        "categoryAxis": {
+            "gridPosition": "start",
+            "axisAlpha": 0,
+            "tickLength": 0
+        },
+        "export": {
+            "enabled": false
         }
     });
 </script>
@@ -101,12 +168,27 @@
     <!-- /top tiles -->
 
     <div class="row">
-        <div class="col-md-12 col-sm-12 ">
+        <div class="col-md-6 col-sm-12 ">
             <div class="dashboard_graph">
 
                 <div class="row x_title">
                     <div class="col-md-12">
-                        <h5>Statistik Kinerja Karyawan <small>(Dilihat dari data bonus Guru Terbaik)</small></h5>
+                        <h5>Kinerja Karyawan <small>(Dilihat dari data bonus Guru Terbaik)</small></h5>
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-sm-9 ">
+                    <div id="chartdiv1" class="demo-placeholder"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 ">
+            <div class="dashboard_graph">
+
+                <div class="row x_title">
+                    <div class="col-md-12">
+                        <h5>Statistik Bonus Kinerja <small>(Data dipengaruhi oleh nilai KPI)</small></h5>
                     </div>
 
                 </div>
@@ -116,7 +198,6 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-
     </div>
 
 </div>

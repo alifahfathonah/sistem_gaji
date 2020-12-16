@@ -107,6 +107,9 @@
             });
     }
 
+    function pesan() {
+        alert('Sorry, you can not use this feature, You are not allowed to access it !');
+    }
 
     function simpan() {
         var token_name = '<?php echo $this->security->get_csrf_token_name(); ?>'
