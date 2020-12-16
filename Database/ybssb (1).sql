@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 17, 2020 at 05:17 AM
+-- Generation Time: Dec 17, 2020 at 05:22 AM
 -- Server version: 5.7.32-0ubuntu0.18.04.1
 -- PHP Version: 7.1.33-24+ubuntu18.04.1+deb.sury.org+1
 
@@ -171,7 +171,7 @@ CREATE TABLE `guru_terbaik` (
 --
 
 INSERT INTO `guru_terbaik` (`id`, `id_karyawan`, `upload_portofolio`, `keterangan`, `jumlah_bonus`, `total_gaji`, `create_date`) VALUES
-(19, '10', 'taman_okura1.png', 'adassss', '30', '23000030', '2020-12-17');
+(19, '10', 'taman_okura1.png', 'ada eeh', '30', '23000030', '2020-12-17');
 
 -- --------------------------------------------------------
 
@@ -300,7 +300,7 @@ CREATE TABLE `users` (
   `username` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `role` enum('administrator','yayasan','pegawai') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `role` enum('administrator','yayasan','pegawai','keuangan') COLLATE utf8_unicode_ci DEFAULT NULL,
   `block_status` int(3) NOT NULL,
   `online_status` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `time_online` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -314,7 +314,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `role`, `block_status`, `online_status`, `time_online`, `time_offline`) VALUES
 (42, 'Fitra Arrafiq', 'Arrafiq', 'super_admin', '0192023a7bbd73250516f069df18b500', '', 'administrator', 0, 'online', '2020-12-16 22:15:36', '2020-12-16 22:15:36'),
 (51, 'Riska Pradana', '', 'riska123', 'a61fec1781fc3e2be92403ee1c65342a', '', 'yayasan', 0, 'offline', '2020-12-14 17:37:03', '2020-12-14 17:37:03'),
-(52, 'Arifin', '', 'keuangan', '87cbf810625de2ff054ac8b841e135df', '', 'pegawai', 0, 'online', '2020-12-14 17:38:58', '2020-12-14 17:38:58');
+(52, 'Arifin', '', 'keuangan', '87cbf810625de2ff054ac8b841e135df', '', 'keuangan', 0, 'online', '2020-12-16 22:22:05', '2020-12-16 22:22:05');
 
 -- --------------------------------------------------------
 
