@@ -47,13 +47,12 @@
 
     function tambah() {
         save_method = 'add';
-        $('#form_inputan')[0].reset();
+        $('#form_inputan_add')[0].reset();
         $('.form-group').removeClass('has-error')
             .removeClass('has-success')
             .find('#text-error').remove();
-        $('#modal').modal('show');
+        $('#modal_add').modal('show');
         $('.reset').show();
-        $('#upload_porto').show();
     }
 
     function ubah(id) {
@@ -151,11 +150,7 @@
         var token_name = '<?php echo $this->security->get_csrf_token_name(); ?>'
         var csrf_hash = ''
         var url;
-        if (save_method == 'add') {
-            url = '<?php echo base_url() ?>administrator/bonusGuruTerbaik/addData';
-        } else {
-            // url = '<?php echo base_url() ?>administrator/bonusGuruTerbaik/update';
-        }
+        url = '<?php echo base_url() ?>administrator/bonusGuruTerbaik/tambahData';
         swal({
                 title: "Apakah anda sudah yakin ?",
                 type: "warning",
@@ -169,19 +164,19 @@
                 $.ajax({
                     url: url,
                     method: 'POST',
-                    data: $('#form_inputan').serialize(),
+                    data: $('#form_inputan_add').serialize(),
                     dataType: "JSON",
                     success: function(resp) {
                         data = resp.result
                         csrf_hash = resp.csrf['token'];
-                        $('#form_inputan input[name=' + token_name + ']').val(csrf_hash);
+                        $('#form_inputan_add input[name=' + token_name + ']').val(csrf_hash);
                         if (data['status'] == 'success') {
                             updateAllTable();
                             $('.form-group').removeClass('has-error')
                                 .removeClass('has-success')
                                 .find('#text-error').remove();
-                            $("#form_inputan")[0].reset();
-                            $('#modal').modal('hide');
+                            $("#form_inputan_add")[0].reset();
+                            $('#modal_add').modal('hide');
                         } else {
                             $.each(data['messages'], function(key, value) {
                                 var element = $('#' + key);
@@ -314,6 +309,71 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Tambah -->
+<div id="modal_add" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <li class="fa fa-list"></li> Form Input Bonus Guru Terbaik
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="" id="form_inputan_add" method="post" class="form-horizontal">
+                <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
+                <div class="modal-body">
+                    <?php echo form_input(array('id' => 'id', 'name' => 'id', 'type' => 'hidden')); ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Nama Karyawan<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <select name="id_karyawan" id="id_karyawan" class="form-control has-feedback-left" required>
+                                        <option value="">Pilih Karyawan</option>
+                                        <?php foreach ($getKaryawan as $r) : ?>
+                                            <option value="<?php echo $r->id_karyawan; ?>"><?php echo $r->nama_karyawan; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Keterangan<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <textarea name="keterangan" id="keterangan" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Jumlah Bonus<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <input type="number" id="jumlah_bonus" value="0" name="jumlah_bonus" class="form-control has-feedback-left" required>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-4 col-sm-3">Create Date<span class="required">*</span></label>
+                                <div class="col-md-8 xdisplay_inputx form-group row has-feedback">
+                                    <?php date_default_timezone_set('Asia/Jakarta'); ?>
+                                    <input type="text" id="create_date" name="create_date" value="<?php echo date('Y-m-d'); ?>" class="form-control has-feedback-left" readonly>
+                                    <span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="simpan()" class="btn btn-success btn-sm">Simpan</button>
+                </div>
+                <?php echo form_close() ?>
+        </div>
+
+    </div>
+</div>
+
 
 <!-- Modal Add -->
 <div id="modal" class="modal fade" role="dialog">

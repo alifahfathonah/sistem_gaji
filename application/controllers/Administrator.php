@@ -401,7 +401,7 @@ class Administrator extends CI_Controller
                     $th1 = '<div style="font-size:12px;">' . ++$start . '</div>';
                     $th2 = get_btn_group2('ubah("' . $id . '")', $this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'hapus("' . $id . '")' : 'pesan()', 'ubahGbr("' . $id . '")') . get_btn_export($this->session->userdata('role') == 'administrator' || $this->session->userdata('role') == 'yayasan' ? 'print("' . $id . '")' : 'pesan()');
                     $th3 = '<div style="font-size:12px;">' . $row->nama_karyawan . '</div>';
-                    $th4 = '<div style="font-size:12px;"><img src="../gambar/' . $row->upload_portofolio . '" width="100px" height=""></div>';
+                    $th4 = empty($row->upload_portofolio) ? btn_uploadGbr('ubahGbr("' . $id . '")') . '<br> <div class="text-center"><small style="color:blue;" >Silahkan Upload dokumen !</small></div>' : '<div style="font-size:12px;"><img src="../gambar/' . $row->upload_portofolio . '" width="100px" height=""></div>';
                     $th5 = '<div style="font-size:12px;">' . $row->keterangan . '</div>';
                     $th6 = '<div style="font-size:12px;">' . rupiah_format($row->jumlah_bonus) . '</div>';
                     // $th7 = '<div style="font-size:12px;">' . rupiah_format($row->total_gaji) . '</div>';
@@ -414,6 +414,33 @@ class Administrator extends CI_Controller
             } else if ($param == 'getById') {
                 $data = $this->Guru_terbaik->getById($id);
                 echo json_encode(array('data' => $data));
+                die;
+            } else if ($param == 'tambahData') {
+                $this->form_validation->set_rules("id_karyawan", "Nama Karyawan", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("keterangan", "Keterangan", "trim|required", array('required' => '{field} Wajib diisi !'));
+                $this->form_validation->set_rules("jumlah_bonus", "Jumlah Bonus", "trim|required", array('required' => '{field} Wajib diisi !'));
+
+                $this->form_validation->set_error_delimiters('<small id="text-error" style="color:red;">*', '</small>');
+                if ($this->form_validation->run() == FALSE) {
+                    $result = array('status' => 'error', 'msg' => 'Data yang anda isi Belum Benar!');
+                    foreach ($_POST as $key => $value) {
+                        $result['messages'][$key] = form_error($key);
+                    }
+                } else {
+                    $getGaji            = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
+                    $db['id_karyawan']       = htmlspecialchars($this->input->post('id_karyawan'));
+                    $db['keterangan']        = htmlspecialchars($this->input->post('keterangan'));
+                    $db['jumlah_bonus']      = htmlspecialchars($this->input->post('jumlah_bonus'));
+                    $db['total_gaji']        = ($getGaji[0]->total_gaji + $db['jumlah_bonus']);
+                    $db['create_date']       = htmlspecialchars($this->input->post('create_date'));
+                    $result['messages']         = '';
+                    $result             = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $this->Guru_terbaik->addData($db);
+                }
+                $csrf = array(
+                    'token' => $this->security->get_csrf_hash()
+                );
+                echo json_encode(array('result' => $result, 'csrf' => $csrf));
                 die;
             } else if ($param == 'addData') {
                 $config['upload_path']   = "./gambar";
@@ -517,6 +544,7 @@ class Administrator extends CI_Controller
             $view['pageName']    = 'golonganGaji';
             $view['getJabatan']  = $this->Jabatan->getData();
             $view['getGolongan'] = $this->Tingkat_jabatan->getData();
+
             if ($param == 'getAllData') {
                 $dt    = $this->Golongan->getAllData();
                 $start = $this->input->post('start');
@@ -581,10 +609,9 @@ class Administrator extends CI_Controller
                     $data['id_tingkat_jabatan'] = $getTingkatJabatan->id_tingkat_jabatan;
                     $data['create_date']        = $this->input->post('create_date');
                     $result['messages']           = '';
-                    if ($data['level'] == 1 && $data['id_jabatan']) {
-                        $result               = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
-                        $this->Golongan->addData($data);
-                    }
+                    $getTingkatJabatan    = $this->Jabatan->getById($this->input->post('id_jabatan'));
+                    $result               = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $this->Golongan->addData($data);
                 }
                 $csrf = array(
                     'token' => $this->security->get_csrf_hash()
