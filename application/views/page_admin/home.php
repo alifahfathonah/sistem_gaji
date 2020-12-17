@@ -148,7 +148,7 @@
         <h4>Dashboard</h4>
     </div>
     <!-- top tiles -->
-    <div class="row" style="display: inline-block;">
+    <div class="row" style="display: inline-block;width:500px;">
         <div class="tile_count">
             <div class="col-md-4 col-sm-4  tile_stats_count bg-blue">
                 <span class="count_top "><i class="fa fa-user"></i> Jumlah Karyawan</span>
@@ -162,42 +162,101 @@
                 <span class="count_top"><i class="fa fa-clock-o"></i> Perempuan </span>
                 <div class="count" style="font-size: 20px;"><?php echo $getGenderMan[0]->tot_gender ?></div>
             </div>
-
         </div>
     </div>
     <!-- /top tiles -->
+    <?php if ($this->session->userdata('role') == 'administrator') { ?>
+        <div class="row">
 
-    <div class="row">
-        <div class="col-md-6 col-sm-12 ">
-            <div class="dashboard_graph">
-
-                <div class="row x_title">
-                    <div class="col-md-12">
-                        <h5>Kinerja Karyawan <small>(Dilihat dari data bonus Guru Terbaik)</small></h5>
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Data Gaji Bulanan</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="text-right">
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box table-responsive">
+                                    <div class="text-right">
 
+                                    </div>
+                                    <table id="data" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 10px;">No</th>
+                                                <th style="font-size: 10px;">Nama Karyawan</th>
+                                                <th style="font-size: 10px;">Email</th>
+                                                <th style="font-size: 10px;">No Hp</th>
+                                                <th style="font-size: 10px;">Alamat</th>
+                                                <th style="font-size: 10px;">Jabatan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $no = 0;
+                                            foreach ($showDataIndex as $row) { ?>
+                                                <tr>
+                                                    <th><?php echo ++$no; ?></th>
+                                                    <th><?php echo $row->nama_karyawan; ?></th>
+                                                    <th><?php echo $row->email; ?></th>
+                                                    <th><?php echo $row->no_hp; ?></th>
+                                                    <th><?php echo $row->alamat; ?></th>
+                                                    <th><?php echo $row->nama_jabatan; ?></th>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-12 col-sm-9 ">
-                    <div id="chartdiv1" class="demo-placeholder"></div>
-                </div>
-                <div class="clearfix"></div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 ">
-            <div class="dashboard_graph">
 
-                <div class="row x_title">
-                    <div class="col-md-12">
-                        <h5>Statistik Bonus Kinerja <small>(Data dipengaruhi oleh nilai KPI)</small></h5>
+    <?php } ?>
+
+    <?php if ($this->session->userdata('role') == 'yayasan' || $this->session->userdata('role') == 'keuangan') { ?>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 ">
+                <div class="dashboard_graph">
+
+                    <div class="row x_title">
+                        <div class="col-md-12">
+                            <h5>Kinerja Karyawan <small>(Dilihat dari data bonus Guru Terbaik)</small></h5>
+                        </div>
+
                     </div>
+                    <div class="col-md-12 col-sm-9 ">
+                        <div id="chartdiv1" class="demo-placeholder"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 ">
+                <div class="dashboard_graph">
 
+                    <div class="row x_title">
+                        <div class="col-md-12">
+                            <h5>Statistik Bonus Kinerja <small>(Data dipengaruhi oleh nilai KPI)</small></h5>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 col-sm-9 ">
+                        <div id="chartdiv2" class="demo-placeholder"></div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="col-md-12 col-sm-9 ">
-                    <div id="chartdiv2" class="demo-placeholder"></div>
-                </div>
-                <div class="clearfix"></div>
             </div>
         </div>
-    </div>
+    <?php } ?>
 
 </div>

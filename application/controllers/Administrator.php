@@ -34,6 +34,7 @@ class Administrator extends CI_Controller
             $view['getGenderMan']         = $this->Karyawan->getGender('PR');
             $view['countGuruTerbaik']     = $this->Guru_terbaik->countGuruTerbaik();
             $view['getCountBonusKinerja'] = $this->Bonus_kinerja->getCountBonusKinerja();
+            $view['showDataIndex']        = $this->Karyawan->showDataIndex();
             $this->load->view('index', $view);
         }
     }
@@ -223,19 +224,19 @@ class Administrator extends CI_Controller
                         $result['messages'][$key] = form_error($key);
                     }
                 } else {
-                    $getGajiPokok   = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
-                    $data['id_karyawan']  = htmlspecialchars($this->input->post('id_karyawan'));
-                    $data['nilai_kpi']    = htmlspecialchars($this->input->post('nilai_kpi'));
-                    $data['jumlah_bonus'] = ($getGajiPokok[0]->gaji_pokok * ($data['nilai_kpi'] / 100));
-                    $data['total_gaji']   = ($getGajiPokok[0]->total_gaji + $data['jumlah_bonus']);
-                    $data['create_date']  = $this->input->post('create_date');
-                    $result['messages']     = '';
+                    $getGajiPokok    = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
+                    $data['id_karyawan']   = htmlspecialchars($this->input->post('id_karyawan'));
+                    $data['nilai_kpi']     = htmlspecialchars($this->input->post('nilai_kpi'));
+                    $data['jumlah_bonus']  = ($getGajiPokok[0]->gaji_pokok * ($data['nilai_kpi'] / 100));
+                    $data['total_gaji']    = ($getGajiPokok[0]->total_gaji + $data['jumlah_bonus']);
+                    $data['create_date']   = $this->input->post('create_date');
+                    $result['messages']      = '';
                     $getBonusKinerja = $this->Bonus_kinerja->getBonusKinerja($this->input->post('id_karyawan'));
                     if (!$getBonusKinerja) {
-                        $result         = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                        $result = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
                         $this->Bonus_kinerja->addData($data);
                     } else {
-                        $result         = array('status' => 'error', 'msg' => 'Gagal, Bonus Kinerja karyawan sudah ditetapkan !');
+                        $result = array('status' => 'error', 'msg' => 'Gagal, Bonus Kinerja karyawan sudah ditetapkan !');
                     }
                 }
                 $csrf = array(
@@ -427,14 +428,14 @@ class Administrator extends CI_Controller
                         $result['messages'][$key] = form_error($key);
                     }
                 } else {
-                    $getGaji            = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
-                    $db['id_karyawan']       = htmlspecialchars($this->input->post('id_karyawan'));
-                    $db['keterangan']        = htmlspecialchars($this->input->post('keterangan'));
-                    $db['jumlah_bonus']      = htmlspecialchars($this->input->post('jumlah_bonus'));
-                    $db['total_gaji']        = ($getGaji[0]->total_gaji + $db['jumlah_bonus']);
-                    $db['create_date']       = htmlspecialchars($this->input->post('create_date'));
-                    $result['messages']         = '';
-                    $result             = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $getGaji        = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
+                    $db['id_karyawan']  = htmlspecialchars($this->input->post('id_karyawan'));
+                    $db['keterangan']   = htmlspecialchars($this->input->post('keterangan'));
+                    $db['jumlah_bonus'] = htmlspecialchars($this->input->post('jumlah_bonus'));
+                    $db['total_gaji']   = ($getGaji[0]->total_gaji + $db['jumlah_bonus']);
+                    $db['create_date']  = htmlspecialchars($this->input->post('create_date'));
+                    $result['messages']     = '';
+                    $result         = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
                     $this->Guru_terbaik->addData($db);
                 }
                 $csrf = array(
@@ -481,14 +482,14 @@ class Administrator extends CI_Controller
                 } else {
                     $getGaji = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
 
-                    $db['id']               = htmlspecialchars($this->input->post('id'));
-                    $db['id_karyawan']       = htmlspecialchars($this->input->post('id_karyawan'));
-                    $db['keterangan']        = htmlspecialchars($this->input->post('keterangan'));
-                    $db['jumlah_bonus']      = htmlspecialchars($this->input->post('jumlah_bonus'));
-                    $db['total_gaji']        = ($getGaji[0]->total_gaji + $db['jumlah_bonus']);
-                    $db['create_date']       = htmlspecialchars($this->input->post('create_date'));
-                    $result['messages']         = '';
-                    $result             = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
+                    $db['id']           = htmlspecialchars($this->input->post('id'));
+                    $db['id_karyawan']  = htmlspecialchars($this->input->post('id_karyawan'));
+                    $db['keterangan']   = htmlspecialchars($this->input->post('keterangan'));
+                    $db['jumlah_bonus'] = htmlspecialchars($this->input->post('jumlah_bonus'));
+                    $db['total_gaji']   = ($getGaji[0]->total_gaji + $db['jumlah_bonus']);
+                    $db['create_date']  = htmlspecialchars($this->input->post('create_date'));
+                    $result['messages']     = '';
+                    $result         = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
                     $this->Guru_terbaik->update($db['id'], $db);
                 }
                 $csrf = array(
@@ -502,8 +503,8 @@ class Administrator extends CI_Controller
                 $config['remove_spaces'] = TRUE;
                 if (!empty($_FILES['upload_portofolio']['name'])) {
                     $this->load->library('upload', $config);
-                    $getGaji = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
-                    $db['id']       = htmlspecialchars($this->input->post('id'));
+                    $getGaji             = $this->Gaji_bulanan->getGajiKar($this->input->post('id_karyawan'));
+                    $db['id']                = htmlspecialchars($this->input->post('id'));
                     $db['upload_portofolio'] = $_FILES['upload_portofolio']['name'];
                     $cekData             = $this->Guru_terbaik->getData();
                     if ($cekData[0]->upload_portofolio != str_replace(' ', '_', $db['upload_portofolio'])) {
@@ -594,23 +595,23 @@ class Administrator extends CI_Controller
                         $result['messages'][$key] = form_error($key);
                     }
                 } else {
-                    $getTingkatJabatan    = $this->Jabatan->getById($this->input->post('id_jabatan'));
-                    $data['level']              = htmlspecialchars($this->input->post('level'));
-                    $data['jumlah_gaji_pokok']  = htmlspecialchars($this->input->post('jumlah_gaji_pokok'));
-                    $data['t_jalan_jalan']      = htmlspecialchars($this->input->post('t_jalan_jalan'));
-                    $data['t_pelatihan']        = htmlspecialchars($this->input->post('t_pelatihan'));
-                    $data['t_kesehatan']        = htmlspecialchars($this->input->post('t_kesehatan'));
-                    $data['t_cuti_tahunan']     = htmlspecialchars($this->input->post('t_cuti_tahunan'));
-                    $data['t_study_banding']    = htmlspecialchars($this->input->post('t_study_banding'));
-                    $data['t_umroh']            = htmlspecialchars($this->input->post('t_umroh'));
-                    $data['kenaikan_gaji_20_persen']            = htmlspecialchars($this->input->post('kenaikan_gaji_20_persen'));
-                    $data['total_gaji']         = ($data['jumlah_gaji_pokok'] + $data['t_jalan_jalan'] + $data['t_kesehatan'] + $data['t_pelatihan'] + $data['t_cuti_tahunan'] + $data['t_study_banding'] + $data['t_umroh'] +  $data['kenaikan_gaji_20_persen']);
-                    $data['id_jabatan']         = htmlspecialchars($this->input->post('id_jabatan'));
-                    $data['id_tingkat_jabatan'] = $getTingkatJabatan->id_tingkat_jabatan;
-                    $data['create_date']        = $this->input->post('create_date');
-                    $result['messages']           = '';
-                    $getTingkatJabatan    = $this->Jabatan->getById($this->input->post('id_jabatan'));
-                    $result               = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
+                    $getTingkatJabatan         = $this->Jabatan->getById($this->input->post('id_jabatan'));
+                    $data['level']                   = htmlspecialchars($this->input->post('level'));
+                    $data['jumlah_gaji_pokok']       = htmlspecialchars($this->input->post('jumlah_gaji_pokok'));
+                    $data['t_jalan_jalan']           = htmlspecialchars($this->input->post('t_jalan_jalan'));
+                    $data['t_pelatihan']             = htmlspecialchars($this->input->post('t_pelatihan'));
+                    $data['t_kesehatan']             = htmlspecialchars($this->input->post('t_kesehatan'));
+                    $data['t_cuti_tahunan']          = htmlspecialchars($this->input->post('t_cuti_tahunan'));
+                    $data['t_study_banding']         = htmlspecialchars($this->input->post('t_study_banding'));
+                    $data['t_umroh']                 = htmlspecialchars($this->input->post('t_umroh'));
+                    $data['kenaikan_gaji_20_persen'] = htmlspecialchars($this->input->post('kenaikan_gaji_20_persen'));
+                    $data['total_gaji']              = ($data['jumlah_gaji_pokok'] + $data['t_jalan_jalan'] + $data['t_kesehatan'] + $data['t_pelatihan'] + $data['t_cuti_tahunan'] + $data['t_study_banding'] + $data['t_umroh'] +  $data['kenaikan_gaji_20_persen']);
+                    $data['id_jabatan']              = htmlspecialchars($this->input->post('id_jabatan'));
+                    $data['id_tingkat_jabatan']      = $getTingkatJabatan->id_tingkat_jabatan;
+                    $data['create_date']             = $this->input->post('create_date');
+                    $result['messages']                = '';
+                    $getTingkatJabatan         = $this->Jabatan->getById($this->input->post('id_jabatan'));
+                    $result                    = array('status' => 'success', 'msg' => 'Data berhasil dikirimkan');
                     $this->Golongan->addData($data);
                 }
                 $csrf = array(
@@ -637,23 +638,23 @@ class Administrator extends CI_Controller
                         $result['messages'][$key] = form_error($key);
                     }
                 } else {
-                    $data['id']                 = htmlspecialchars($this->input->post('id'));
-                    $data['level']              = htmlspecialchars($this->input->post('level'));
-                    $data['jumlah_gaji_pokok']  = htmlspecialchars($this->input->post('jumlah_gaji_pokok'));
-                    $data['t_jalan_jalan']      = htmlspecialchars($this->input->post('t_jalan_jalan'));
-                    $data['t_kesehatan']        = htmlspecialchars($this->input->post('t_kesehatan'));
-                    $data['t_pelatihan']        = htmlspecialchars($this->input->post('t_pelatihan'));
-                    $data['t_cuti_tahunan']     = htmlspecialchars($this->input->post('t_cuti_tahunan'));
-                    $data['t_study_banding']    = htmlspecialchars($this->input->post('t_study_banding'));
-                    $data['t_umroh']            = htmlspecialchars($this->input->post('t_umroh'));
-                    $data['kenaikan_gaji_20_persen']            = htmlspecialchars($this->input->post('kenaikan_gaji_20_persen'));
-                    $data['total_gaji']         = ($data['jumlah_gaji_pokok'] + $data['t_jalan_jalan'] + $data['t_kesehatan'] + $data['t_pelatihan'] + $data['t_cuti_tahunan'] + $data['t_study_banding'] + $data['t_umroh'] + $data['kenaikan_gaji_20_persen']);
-                    $data['id_jabatan']         = htmlspecialchars($this->input->post('id_jabatan'));
-                    $getTingkatJabatan    = $this->Jabatan->getById($data['id_jabatan']);
-                    $data['id_tingkat_jabatan'] = $getTingkatJabatan->id_tingkat_jabatan;
-                    $data['create_date']        = $this->input->post('create_date');
-                    $result['messages']           = '';
-                    $result               = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
+                    $data['id']                      = htmlspecialchars($this->input->post('id'));
+                    $data['level']                   = htmlspecialchars($this->input->post('level'));
+                    $data['jumlah_gaji_pokok']       = htmlspecialchars($this->input->post('jumlah_gaji_pokok'));
+                    $data['t_jalan_jalan']           = htmlspecialchars($this->input->post('t_jalan_jalan'));
+                    $data['t_kesehatan']             = htmlspecialchars($this->input->post('t_kesehatan'));
+                    $data['t_pelatihan']             = htmlspecialchars($this->input->post('t_pelatihan'));
+                    $data['t_cuti_tahunan']          = htmlspecialchars($this->input->post('t_cuti_tahunan'));
+                    $data['t_study_banding']         = htmlspecialchars($this->input->post('t_study_banding'));
+                    $data['t_umroh']                 = htmlspecialchars($this->input->post('t_umroh'));
+                    $data['kenaikan_gaji_20_persen'] = htmlspecialchars($this->input->post('kenaikan_gaji_20_persen'));
+                    $data['total_gaji']              = ($data['jumlah_gaji_pokok'] + $data['t_jalan_jalan'] + $data['t_kesehatan'] + $data['t_pelatihan'] + $data['t_cuti_tahunan'] + $data['t_study_banding'] + $data['t_umroh'] + $data['kenaikan_gaji_20_persen']);
+                    $data['id_jabatan']              = htmlspecialchars($this->input->post('id_jabatan'));
+                    $getTingkatJabatan         = $this->Jabatan->getById($data['id_jabatan']);
+                    $data['id_tingkat_jabatan']      = $getTingkatJabatan->id_tingkat_jabatan;
+                    $data['create_date']             = $this->input->post('create_date');
+                    $result['messages']                = '';
+                    $result                    = array('status' => 'success', 'msg' => 'Data Berhasil diubah');
                     $this->Golongan->update($data['id'], $data);
                 }
                 $csrf = array(

@@ -117,23 +117,30 @@ Phone Number : 082288383066
                             </div>
                             <ul class="nav side-menu">
                                 <li><a href="<?php echo base_url('administrator'); ?>"><i class="fa fa-home"></i> Home/Dashboard </a></li>
-                                <li><a href="<?php echo base_url('administrator/gaji_bulanan'); ?>"><i class="fa fa-edit"></i> Gaji Bulanan </a></li>
-                                <li><a href="<?php echo base_url('administrator/bonusKinerja') ?>"><i class="fa fa-desktop"></i> Bonus Kinerja</span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/bonusLebaran') ?>"><i class="fa fa-table"></i> Bonus Lebaran </span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/bonusGuruTerbaik') ?>"><i class="fa fa-bar-chart-o"></i> Bonus Guru Terbaik </span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/kenaikanGaji') ?>"><i class="fa fa-clone"></i>Data Kenaikan Gaji </span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/golongan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/jabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/tingkatJabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Tingkat Jabatan </span></a>
-                                </li>
-                                <li><a href="<?php echo base_url('administrator/karyawan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Data Karyawan </span></a>
-                                </li>
+                                <?php
+
+                                if ($this->session->userdata('role') == 'yayasan' || $this->session->userdata('role') == 'keuangan') { ?>
+                                    <li><a href="<?php echo base_url('administrator/gaji_bulanan'); ?>"><i class="fa fa-edit"></i> Gaji Bulanan </a></li>
+                                    <li><a href="<?php echo base_url('administrator/bonusKinerja') ?>"><i class="fa fa-desktop"></i> Bonus Kinerja</span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/bonusLebaran') ?>"><i class="fa fa-table"></i> Bonus Lebaran </span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/bonusGuruTerbaik') ?>"><i class="fa fa-bar-chart-o"></i> Bonus Guru Terbaik </span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/kenaikanGaji') ?>"><i class="fa fa-clone"></i>Data Kenaikan Gaji </span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/golongan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Golongan Gaji </span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/jabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Jabatan </span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/tingkatJabatan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Tingkat Jabatan </span></a>
+                                    </li>
+                                    <li><a href="<?php echo base_url('administrator/karyawan') ?>"><i class="fa fa-pie-chart" style="color:red"></i>Data Karyawan </span></a>
+                                    </li>
+                                <?php } else if ($this->session->userdata('role') == 'administrator') { ?>
+                                    <li><a href="<?php echo base_url('administrator/pengguna') ?>"><i class="fa fa-pencil" style="color:red"></i>Manajemen Pengguna </span></a>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </div>
 
@@ -163,11 +170,11 @@ Phone Number : 082288383066
                                 <?php echo 'Welcome ! ' . $this->session->userdata('first_name') ?>
                                 <button onclick="logout()" class="user-profile btn btn-danger btn-sm"> <span class="glyphicon glyphicon-off"></span> Logout
                                 </button>
-                                <?php if ($this->session->userdata('role') == 'administrator') { ?>
+                                <!-- <?php if ($this->session->userdata('role') == 'administrator') { ?>
                                     <button onclick="window.location='<?php echo base_url('administrator/pengguna') ?>'" class="user-profile btn btn-warning btn-sm"> <span class="fa fa-cogs"></span> Users Management
                                     </button>
                                 <?php } else {
-                                } ?>
+                                        } ?> -->
                             </li>
                         </ul>
                     </nav>
@@ -182,7 +189,7 @@ Phone Number : 082288383066
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    <p style="font-size: 10px;color:white">Contact us: fitraarrafiq@gmail.com <br>Copyright fitechnone Allrights Reserved.</p>
+                    <p style="font-size: 10px;color:white" title="contact_developer : fitraarrafiq@gmail.com">Contact us: fitraarrafiq@gmail.com <br>Copyright fitechnone Allrights Reserved.</p>
                 </div>
                 <div class="clearfix"></div>
             </footer>

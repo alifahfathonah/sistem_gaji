@@ -38,6 +38,14 @@ class Karyawan extends CI_Model
         return $this->datatables->generate();
     }
 
+    public function showDataIndex()
+    {
+        $this->db->select('k.nama_karyawan,k.email,k.no_hp,k.alamat,j.nama_jabatan');
+        $this->db->from('karyawan k');
+        $this->db->join('jabatan j', 'j.id = k.id_jabatan', 'left');
+        return $this->db->get()->result();
+    }
+
     public function getGender($gender)
     {
         $this->db->select('count(jk) as tot_gender, jk');
