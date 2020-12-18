@@ -211,7 +211,7 @@
                                     <tr>
                                         <th style="font-size: 10px;">No</th>
                                         <th style="font-size: 10px;">Tools</th>
-                                        <th style="font-size: 10px;">Cetak</th>
+                                        <!-- <th style="font-size: 10px;">Cetak</th> -->
                                         <th style="font-size: 10px;">Nama Karyawan</th>
                                         <th style="font-size: 10px;">Nama Golongan</th>
                                         <th style="font-size: 10px;">Jumlah Gaji Pokok</th>
